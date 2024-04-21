@@ -13,13 +13,15 @@
   </template>
   
   <script>
-  export default {
-    data() {
-      return {
-        user: { /* User data */ },
-        loggedIn: false
-      };
-    }
-  };
-  </script>
+export default {
+	data() {
+		return {
+			user: {
+				/* User data */
+			},
+			loggedIn: false,
+		};
+	},
+};
+</script>
   

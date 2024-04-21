@@ -9,17 +9,19 @@
   </template>
   
   <script>
-  export default {
-    data() {
-      return {
-        product: { /* Product details */ }
-      };
-    },
-    methods: {
-      addToCart(product) {
-        // Implement add to cart functionality
-      }
-    }
-  };
-  </script>
+export default {
+	data() {
+		return {
+			product: {
+				/* Product details */
+			},
+		};
+	},
+	methods: {
+		addToCart(product) {
+			// Implement add to cart functionality
+		},
+	},
+};
+</script>
   

@@ -15,27 +15,33 @@
   </template>
   
   <script>
-  export default {
-    data() {
-      return {
-        selectedCategory: '',
-        categories: [ /* Array of categories */ ],
-        products: [ /* Array of products */ ]
-      };
-    },
-    computed: {
-      filteredProducts() {
-        if (!this.selectedCategory) {
-          return this.products;
-        }
-        return this.products.filter(product => product.categoryId === this.selectedCategory);
-      }
-    },
-    methods: {
-      addToCart(product) {
-        // Implement add to cart functionality
-      }
-    }
-  };
-  </script>
+export default {
+	data() {
+		return {
+			selectedCategory: "",
+			categories: [
+				/* Array of categories */
+			],
+			products: [
+				/* Array of products */
+			],
+		};
+	},
+	computed: {
+		filteredProducts() {
+			if (!this.selectedCategory) {
+				return this.products;
+			}
+			return this.products.filter(
+				(product) => product.categoryId === this.selectedCategory,
+			);
+		},
+	},
+	methods: {
+		addToCart(product) {
+			// Implement add to cart functionality
+		},
+	},
+};
+</script>
   

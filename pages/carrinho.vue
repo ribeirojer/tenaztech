@@ -19,26 +19,28 @@
   </template>
   
   <script>
-  export default {
-    data() {
-      return {
-        cartItems: [ /* Array of cart items */ ]
-      };
-    },
-    methods: {
-      updateCartItem(item) {
-        // Implement update cart item functionality
-      },
-      removeFromCart(item) {
-        // Implement remove from cart functionality
-      },
-      getTotalPrice() {
-        // Calculate total price of items in cart
-      },
-      checkout() {
-        // Implement checkout functionality
-      }
-    }
-  };
-  </script>
+export default {
+	data() {
+		return {
+			cartItems: [
+				/* Array of cart items */
+			],
+		};
+	},
+	methods: {
+		updateCartItem(item) {
+			// Implement update cart item functionality
+		},
+		removeFromCart(item) {
+			// Implement remove from cart functionality
+		},
+		getTotalPrice() {
+			// Calculate total price of items in cart
+		},
+		checkout() {
+			// Implement checkout functionality
+		},
+	},
+};
+</script>
   

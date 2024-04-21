@@ -1,23 +1,32 @@
-<template lang="">
-		<nav id="navigation">
-			<!-- container -->
-			<div class="container">
-				<!-- responsive-nav -->
-				<div id="responsive-nav">
-					<!-- NAV -->
-					<ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#">Hot Deals</a></li>
-						<li><a href="#">Categories</a></li>
-						<li><a href="#">Laptops</a></li>
-						<li><a href="#">Smartphones</a></li>
-						<li><a href="#">Cameras</a></li>
-						<li><a href="#">Accessories</a></li>
-					</ul>
-					<!-- /NAV -->
-				</div>
-				<!-- /responsive-nav -->
-			</div>
-			<!-- /container -->
-		</nav>
-</template>
+<template>
+	<section class="flex justify-center space-x-4 bg-gray-900 px-4 py-2">
+	  <li class="">
+		<NuxtLink to="/" class="text-white hover:text-purple-300 transition duration-300 ease-in-out">Início</NuxtLink>
+	  </li>
+	  <li class="">
+		<NuxtLink to="/produtos?c=hotdeals" class="text-white hover:text-purple-300 transition duration-300 ease-in-out">Promoções</NuxtLink>
+	  </li>
+	  <li class="">
+		<NuxtLink to="/produtos?c=Laptops" class="text-white hover:text-purple-300 transition duration-300 ease-in-out">Laptops</NuxtLink>
+	  </li>
+	  <li class="">
+		<NuxtLink to="/produtos?c=Smartphones" class="text-white hover:text-purple-300 transition duration-300 ease-in-out">Smartphones</NuxtLink>
+	  </li>
+	  <li class="">
+		<NuxtLink to="/produtos?c=Câmeras" class="text-white hover:text-purple-300 transition duration-300 ease-in-out">Câmeras</NuxtLink>
+	  </li>
+	  <li class="">
+		<NuxtLink to="/produtos?c=Acessórios" class="text-white hover:text-purple-300 transition duration-300 ease-in-out">Acessórios</NuxtLink>
+	  </li>
+	  <li class="">
+		<NuxtLink to="/compare" class="text-white hover:text-purple-300 transition duration-300 ease-in-out">Ver Comparação</NuxtLink>
+	  </li>
+	</section>
+  </template>
+  
+  <style scoped>
+	li {
+	  list-style-type: none; /* Remover o ponto na frente das listas */
+	}
+  </style>
+  

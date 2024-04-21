@@ -28,26 +28,28 @@
   </template>
   
   <script>
-  export default {
-    data() {
-      return {
-        shippingInfo: { /* Shipping information fields */ },
-        selectedPaymentMethod: 'credit_card'
-      };
-    },
-    computed: {
-      cartItems() {
-        // Retrieve cart items from store or local storage
-      },
-      getTotalPrice() {
-        // Calculate total price of items in cart
-      }
-    },
-    methods: {
-      placeOrder() {
-        // Implement place order functionality
-      }
-    }
-  };
-  </script>
+export default {
+	data() {
+		return {
+			shippingInfo: {
+				/* Shipping information fields */
+			},
+			selectedPaymentMethod: "credit_card",
+		};
+	},
+	computed: {
+		cartItems() {
+			// Retrieve cart items from store or local storage
+		},
+		getTotalPrice() {
+			// Calculate total price of items in cart
+		},
+	},
+	methods: {
+		placeOrder() {
+			// Implement place order functionality
+		},
+	},
+};
+</script>
   

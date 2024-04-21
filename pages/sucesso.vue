@@ -10,13 +10,13 @@
   </template>
   
   <script>
-  export default {
-    data() {
-      return {
-        orderId: '123456', // Replace with actual order ID
-        totalAmount: '$200' // Replace with actual total amount
-      };
-    }
-  };
-  </script>
+export default {
+	data() {
+		return {
+			orderId: "123456", // Replace with actual order ID
+			totalAmount: "$200", // Replace with actual total amount
+		};
+	},
+};
+</script>
   
