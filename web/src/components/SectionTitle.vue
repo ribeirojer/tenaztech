@@ -29,7 +29,7 @@ export default {
 		};
 	},
 	methods: {
-		setActiveIndex(index) {
+		setActiveIndex(index: number) {
 			this.activeIndex = index;
 		},
 	},

@@ -66,7 +66,7 @@
 		  this.errorMessage = 'Ocorreu um erro ao enviar o e-mail. Por favor, tente novamente mais tarde.';
 		}
 	  },
-	  isValidEmail(email) {
+	  isValidEmail(email: string) {
 		// Expressão regular para validar e-mails
 		const emailRegex = /\S+@\S+\.\S+/;
 		return emailRegex.test(email);

@@ -17,7 +17,7 @@ export default {
   name: 'ProductReviewsView',
   data() {
     return {
-      reviews: []
+      reviews: [] as any
     };
   },
   created() {

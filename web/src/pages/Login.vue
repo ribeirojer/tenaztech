@@ -50,7 +50,7 @@ export default {
     };
   },
   methods: {
-    login() {
+    login(this: any) {
       this.formErrors = {
         email: '',
         password: '',

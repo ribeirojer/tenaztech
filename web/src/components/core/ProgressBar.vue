@@ -10,7 +10,7 @@ const progressItems = ref([
 
 <template>
   <div class="w-full px-4 lg:w-5/12">
-    <template v-for="(item, index) in progressItems" :key="index">
+    <template v-for="(item) in progressItems" :key="index">
       <div class="mb-8">
         <div class="bg-stroke dark:bg-dark-3 relative h-4 w-full rounded-2xl">
           <div

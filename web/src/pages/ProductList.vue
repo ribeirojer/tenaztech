@@ -95,7 +95,7 @@
     name: 'ProductListView',
     data() {
       return {
-        products: productList
+        products: productList as any
       };
     },
 	components: {

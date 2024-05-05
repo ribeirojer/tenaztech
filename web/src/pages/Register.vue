@@ -78,7 +78,7 @@ export default {
     };
   },
   methods: {
-    register() {
+    register(this: any) {
       this.formErrors = {
         email: '',
         name: "",
