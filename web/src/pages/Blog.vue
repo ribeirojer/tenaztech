@@ -9,11 +9,13 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'BlogView',
   data() {
     return {
-      posts: [] // Aqui você carregaria as postagens do seu blog
+      posts: [] as { id: number; title: string; content: string }[] // Definindo o tipo de dados para 'posts'
     };
   },
   created() {
@@ -24,7 +26,7 @@ export default {
       // Adicione mais postagens conforme necessário
     ];
   }
-};
+});
 </script>
 
 <style scoped>

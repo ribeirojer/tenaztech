@@ -13,7 +13,7 @@ export default {
   name: 'PromotionsView',
   data() {
     return {
-      promotions: [] // Aqui você carregaria as promoções do seu ecommerce
+      promotions: [] as any // Aqui você carregaria as promoções do seu ecommerce
     };
   },
   created() {

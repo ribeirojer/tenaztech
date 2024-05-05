@@ -16,7 +16,7 @@
 export default {
 	data() {
 		return {
-			products: productList
+			products: productList as any
 		};
 	},
 	components: {

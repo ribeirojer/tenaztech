@@ -57,7 +57,7 @@ const blogItems = ref([
       </div>
 
       <div class="flex flex-wrap -mx-4">
-        <template v-for="(item, index) in blogItems" :key="index">
+        <template v-for="(item) in blogItems" :key="index">
           <div class="w-full px-4 md:w-1/2 lg:w-1/3">
             <div class="w-full mb-10">
               <div class="mb-8 overflow-hidden rounded">

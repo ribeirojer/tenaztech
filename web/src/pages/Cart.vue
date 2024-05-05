@@ -15,7 +15,7 @@
     name: 'CartView',
     data() {
       return {
-        cartItems: [] // Aqui você carregaria os itens do carrinho do usuário
+        cartItems: [] as { id: number; name: string; quantity: string, price: number }[] // Definindo o tipo de dados para 'posts' do usuário
       };
     },
     methods: {
