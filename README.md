@@ -1,75 +1,26 @@
-# Nuxt 3 Minimal Starter
+# tenaz-tech
+E-commerce em microserviços
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+1. Catálogo de Produtos: Node express typescript - Supabase
+Descrição: Este serviço gerencia todas as informações relacionadas aos produtos oferecidos na plataforma. Isso inclui detalhes dos produtos, como descrições, imagens, preços, categorias, avaliações, disponibilidade em estoque, e quaisquer especificações técnicas.
 
-## Setup
+2. Gestão de Pedidos:SlimPHP - PlanetScale
+Descrição: Responsável por gerenciar o ciclo de vida dos pedidos feitos pelos clientes. Isso inclui processar novos pedidos, atualizar status de entrega, rastreamento de envio e integração com serviços de logística para entrega.
 
-Make sure to install the dependencies:
+3. Carrinho de Compras:Nest - Firebase
+Descrição: Este serviço trata da interação dos usuários com seus carrinhos de compras. Gerencia a adição, remoção e manipulação de itens no carrinho, cálculo de subtotal, total e lida com quaisquer promoções ou cupons aplicados.
 
-```bash
-# npm
-npm install
+4. Gestão de Usuários e Autenticação: Bun elysia - Supabase
+Descrição: Cuida da autenticação e gerenciamento de contas de usuários. Isso inclui registro, login, recuperação de senha, perfis de usuário, permissões, histórico de pedidos e informações de pagamento.
 
-# pnpm
-pnpm install
+5. Processamento de Pagamentos:Bun elysia - PlanetScale
+Descrição: Trata das transações financeiras, integrações com provedores de pagamento, processamento de pagamentos online, segurança e garantia de que as transações são concluídas de forma segura e eficiente.
 
-# yarn
-yarn install
+6. Gestão de Inventário e Estoque: Flask - Firebase
+Descrição: Responsável por monitorar e atualizar os níveis de estoque conforme as compras são feitas. Fornece informações sobre a disponibilidade dos produtos e ajuda a evitar vendas de produtos esgotados.
 
-# bun
-bun install
-```
+7. Análise e Relatórios: FastAPI - MongoBD Atlas
+Descrição: Coleta dados de diferentes serviços para análises futuras, criação de relatórios de desempenho do negócio, métricas de vendas, comportamento do cliente e insights para tomada de decisões estratégicas.
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+8. UI: Vue.js
+Descrição: Frontend do projeto

@@ -9,6 +9,8 @@ electro-master
 # Node dependencies
 node_modules
 
+apoio
+
 # Logs
 logs
 *.log

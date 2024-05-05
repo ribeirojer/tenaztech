@@ -1,0 +1,17 @@
+{
+  "name": "payment-processing-service",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "@types/mercadopago": "^1.5.11",
+    "elysia": "latest",
+    "mercadopago": "^2.0.4"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}
