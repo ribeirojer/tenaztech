@@ -12,7 +12,7 @@ app.use(oakCors()); // Enable CORS for All Routes
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-const PORT = env['PORT'];
+const PORT = env['PORT'] || Deno.env.get("PORT");
 
 // Iniciar o servidor
 console.log(`Servidor ouvindo na porta ${PORT}`);
