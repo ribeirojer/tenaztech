@@ -31,6 +31,24 @@ export class ProductController {
         response.body = { message: 'Erro ao buscar o produto por ID' };
       }
     };
+    
+    getProductBySlug = async (
+      { params, response }: { params: { slug: string }; response: any },
+    ) => {
+      try {
+        const productSlug = params.slug;
+        const product = await this.productService.getProductBySlug(productSlug);
+        if (product) {
+          response.body = product;
+        } else {
+          response.status = 404;
+          response.body = { message: 'Produto não encontrado' };
+        }
+      } catch (error) {
+        response.status = 500;
+        response.body = { message: 'Erro ao buscar o produto por ID' };
+      }
+    };
 
     addProduct = async (
       { request, response }: { request: any; response: any },

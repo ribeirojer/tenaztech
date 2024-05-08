@@ -1,36 +1,115 @@
 <template>
-  <div>
-    <h1>Detalhes do Produto</h1>
-    <h1>Slug: {{$route.params.slug}} do produto</h1>
+  <div class="col-md-5">
+    <div class="product-details" v-if="product">
+      <h2 class="text-xl font-semibold mb-2">{{ product.name }}</h2>
+      <div class="flex items-center mb-4">
+        <div class="flex gap-1 text-yellow-400">
+          <i v-for="star in 4" :key="star" class="fas fa-star"></i>
+          <i class="fas fa-star-half"></i>
+        </div>
+        <a class="text-sm text-gray-600 ml-2" href="#">10 Review(s) | Add your review</a>
+      </div>
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-2xl font-bold">{{ formatCurrency(product.price) }} <del class="text-gray-500">{{ formatCurrency(product.oldPrice) }}</del></h3>
+        <span class="text-sm text-green-500">{{ product.availability }}</span>
+      </div>
+      <p class="text-gray-700 mb-4">{{ product.description }}</p>
+
+      <div class="flex flex-col md:flex-row md:gap-4 mb-4">
+        <div class="w-full md:w-1/2">
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="size">Size</label>
+          <select v-model="selectedSize" id="size" class="input-select">
+            <option v-for="(size, index) in product.sizes" :key="index" :value="size">{{ size }}</option>
+          </select>
+        </div>
+        <div class="w-full md:w-1/2">
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="color">Color</label>
+          <select v-model="selectedColor" id="color" class="input-select">
+            <option v-for="(color, index) in product.colors" :key="index" :value="color">{{ color }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex items-center mb-4">
+        <div class="mr-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="quantity">Qty</label>
+          <div class="input-number flex items-center">
+            <input v-model.number="quantity" type="number" id="quantity" class="input-text w-20 text-center" min="1">
+            <span class="qty-up ml-1 cursor-pointer" @click="incrementQuantity">+</span>
+            <span class="qty-down ml-1 cursor-pointer" @click="decrementQuantity">-</span>
+          </div>
+        </div>
+        <button @click="addToCart" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
+          <i class="fas fa-shopping-cart"></i> Add to cart
+        </button>
+      </div>
+
+      <ul class="flex items-center gap-4">
+        <li><a href="#" class="text-gray-700 hover:text-gray-900"><i class="fas fa-heart"></i> Add to wishlist</a></li>
+        <li><a href="#" class="text-gray-700 hover:text-gray-900"><i class="fas fa-exchange-alt"></i> Add to compare</a></li>
+      </ul>
+
+      <ul class="flex items-center gap-4 mt-4">
+        <li v-for="(category, index) in product.categories" :key="index">
+          <span class="text-gray-500">Category:</span>
+          <a href="#" class="text-green-500 hover:underline">{{ category }}</a>
+        </li>
+      </ul>
+
+      <ul class="flex items-center gap-4 mt-2">
+        <li class="text-gray-500">Share:</li>
+        <li><a href="#" class="text-gray-700 hover:text-gray-900"><i class="fab fa-facebook"></i></a></li>
+        <li><a href="#" class="text-gray-700 hover:text-gray-900"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="#" class="text-gray-700 hover:text-gray-900"><i class="fab fa-google-plus"></i></a></li>
+        <li><a href="#" class="text-gray-700 hover:text-gray-900"><i class="fas fa-envelope"></i></a></li>
+      </ul>
     </div>
+    <div v-else class="text-gray-700">Carregando...</div>
+  </div>
 </template>
 
-<script lang="ts">
+<script>
 import axios from 'axios';
 
 export default {
-  name: 'ProductDetailsView',
   data() {
     return {
-      product: {} // Aqui você carregaria os detalhes do produto com base no ID da rota
+      product: null,
+      selectedSize: '',
+      selectedColor: '',
+      quantity: 1
     };
   },
   created() {
-    // Exemplo de como você pode carregar os detalhes do produto (pode variar dependendo do seu backend)
     const productSlug = this.$route.params.slug;
-    // Substitua a próxima linha pela lógica real para buscar os detalhes do produto do seu backend
-    axios.get(`http://seuservidor.com/api/produtos/${productSlug}`)
+    axios.get(`https://product-catalog-service.deno.dev/api/product/${productSlug}`)
       .then(response => {
-        // Assumindo que o servidor retorna os detalhes do produto no formato de objeto JSON
         this.product = response.data;
       })
       .catch(error => {
         console.error('Erro ao carregar os detalhes do produto:', error);
       });
+  },
+  methods: {
+    incrementQuantity() {
+      this.quantity++;
+    },
+    decrementQuantity() {
+      if (this.quantity > 1) {
+        this.quantity--;
+      }
+    },
+    addToCart() {
+      // Lógica para adicionar o produto ao carrinho
+    },
+    formatCurrency(value) {
+      // Função para formatar o valor monetário (pode variar dependendo do seu formato)
+      return `$${value.toFixed(2)}`;
+    }
   }
 };
 </script>
 
 <style scoped>
-/* Estilos para a página de detalhes do produto */
+/* Estilos específicos para este componente */
 </style>

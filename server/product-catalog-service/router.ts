@@ -13,7 +13,7 @@ router.get("/", (ctx: { response: { body: string; }; }) => {
 
 router
   .get('/api/products', productController.getAllProducts)
-  .get('/api/products/:id', productController.getProductById)
+  .get('/api/products/:slug', productController.getProductBySlug)
   .post('/api/products', productController.addProduct)
   .put('/api/products/:id', productController.updateProduct)
   .delete('/api/products/:id', productController.deleteProduct);

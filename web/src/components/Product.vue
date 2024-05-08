@@ -1,74 +1,53 @@
 <template>
-	<div class="bg-gray-100 rounded-lg border border-purple-500 shadow-lg p-4">
-	  <div class="flex flex-col">
-		<div>
-		  <RouterLink :to="'/produto/' + product.slug">
-			<img :src="product.imageUrl" alt="Product image" class="w-full rounded-lg">
-		  </RouterLink>
-		  <div class="flex justify-between mt-2">
-			<span v-if="product.discount" class="bg-red-500 text-white text-xs py-1 px-2 rounded">{{ product.discount }}% OFF</span>
-			<span v-if="product.isNew" class="bg-green-500 text-white text-xs py-1 px-2 rounded">NEW</span>
-		  </div>
-		</div>
-		<div>
-		  <p class="text-gray-600">{{ product.category }}</p>
-		  <h3 class="text-lg font-semibold mt-1">
-			<RouterLink :to="'/produto/' + product.slug" class="hover:text-blue-500">{{ product.name }}</RouterLink>
-		  </h3>
-		  <h4 class="text-gray-800 mt-1">{{ product.price }} <del v-if="product.oldPrice" class="text-gray-500">{{ product.oldPrice }}</del></h4>
-		  <div class="flex mt-1">
-			<template v-for=" in product.stars">
-			  <i class="fa fa-star text-yellow-500"></i>
-			</template>
-			<template v-for=" in product.emptyStars">
-			  <i class="fa fa-star-o text-gray-400"></i>
-			</template>
-		  </div>
-		  <div class="flex mt-2">
-			<button class="bg-blue-500 text-white py-1 px-3 rounded-lg mr-2"><i class="fa fa-heart-o"></i> <span class="ml-1">Add to wishlist</span></button>
-			<button class="bg-blue-500 text-white py-1 px-3 rounded-lg mr-2"><i class="fa fa-exchange"></i> <span class="ml-1">Add to compare</span></button>
-			<button class="bg-blue-500 text-white py-1 px-3 rounded-lg"><i class="fa fa-eye"></i> <span class="ml-1">Quick view</span></button>
-		  </div>
-		</div>
+	<div class="product shadow-lg rounded-lg overflow-hidden bg-white">
+	  <div class="product-image">
+		<router-link :to="'/produto/' + product.slug">
+		  <img :src="product.image" alt="Product Image" class="w-full h-auto">
+		</router-link>
 	  </div>
-	  <div class="mt-2">
-		<button class="bg-blue-500 text-white py-1 px-3 rounded-lg"><i class="fa fa-shopping-cart"></i> <span class="ml-1">Add to cart</span></button>
+	  <div class="product-details p-4">
+		<h3 class="text-xl font-semibold mb-2">{{ product.name }}</h3>
+		<div class="product-price mb-2">
+		  <span class="current-price font-bold text-blue-600">{{ product.price }}</span>
+		  <span v-if="product.oldPrice" class="old-price text-gray-500 line-through">{{ product.oldPrice }}</span>
+		</div>
+		<button @click="addToCart" class="add-to-cart-button bg-blue-500 hover:bg-blue-600 text-white rounded-md px-4 py-2 transition duration-300 ease-in-out">Add to Cart</button>
 	  </div>
 	</div>
   </template>
   
-  <script lang="ts">
-  import { defineComponent } from 'vue';
-  import RouterLink from 'vue-router';
-  
-  interface Product {
-	imageUrl: string;
-	category: string;
-	name: string;
-	slug: string;
-	price: number;
-	oldPrice?: number;
-	discount?: number;
-	isNew?: boolean;
-	rating?: number;
-	stars?: any[];
-	emptyStars?: any[];
-  }
-  
-  export default defineComponent({
+  <script>
+  export default {
 	props: {
 	  product: {
-		type: Object as () => Product,
-		required: true,
-	  },
+		type: Object,
+		required: true
+	  }
 	},
-	components: {
-	  RouterLink,
-	},
-  });
+	methods: {
+	  addToCart() {
+		// Emit an event to notify the parent component that the product is added to cart
+		this.$emit('add-to-cart', this.product);
+	  }
+	}
+  };
   </script>
   
   <style scoped>
-  /* Estilos específicos para este componente */
+  .product {
+	transition: transform 0.3s ease-in-out;
+  }
+  
+  .product:hover {
+	transform: translateY(-5px);
+  }
+  
+  .product-image img {
+	transition: transform 0.3s ease-in-out;
+  }
+  
+  .product:hover .product-image img {
+	transform: scale(1.05);
+  }
   </style>
   

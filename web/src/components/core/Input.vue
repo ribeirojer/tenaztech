@@ -1,43 +1,56 @@
 <template>
-  <div class="mb-12">
-     <label :for="id" class="mb-[10px] block text-base font-medium text-dark dark:text-white">
-       {{ label }}
-     </label>
-     <input
-       :type="type"
-       :placeholder="placeholder"
-       :class="inputClass"
-       :id="id"
-       @input="$emit('update:modelValue', $event.target.value)"
-     />
-  </div>
- </template>
- 
- <script>
-export default {
+	<div class="flex flex-col">
+	  <label :for="id" class="text-sm font-medium text-gray-700">{{ label }}</label>
+	  <input
+		:id="id"
+		:type="type"
+		:placeholder="placeholder"
+		:value="value"
+		@input="$emit('input', $event)"
+		:class="{ 'border-red-500': error }"
+		ref="inputRef"
+		class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+	  />
+	  <p v-if="error" class="mt-2 text-sm text-red-500">{{ error }}</p>
+	</div>
+  </template>
+  
+  <script lang="ts">
+  export default {
 	props: {
-		id: {
-			type: String,
-			required: true,
-		},
-		label: {
-			type: String,
-			required: true,
-		},
-		type: {
-			type: String,
-			default: "text",
-		},
-		placeholder: {
-			type: String,
-			default: "",
-		},
-		inputClass: {
-			type: String,
-			default:
-				"w-full bg-transparent rounded-md border border-stroke dark:border-dark-3 py-[10px] px-5 text-dark-6 outline-none transition focus:border-purple-500 active:border-purple-500 disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2",
-		},
+	  id: {
+		type: String,
+		required: true,
+	  },
+	  label: {
+		type: String,
+		required: true,
+	  },
+	  type: {
+		type: String,
+		default: 'text',
+	  },
+	  placeholder: {
+		type: String,
+		default: '',
+	  },
+	  value: {
+		type: [String, Number],
+		default: '',
+	  },
+	  error: {
+		type: String,
+		default: '',
+	  },
+	  inputRef: {
+		type: Object,
+		default: null,
+	  },
 	},
-};
-</script>
- 
+  };
+  </script>
+  
+  <style scoped>
+  /* Estilos específicos para este componente */
+  </style>
+  

@@ -35,6 +35,24 @@ export class ProductService {
         }
     }
 
+    async getProductBySlug(slug: string): Promise<Product | undefined> {
+        try {
+            const { data: product, error } = await supabase
+                .from('products')
+                .select('*')
+                .eq('slug', slug)
+                .single();
+            
+            if (error) {
+                throw new Error(`Erro ao buscar produto: ${error.message}`);
+            }
+
+            return product as Product | undefined;
+        } catch (error) {
+            throw new Error(`Erro ao buscar produto: ${error.message}`);
+        }
+    }
+
     async addProduct(product: Product): Promise<Product> {
         try {
             const { data, error } = await supabase
