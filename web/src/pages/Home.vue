@@ -4,7 +4,7 @@
     <SecondSection />
     <HotDeal />
     <Newsletter />
-    <Blog />
+    <!--<Blog />-->
   </template>
   
   <script lang="ts">
