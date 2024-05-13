@@ -1,60 +1,54 @@
 <template>
-<HeaderTop />
-  <div class="header bg-slate-950 flex justify-between items-center py-4 px-6">
-    <RouterLink to="/">
-<Logo />    </RouterLink>
-    <form class="form-header flex items-center space-x-4" @submit.prevent="submitForm">
-      <div class="relative">
-        <select v-model="selectedCategory" class="rounded-md border border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-700">
-          <option value="" disabled selected>Categorias</option>
-          <option value="Laptops">Laptops</option>
-          <option value="Smartphones">Smartphones</option>
-          <option value="Câmeras">Câmeras</option>
-          <option value="Acessórios">Acessórios</option>
-        </select>
-        <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none text-purple-500">
-          <ArrowIcon />
+  <div>
+    <HeaderTop />
+    <div class="header bg-slate-950 flex justify-between items-center py-4 px-6">
+      <RouterLink to="/">
+        <Logo />
+      </RouterLink>
+      <form class="hidden md:flex items-center space-x-4" @submit.prevent="submitForm">
+        <div class="form-input flex items-center border-b border-purple py-1">
+          <MagnifyGlassIcon />
+          <input v-model="searchQuery" placeholder="Busca pelo nome" class="appearance-none bg-transparent border-none w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none text-purple-500">
         </div>
+        <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded ml-4 transition duration-300">Pesquisar</button>
+      </form>
+      <div class="header-ctn flex items-center space-x-4">
+        <RouterLink to="/lista-de-desejos" class="relative text-white flex flex-col justify-center items-center">
+          <HearthIcon />
+          <p class="text-sm font-semibold text-white">Lista de Desejos</p>
+          <div class="absolute bg-purple-500 px-2 py-[2px] -top-2 right-6 rounded-full text-white">{{ wishlistItemCount }}</div>
+        </RouterLink>
+        <RouterLink to="/carrinho" class="relative text-white flex flex-col justify-center items-center">
+          <CartIcon />
+          <p class="text-sm font-semibold text-white">Carrinho</p>
+          <div class="absolute bg-purple-500 px-2 py-[2px] -top-2 right-0 rounded-full text-white">{{ cartItemCount }}</div>
+        </RouterLink>
       </div>
-      <div class="form-input flex items-center border-b border-purple py-1">
-        <MagnifyGlassIcon />
-        <input v-model="searchQuery" placeholder="Busca pelo nome" class="appearance-none bg-transparent border-none w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none text-purple-500">
-      </div>
-      <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded ml-4 transition duration-300">Pesquisar</button>
-    </form>
-    <div class="header-ctn flex items-center space-x-4">
-      <RouterLink to="/lista-de-desejos" class="relative text-white flex flex-col justify-center items-center">
-        <HearthIcon />
-        <p class="text-sm font-semibold text-white">Lista de Desejos</p>
-        <div class="absolute bg-purple-500 px-2 py-[2px] -top-2 right-6 rounded-full text-white">0</div>
-      </RouterLink>
-      <RouterLink to="/carrinho" class="relative text-white flex flex-col justify-center items-center">
-        <CartIcon />
-        <p class="text-sm font-semibold text-white">Carrinho</p>
-        <div class="absolute bg-purple-500 px-2 py-[2px] -top-2 right-0 rounded-full text-white">1</div>
-      </RouterLink>
     </div>
+    <div class="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-purple-900 to-90% h-1"></div>
   </div>
-  <div class="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-purple-900 to-90% h-1"></div>
 </template>
-  
-  <script lang="ts">
-  import { RouterLink } from 'vue-router'
-  import Logo from './Logo.vue'
-  import HeaderTop from './HeaderTop.vue'
-  import MagnifyGlassIcon from './svgs/MagnifyGlassIcon.vue'
-  import HearthIcon from './svgs/HearthIcon.vue'
-  import CartIcon from './svgs/CartIcon.vue'
-  import ArrowIcon from './svgs/ArrowIcon.vue'
-  
-  export default {
+
+<script lang="ts">
+import { ref } from 'vue';
+import { RouterLink } from 'vue-router';
+import Logo from './Logo.vue';
+import HeaderTop from './HeaderTop.vue';
+import MagnifyGlassIcon from './svgs/MagnifyGlassIcon.vue';
+import HearthIcon from './svgs/HearthIcon.vue';
+import CartIcon from './svgs/CartIcon.vue';
+import ArrowIcon from './svgs/ArrowIcon.vue';
+
+export default {
   name: 'Header',
-	data() {
-		return {
-			selectedCategory: "",
-			searchQuery: "",
-		};
-	},
+  data() {
+    return {
+      selectedCategory: "",
+      searchQuery: "",
+      wishlistItemCount: 0,
+      cartItemCount: 0,
+    };
+  },
   components: {
     Logo,
     HeaderTop,
@@ -63,17 +57,31 @@
     CartIcon,
     ArrowIcon
   },
-	methods: {
-		submitForm() {
-			console.log("Form submitted");
-			// Adicione a lógica para enviar o formulário aqui
-			// Por exemplo, você pode redirecionar para uma página de resultados com a pesquisa atual
-			this.$router.push("/produtos");
-      //query: { q: this.searchQuery },
-		},
-	},
+  methods: {
+    submitForm() {
+      console.log("Form submitted");
+      // Adicione a lógica para enviar o formulário aqui
+      // Por exemplo, você pode redirecionar para uma página de resultados com a pesquisa atual
+      this.$router.push("/produtos");
+    },
+    updateItemCount() {
+      const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+      const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+      this.wishlistItemCount = wishlist.length;
+      this.cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+    }
+  },
+  mounted() {
+    this.updateItemCount();
+  },
+  watch: {
+    '$route'() {
+      this.updateItemCount();
+    }
+  }
 };
 </script>
+
   
 <style>
 	

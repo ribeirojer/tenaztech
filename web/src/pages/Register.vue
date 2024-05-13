@@ -106,8 +106,6 @@ export default {
         return;
       }
 
-      const data = { name: this.name, email: this.email, password: this.password, acceptedTerms: this.acceptedTerms }
-      console.log(data)
       if (this.name && this.email && this.password && this.acceptedTerms) {
         // Aqui você faria a requisição HTTP para registrar o usuário
         axios.post('http://localhost:3000/api/register', data)

@@ -1,6 +1,6 @@
 <template>
 	<div>
-	  <SectionTitle :title="'New Products'" :items="['Laptops', 'Smartphones', 'Cameras', 'Accessories']" />
+		<h3 class="text-center text-2xl font-semibold text-gray-800">Novos produtos</h3>
 	  <ProductsTabSlick
 		tabId="tab1"
 		navId="slick-nav-1"
@@ -12,7 +12,6 @@
   
   <script lang="ts">
   import ProductsTabSlick from "./ProductsTabSlick.vue";
-  import SectionTitle from "./SectionTitle.vue";
   import axios from 'axios';
   
   export default {
@@ -22,7 +21,6 @@
 	  };
 	},
 	components: {
-	  SectionTitle,
 	  ProductsTabSlick
 	},
 	mounted() {

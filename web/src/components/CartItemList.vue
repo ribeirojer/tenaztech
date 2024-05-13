@@ -22,15 +22,15 @@
   export default {
     props: {
       cartItems: {
-        type: Array,
+        type: Array as any,
         required: true
       }
     },
     methods: {
-      removeItem(itemId) {
+      removeItem(itemId: any) {
         this.$emit('removeItem', itemId);
       },
-      formatCurrency(value) {
+      formatCurrency(value: number) {
         return `$${value.toFixed(2)}`;
       }
     }

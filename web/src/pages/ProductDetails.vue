@@ -83,7 +83,7 @@ import { addToCart } from "../utils/localStorage.ts"
 export default {
   data() {
     return {
-      product: null,
+      product: null as any,
       selectedSize: '',
       selectedColor: '',
       quantity: 1,
@@ -118,7 +118,7 @@ export default {
       addToCart(this.product, this.quantity)
       // Lógica para adicionar o produto ao carrinho
     },
-    formatCurrency(value) {
+    formatCurrency(value: number) {
       // Função para formatar o valor monetário (pode variar dependendo do seu formato)
       return `$${value.toFixed(2)}`;
     }

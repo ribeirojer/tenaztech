@@ -22,7 +22,7 @@
     </div>
   </template>
   
-  <script>
+  <script lang="ts">
   export default {
     props: {
       cartTotal: {
@@ -36,7 +36,7 @@
       discountDetails: Object
     },
     methods: {
-      formatCurrency(value) {
+      formatCurrency(value: number) {
         return `$${value.toFixed(2)}`;
       }
     }

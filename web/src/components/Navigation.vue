@@ -1,5 +1,5 @@
 <template>
-	<section class="flex justify-center space-x-4 bg-gray-900 px-4 py-2">
+	<section class="hidden md:flex justify-center space-x-4 bg-gray-900 px-4 py-2">
 	  <li class="">
 		<RouterLink to="/" class="text-white hover:text-purple-300 transition duration-300 ease-in-out">Início</RouterLink>
 	  </li>

@@ -1,19 +1,19 @@
 <template>
   <nav class="flex justify-between items-center py-4 px-6 bg-gray-900 text-white">
     <ul class="flex gap-4">
-      <li class="notShow">
+      <li class="">
         <a href="https://api.whatsapp.com/send?phone=5512981580992&amp;text=Olá,%Tenaz!" target="_blank" class="flex items-center gap-2 hover:text-gray-300">
           <PhoneIcon class="w-5 h-5 fill-purple-500" />
           <p class="text-sm">+55 (12) 98158-0992</p>
         </a>
       </li>
       <li>
-        <a href="mailto:contato@tenaztech.com" target="_blank" class="flex items-center gap-2 hover:text-gray-300">
+        <a href="mailto:contato@tenaztech.com" target="_blank" class="hidden md:flex items-center gap-2 hover:text-gray-300">
           <EmailIcon class="w-5 h-5 fill-purple-500" />
           <p class="text-sm">contato@tenaztech.com</p>
         </a>
       </li>
-      <li class="notShow">
+      <li class="hidden md:block">
         <a href="https://goo.gl/maps/hMDFQ3zoR9mZDF5b8" target="_blank" class="flex items-center gap-2 hover:text-gray-300">
           <MapPinIcon class="w-5 h-5 fill-purple-500" />
           <p class="text-sm">Rua Agrolândia, 325, Joinville - SC</p>

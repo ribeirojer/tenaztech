@@ -1,10 +1,10 @@
 <template>
     <div class="section py-8">
-      <div class="container mx-auto">
+      <div class="container mx-auto px-4 md:px-0">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <ShopItem title="Laptop Collection" imageUrl="/img/shop01.png" />
-          <ShopItem title="Accessories Collection" imageUrl="/img/shop03.png" />
-          <ShopItem title="Cameras Collection" imageUrl="/img/shop02.png" />
+          <ShopItem title="Fones de Ouvido" imageUrl="/img/shop01.png" slug="fones-de-ouvido"/>
+          <ShopItem title="Carregadores Portateis" imageUrl="/img/shop03.png" slug="carregadores-portateis"/>
+          <ShopItem title="Caixas de som bluetooth" imageUrl="/img/shop02.png" slug="caixas-de-som-bluetooth"/>
         </div>
       </div>
     </div>

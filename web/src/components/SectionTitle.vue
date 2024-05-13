@@ -1,6 +1,5 @@
 <template>
     <div class="container mx-auto flex justify-between my-4">
-      <h3 class="text-lg font-semibold text-gray-800">{{ title }}</h3>
       <div>
         <ul class="flex space-x-4">
           <li v-for="(item, index) in items" :key="index" :class="{ 'border-b-2 border-purple-600': index === activeIndex }">

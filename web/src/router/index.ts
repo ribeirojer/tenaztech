@@ -17,7 +17,6 @@ import WishlistView from '../pages/Wishlist.vue'
 import ComparisonView from '../pages/Comparison.vue'
 import HelpView from '../pages/Help.vue'
 import OrderTrackingView from '../pages/OrderTracking.vue'
-import ProductReviewsView from '../pages/ProductReviews.vue'
 import BlogView from '../pages/Blog.vue'
 import PromotionsView from '../pages/Promotions.vue'
 import ContactView from '../pages/Contact.vue'
@@ -40,7 +39,6 @@ const routes = [
   { path: '/comparacao', component: ComparisonView },
   { path: '/ajuda', component: HelpView },
   { path: '/rastreamento-pedido', component: OrderTrackingView, meta: { requiresAuth: true } },
-  { path: '/avaliacoes-produtos', component: ProductReviewsView },
   { path: '/blog', component: BlogView },
   { path: '/promocoes', component: PromotionsView },
   { path: '/contato', component: ContactView },
