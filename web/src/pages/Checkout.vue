@@ -41,12 +41,12 @@ export default {
   },
   data() {
     return {
-      selectedShippingOption: null,
+      selectedShippingOption: null as any,
       totalPrice: 0, 
-      paymentStatus: null,
+      paymentStatus: '',
       currentStep: 2,
       paymentLink: '',
-      coupom: {},
+      coupon: {} as any,
       steps: [
         'Informações',//'Informações do Cliente'
         'Endereço',//'Endereço e Envio',
@@ -78,7 +78,7 @@ export default {
         city: '',
         state: "",
       },
-      products: []
+      products: [] as any
     };
   },
   created() {
@@ -90,7 +90,7 @@ export default {
     handlePersonalInfo() {
       this.currentStep++;
     },
-    handleBillingShipping(data){
+    handleBillingShipping(data: { billing: { zipCode: string; address: string; number: string; complement: string; neiborhood: string; city: string; state: string; }; shipping: { zipCode: string; address: string; number: string; complement: string; neiborhood: string; city: string; state: string; }; }){
       this.billing = data.billing
       this.shipping = data.shipping
       this.currentStep++;
@@ -138,9 +138,9 @@ export default {
       };
 
       // Envia a requisição HTTP POST para fazer o pedido
-      //const response = await axios.post('/api/orders', orderDetails)
+      const response = await axios.post('/api/orders', orderDetails)
 
-      const data = { paymentLink: "link" }//response
+      const { data } = response
       
       this.paymentLink = data.paymentLink;
       localStorage.removeItem('cart');
@@ -153,7 +153,7 @@ export default {
   let total = 0;
 
   // Adicione o preço de cada produto ao total
-  this.products.forEach(product => {
+  this.products.forEach((product: { price: string; }) => {
     total += parseFloat(product.price);
   });
 
@@ -175,7 +175,7 @@ export default {
   total = Math.max(total, 0);
 
   // Salve o total calculado na variável totalPrice
-  this.totalPrice = total.toFixed(2);
+  this.totalPrice = parseFloat(total.toFixed(2));
 },
       validateOrderDetails() {
         if (
@@ -202,7 +202,7 @@ export default {
 
         return true;
       },
-      async checkout(option) {
+      async checkout(option: null) {
         this.selectedShippingOption = option;
     
         if (!this.validateOrderDetails()) {

@@ -21,6 +21,7 @@ import BlogView from '../pages/Blog.vue'
 import PromotionsView from '../pages/Promotions.vue'
 import ContactView from '../pages/Contact.vue'
 import FAQView from '../pages/FAQ.vue'
+import PedidoseDevolucoesView from '../pages/PedidoseDevolucoes.vue'
 
 const routes = [
   { path: '/', component: HomeView },
@@ -30,7 +31,7 @@ const routes = [
   { path: '/carrinho', component: CartView },
   { path: '/checkout', component: CheckoutView },
   { path: '/confirmacao-pedido', component: OrderConfirmationView },
-  { path: '/conta', component: AccountView, meta: { requiresAuth: true } },
+  { path: '/minha-conta', component: AccountView, meta: { requiresAuth: true } },
   { path: '/login', component: LoginView },
   { path: '/registro', component: RegisterView },
   { path: '/termos-de-servico', component: TermsOfServiceView },
@@ -38,7 +39,8 @@ const routes = [
   { path: '/lista-de-desejos', component: WishlistView, meta: { requiresAuth: true } },
   { path: '/comparacao', component: ComparisonView },
   { path: '/ajuda', component: HelpView },
-  { path: '/rastreamento-pedido', component: OrderTrackingView, meta: { requiresAuth: true } },
+  { path: '/pedidos-e-devolucoes', component: PedidoseDevolucoesView },
+  { path: '/rastrear-meu-pedido', component: OrderTrackingView, meta: { requiresAuth: true } },
   { path: '/blog', component: BlogView },
   { path: '/promocoes', component: PromotionsView },
   { path: '/contato', component: ContactView },

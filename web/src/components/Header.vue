@@ -30,7 +30,6 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import Logo from './Logo.vue';
 import HeaderTop from './HeaderTop.vue';
@@ -38,6 +37,7 @@ import MagnifyGlassIcon from './svgs/MagnifyGlassIcon.vue';
 import HearthIcon from './svgs/HearthIcon.vue';
 import CartIcon from './svgs/CartIcon.vue';
 import ArrowIcon from './svgs/ArrowIcon.vue';
+import { getCart, getWishlist } from '../utils/localStorage.ts';
 
 export default {
   name: 'Header',
@@ -65,8 +65,8 @@ export default {
       this.$router.push("/produtos");
     },
     updateItemCount() {
-      const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-      const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+      const wishlist = getWishlist()
+      const cartItems = getCart()
       this.wishlistItemCount = wishlist.length;
       this.cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
     }

@@ -46,15 +46,27 @@ export default {
     return {
       openFaqs: [] as any,
       faqs: [
-        {
-          question: 'How long does it take to deliver the first blog post?',
-          answer: 'It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available.'
-        },
-        {
-          question: 'Another question?',
-          answer: 'Another answer.'
-        },
-        // Add more FAQs as needed
+  {
+    question: 'Quais são as opções de pagamento disponíveis?',
+    answer: 'Oferecemos diversas opções de pagamento, incluindo cartão de crédito, débito, PayPal e transferência bancária. Você pode escolher a opção que melhor se adequa às suas necessidades.'
+  },
+  {
+    question: 'Como faço para acompanhar meu pedido?',
+    answer: 'Assim que seu pedido for despachado, você receberá um e-mail de confirmação com um link para rastrear o status da entrega. Você também pode acessar sua conta e verificar o status do pedido a qualquer momento.'
+  },
+  {
+    question: 'Quanto tempo leva para a entrega?',
+    answer: 'O prazo de entrega pode variar dependendo do seu local de entrega e do método de envio escolhido. Normalmente, os pedidos são entregues dentro de 3 a 7 dias úteis após a confirmação do pagamento.'
+  },
+  {
+    question: 'Posso devolver um produto se não estiver satisfeito?',
+    answer: 'Sim, aceitamos devoluções dentro de um prazo específico após a entrega do produto, desde que esteja nas condições originais e acompanhado da embalagem original. Consulte nossa política de devolução para obter mais informações.'
+  },
+  {
+    question: 'Como faço para entrar em contato com o suporte ao cliente?',
+    answer: 'Você pode entrar em contato com nosso suporte ao cliente por e-mail, telefone ou chat ao vivo. Nossa equipe de atendimento está disponível para ajudar com qualquer dúvida ou problema que você possa ter.'
+  },
+  // Adicione mais questões conforme necessário
       ]
     };
   },

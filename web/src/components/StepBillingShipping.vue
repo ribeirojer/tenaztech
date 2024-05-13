@@ -131,7 +131,7 @@ export default {
     }
   },
   methods: {
-    validateField(fieldName) {
+    validateField(fieldName: string) {
       // Limpa o erro atual
       this.errors = {
         zipCode: '',
@@ -249,7 +249,7 @@ export default {
         this.focusOnErrorField();
       }
     },
-    focusOnErrorField() {
+    focusOnErrorField(this: any) {
       if (this.errors.zipCode) {
         this.$refs.zipCodeInput.focus();
       } else if (this.errors.address) {
@@ -280,7 +280,7 @@ export default {
         }
       }
     },
-    async handleCepSubmission(addressType) {
+    async handleCepSubmission(this: any, addressType: string) {
       const cep = addressType === 'billing' ? this.billing.zipCode : this.shipping.zipCode;
       try {
         const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);

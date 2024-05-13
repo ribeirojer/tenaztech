@@ -59,7 +59,7 @@ export default {
     });
   },
   methods: {
-    applyCoupon(couponCode) {
+    applyCoupon(couponCode: any) {
       axios.post('http://seuservidor.com/api/coupon', { couponCode })
         .then(response => {
           this.couponApplied = true;
@@ -72,7 +72,7 @@ export default {
     checkout() {
       this.$router.push('/checkout');
     },
-    removeItemFromCart(itemId) {
+    removeItemFromCart(itemId: any) {
       console.log(itemId)
       // Chama a função para remover o item do carrinho pelo ID
       removeFromCart(itemId);

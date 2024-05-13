@@ -22,10 +22,10 @@
 			<div class="footer">
 			  <h3 class="footer-title text-lg font-semibold mb-4">Categorias</h3>
 			  <ul class="footer-links">
-				<li><router-link to="/ofertas" class="text-sm">Ofertas</router-link></li>
-				<li><router-link to="/laptops" class="text-sm">Laptops</router-link></li>
-				<li><router-link to="/smartphones" class="text-sm">Smartphones</router-link></li>
-				<li><router-link to="/cameras" class="text-sm">Câmeras</router-link></li>
+				<li><router-link to="/produtos?c=ofertas" class="text-sm">Ofertas</router-link></li>
+				<li><router-link to="/produtos?c=laptops" class="text-sm">Laptops</router-link></li>
+				<li><router-link to="/produtos?c=smartphones" class="text-sm">Smartphones</router-link></li>
+				<li><router-link to="/produtos?c=cameras" class="text-sm">Câmeras</router-link></li>
 			  </ul>
 			</div>
 		  </div>
@@ -34,7 +34,7 @@
 			<div class="footer">
 			  <h3 class="footer-title text-lg font-semibold mb-4">Informações</h3>
 			  <ul class="footer-links">
-				<li><router-link to="/termos-e-condicoes" class="text-sm">Termos e Condições</router-link></li>
+				<li><router-link to="/termos-de-servico" class="text-sm">Termos de Serviço</router-link></li>
 				<li><router-link to="/minha-conta" class="text-sm">Minha Conta</router-link></li>
 				<li><router-link to="/carrinho" class="text-sm">Ver Carrinho</router-link></li>
 				<li><router-link to="/lista-de-desejos" class="text-sm">Lista de Desejos</router-link></li>

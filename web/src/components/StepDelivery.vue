@@ -63,17 +63,17 @@
   export default {
     props: {
       title: String,
-      shipping: Object,
-      billing: Object,
-      products: Array
+      shipping: Object as any,
+      billing: Object as any,
+      products: Array as any
     },
     data() {
       return {
-        shippingOptionsCorreios: null,
-        shippingOptionsJadlog: null,
-        selectedShippingOption: null,
+        shippingOptionsCorreios: null as any,
+        shippingOptionsJadlog: null as any,
+        selectedShippingOption: null as any,
         loading: false,
-        error: null,
+        error: null as any,
       };
     },
     computed: {
@@ -118,7 +118,7 @@
           }
           
           this.shippingOptionsJadlog = await responseJadlog.json();
-        } catch (error) {
+        } catch (error: any) {
           this.error = error.message;
           console.error('Erro ao obter opções de frete:', error);
         } finally {
@@ -126,10 +126,10 @@
         }
       },
       calculateTotalWeight() {
-        return this.products.reduce((total, product) => total + (product.weight || 0), 0);
+        return this.products.reduce((total: any, product: { weight: any; }) => total + (product.weight || 0), 0);
       },
-      calculateTotalDimension(dimension) {
-        return this.products.reduce((maxValue, product) => Math.max(maxValue, product[dimension] || 0), 0);
+      calculateTotalDimension(dimension: string) {
+        return this.products.reduce((maxValue: number, product: { [x: string]: any; }) => Math.max(maxValue, product[dimension] || 0), 0);
       },
       selectShippingOption() {
         if (this.selectedShippingOption) {

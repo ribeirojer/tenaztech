@@ -105,6 +105,11 @@ export default {
         this.formErrors.acceptedTerms = 'Por favor, aceite os termos e a politica.';
         return;
       }
+      const data = {
+      name: this.name,
+      email: this.email,
+      password: this.password,
+      }
 
       if (this.name && this.email && this.password && this.acceptedTerms) {
         // Aqui você faria a requisição HTTP para registrar o usuário

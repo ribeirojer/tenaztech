@@ -32,15 +32,15 @@
 <script lang="ts">
 export default {
   props: {
-    personalInfo: Object
+    personalInfo: Object as any
   },
   data() {
     return {
-      errors: {}
+      errors: {} as any
     };
   },
   methods: {
-    validateField(fieldName) {
+    validateField(fieldName: string) {
   switch (fieldName) {
     case 'name':
       this.errors.name = this.personalInfo.name.trim() ? '' : 'O campo Nome é obrigatório.';
@@ -64,11 +64,11 @@ export default {
       break;
   }
 },
-validateEmail(email) {
+validateEmail(email: string) {
   // Verifica se o e-mail possui um formato válido
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 },
-validatePasswordStrength(password) {
+validatePasswordStrength(password: string) {
   // Verifica se a senha tem pelo menos 6 caracteres
   if (password.length < 6) {
     return 'weak';
@@ -99,7 +99,7 @@ validatePasswordStrength(password) {
         this.focusOnErrorField();
       }
     },
-    focusOnErrorField() {
+    focusOnErrorField(this: any) {
       if (this.errors.name) {
         this.$refs.nameInput.focus();
       } else if (this.errors.email) {
