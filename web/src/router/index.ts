@@ -18,7 +18,6 @@ import ComparisonView from '../pages/Comparison.vue'
 import HelpView from '../pages/Help.vue'
 import OrderTrackingView from '../pages/OrderTracking.vue'
 import BlogView from '../pages/Blog.vue'
-import PromotionsView from '../pages/Promotions.vue'
 import ContactView from '../pages/Contact.vue'
 import FAQView from '../pages/FAQ.vue'
 import PedidoseDevolucoesView from '../pages/PedidoseDevolucoes.vue'
@@ -42,7 +41,6 @@ const routes = [
   { path: '/pedidos-e-devolucoes', component: PedidoseDevolucoesView },
   { path: '/rastrear-meu-pedido', component: OrderTrackingView, meta: { requiresAuth: true } },
   { path: '/blog', component: BlogView },
-  { path: '/promocoes', component: PromotionsView },
   { path: '/contato', component: ContactView },
   { path: '/faq', component: FAQView },
   { path: '/:catchAll(.*)', component: NotFoundView } // Página não encontrada

@@ -60,7 +60,7 @@ export default {
     this.getPaymentLinkFromQuery();
   },
   methods: {
-    getPaymentLinkFromQuery() {
+    getPaymentLinkFromQuery(this: any) {
       const urlParams = new URLSearchParams(this.$route.query);
       this.paymentLink = urlParams.get('link') || 'Link de pagamento não encontrado';
     },

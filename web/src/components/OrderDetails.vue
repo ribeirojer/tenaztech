@@ -26,7 +26,7 @@
 export default {
   props: {
     products: {
-      type: Array,
+      type: Array as any,
       required: true
     },
   },
@@ -36,14 +36,14 @@ export default {
     };
   },
   methods: {
-    formatCurrency(value) {
+    formatCurrency(value: number) {
       return `$${value.toFixed(2)}`;
     },
   },
   watch: {
     products: {
       handler(products) {
-        this.total = products.reduce((acc, product) => acc + product.quantity * product.price, 0);
+        this.total = products.reduce((acc: number, product: { quantity: number; price: number; }) => acc + product.quantity * product.price, 0);
       },
       deep: true
     }

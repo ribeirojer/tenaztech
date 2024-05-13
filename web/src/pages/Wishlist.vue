@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import axios from 'axios';
-import { removeFromWishlist } from '../utils/localStorage.ts';
+import { removeFromWishlist, getWishlist } from '../utils/localStorage.ts';
 
 export default {
   name: 'WishlistView',
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     loadWishlist() {
-      const localWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+      const localWishlist = getWishlist()
       localWishlist.forEach((item: { id: any; }) => {
         axios.get(`http://seuservidor.com/api/produtos/${item.id}`)
           .then(response => {

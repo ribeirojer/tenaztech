@@ -104,7 +104,7 @@
         filteredProducts() {
           if (!this.query) return this.products;
     
-          const filtered = this.products.filter(product => {
+          const filtered = this.products.filter((product: { category: string; }) => {
             // Verifica se a query corresponde ao nome da categoria do produto
             return product.category.toLowerCase().includes(this.query.toLowerCase());
           });
