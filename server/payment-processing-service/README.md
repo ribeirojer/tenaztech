@@ -52,4 +52,4 @@
 - **Protocolo de Segurança:** HTTPS
 - **Ferramentas de Monitoramento:** Prometheus, Grafana
 - **Cache de Dados:** Redis
-- **Ferramenta de Testes:** PHPUnit
+- **Ferramenta de Testes:** Bun test

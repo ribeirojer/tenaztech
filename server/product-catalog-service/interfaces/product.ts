@@ -9,4 +9,6 @@ export interface Product {
     instock: number;
     rating: number;
     category: string;
+    slug: string;
+    sales_count: number;
 }

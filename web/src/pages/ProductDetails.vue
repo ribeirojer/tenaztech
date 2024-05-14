@@ -1,11 +1,11 @@
 <template>
-  <div class="container mx-auto" v-if="product">
-    <div class="flex">
-      <div class="w-1/2 flex">
+  <div class="container mx-auto px-4 md:px-0" v-if="product">
+    <div class="flex flex-col">
+      <div class="w-full md:w-1/2 flex">
         <ProductThumbImgs :images="productImages" :altTexts="altTexts" />
         <ProductMainImg :productImage="product.image" altText="Product Image" />
       </div>
-      <div class="w-1/2">
+      <div class="w-full md:w-1/2">
         <h2 class="text-xl font-semibold mb-2">{{ product.name }}</h2>
         <div class="flex items-center mb-4">
           <div class="flex gap-1 text-yellow-400">
