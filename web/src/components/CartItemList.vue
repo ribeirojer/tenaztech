@@ -1,7 +1,8 @@
 <template>
-    <div>
-      <h2 class="text-lg font-semibold mb-4">Itens do Carrinho</h2>
-      <ul>
+  <div>
+    <h2 class="text-lg font-semibold mb-4">Itens do Carrinho</h2>
+    <ul>
+      <transition-group name="list" tag="div">
         <li v-for="item in cartItems" :key="item.id" class="py-2 border-b border-gray-200">
           <div class="flex justify-between items-center">
             <div class="flex items-center">
@@ -11,33 +12,51 @@
                 <p class="text-gray-600">{{ item.quantity }} x {{ formatCurrency(item.price) }}</p>
               </div>
             </div>
-            <button @click="removeItem(item.id)" class="text-red-500 font-semibold">Remover</button>
+            <button @click="removeItem(item.id)" class="text-red-500 font-semibold flex items-center">
+              <span>Remover</span>
+              <svg class="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
           </div>
         </li>
-      </ul>
-    </div>
-  </template>
-  
-  <script lang="ts">
-  export default {
-    props: {
-      cartItems: {
-        type: Array as any,
-        required: true
-      }
-    },
-    methods: {
-      removeItem(itemId: any) {
-        this.$emit('removeItem', itemId);
-      },
-      formatCurrency(value: number) {
-        return `$${value.toFixed(2)}`;
-      }
+      </transition-group>
+    </ul>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
+import { CartItem } from '../interfaces/Product';
+
+export default defineComponent({
+  name: 'CartItemList',
+  props: {
+    cartItems: {
+      type: Array as PropType<CartItem[]>,
+      required: true
     }
-  };
-  </script>
-  
-  <style scoped>
-  /* Estilos para a lista de itens do carrinho */
-  </style>
-  
+  },
+  methods: {
+    removeItem(itemId: number) {
+      this.$emit('removeItem', itemId);
+    },
+    formatCurrency(value: number) {
+      return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      }).format(value);
+    }
+  }
+});
+</script>
+
+<style scoped>
+.list-enter-active, .list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+</style>

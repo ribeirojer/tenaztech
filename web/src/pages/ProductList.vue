@@ -1,166 +1,108 @@
 <template>
-  <div class="container flex mx-auto gap-4">
-    <div id="aside" class="flex flex-col lg:w-1/4">
-      <div class="aside bg-gray-900 p-4">
-        <h2 class="text-white text-2xl mb-4">Categorias</h2>
-        <div class="checkbox-filter">
-          <div class="input-checkbox" v-for="category in categories" :key="category.id">
-            <input type="checkbox" :id="category.id" class="checkbox-purple" v-model="selectedCategories" :value="category.name">
-            <label :for="category.id" class="text-white">{{ category.name }}</label>
-          </div>
-        </div>
-      </div>
-      <div class="aside bg-gray-900 p-4">
-        <h2 class="text-white text-2xl mb-4">Preço</h2>
-        <div class="price-slider">
-          <input type="range" step="50" min="0" max="5000" class="input-range" v-model="selectedPrice">
-          <h2 class="text-purple-500 text-2xl">R${{ selectedPrice }}</h2>
-        </div>
-      </div>
-      <div class="aside bg-gray-900 p-4">
-        <h2 class="text-white text-2xl mb-4">Marca</h2>
-        <div class="checkbox-filter">
-          <div class="input-checkbox" v-for="brand in brands" :key="brand">
-            <input type="checkbox" :id="brand" class="checkbox-purple" v-model="selectedBrands" :value="brand">
-            <label :for="brand" class="text-white">{{ brand }}</label>
-          </div>
-        </div>
-      </div>
-      <div class="product-list bg-gray-900 p-4">
-        <h2 class="text-white text-center text-2xl mb-4">Mais Vendidos</h2>
-        <div class="product-widget" v-for="product in bestSellers" :key="product.id">
-          <div class="product-img"><img :src="product.image" :alt="product.name"></div>
-          <div class="product-body">
-            <h2 class="text-white text-xs">{{ product.category }}</h2>
-            <a :href="`/produto?produtoId=${product.id}`" class="text-purple-500 font-bold">{{ product.name }}</a>
-            <p class="text-white">{{ product.price }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="lg:w-3/4">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 px-4 md:px-0">
-        <Product v-for="(product, index) in filteredProducts" :key="index" v-bind="product" />
-      </div>
-    </div>
+  <div class="flex flex-col md:flex-row">
+    <BarraLateral v-if="isShowSideBar" :categories="categories" :selectCategory="selectCategory" :applyPriceFilter="applyPriceFilter" />
+  <div class="w-full md:w-3/4 p-4">
+    <div class="flex justify-between items-center mb-4">
+
+    <h1 class="text-2xl font-semibold">Produtos</h1>
+    <button @click="toggleSideBar">
+      <span v-if="isShowSideBar">Ocultar filtros</span>
+      <span v-else>Mostrar filtros</span>
+    </button></div>
+    <Produtos :loading="loading" :error="error" :displayedProducts="displayedProducts" :searchTerm="searchTerm"/>
   </div>
+</div>
+  <!--<BestSellers :bestSellers="bestSellers" />-->
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import Product from "../components/Product.vue";
+import BarraLateral from '../components/BarraLateral.vue';
+import Produtos from '../components/Produtos.vue';
 import axios from 'axios';
+import BestSellers from '../components/BestSellers.vue';
 
-export default defineComponent({
-  name: 'ProductListView',
-  components: { Product },
+export default {
+  components: {
+    BarraLateral,
+    Produtos,
+    BestSellers,
+  },
   data() {
     return {
-      products: [] as any[],
-      bestSellers: [] as any[],
-      categories: [
-        { id: 'category-1', name: 'Laptops' },
-        { id: 'category-2', name: 'Smartphones' },
-        { id: 'category-3', name: 'Câmeras' },
-        { id: 'category-4', name: 'Acessórios' },
-        { id: 'category-5', name: 'Promoções' },
-      ],
-      brands: ['SAMSUNG', 'LG', 'SONY'],
-      selectedCategories: [] as string[],
-      selectedBrands: [] as string[],
-      selectedPrice: 50,
-      query: ''
+      categories: [],
+      products: [],
+      bestSellers: [],
+      selectedCategory: null,
+      selectedPriceFilter: null,
+      loading: false,
+      isShowSideBar: false,
+      searchTerm: '',
+      category: '',
+      error: null,
     };
   },
-  computed: {
-    filteredProducts() {
-      return this.products.filter(product => {
-        const matchesCategory = this.selectedCategories.length ? this.selectedCategories.includes(product.category) : true;
-        const matchesBrand = this.selectedBrands.length ? this.selectedBrands.includes(product.brand) : true;
-        const matchesPrice = product.price <= this.selectedPrice;
-        const matchesQuery = this.query ? product.category.toLowerCase().includes(this.query.toLowerCase()) : true;
-        return matchesCategory && matchesBrand && matchesPrice && matchesQuery;
-      });
-    }
-  },
-  methods: {
-    fetchProducts() {
-      axios.get('https://product-catalog-service.deno.dev/api/products')
-        .then(response => {
-          console.log(response.data)
-          this.products = response.data;
-        })
-        .catch(error => {
-          console.error('Erro ao buscar produtos:', error);
-        });
-    },
-    fetchBestSellers() {
-      axios.get('https://product-catalog-service.deno.dev/api/best-sellers')
-        .then(response => {
-          this.bestSellers = response.data;
-        })
-        .catch(error => {
-          console.error('Erro ao buscar mais vendidos:', error);
-        });
-    }
-  },
   mounted() {
-    const urlParams = new URLSearchParams(window.location.search);
-    this.query = urlParams.get('c') || '';
+    const urlParams = this.$route.fullPath.split("?")[1] || '';
+    this.category = urlParams.split('c=')[1] || '';
+    this.searchTerm = urlParams.split('p=')[1] || '';
     this.fetchProducts();
     this.fetchBestSellers();
-  }
-});
+  },
+  computed: {
+    displayedProducts() {
+      let filteredProducts = this.products;
+      if (this.selectedCategory) {
+        filteredProducts = filteredProducts.filter(product => product.category === this.selectedCategory);
+      }
+      if (this.selectedPriceFilter) {
+        const [minPrice, maxPrice] = this.selectedPriceFilter.split('-').map(parseFloat);
+        filteredProducts = filteredProducts.filter(product => product.price >= minPrice && product.price <= maxPrice);
+      }
+      if (this.searchTerm) {
+        const lowerCaseSearchTerm = this.searchTerm.toLowerCase();
+        filteredProducts = filteredProducts.filter(product =>
+          product.name.toLowerCase().includes(lowerCaseSearchTerm)
+        );
+      }
+      return filteredProducts;
+    },
+  },
+  methods: {
+    async fetchProducts() {
+      this.loading = true;
+      try {
+        const response = await axios.get('https://product-catalog-service.deno.dev/api/products');
+        this.products = response.data;
+        this.categories = [...new Set(this.products.map(product => product.category))];
+      } catch (error) {
+        this.error = 'Erro ao carregar produtos.';
+      } finally {
+        this.loading = false;
+      }
+    },
+    async fetchBestSellers() {
+      this.loading = true;
+      try {
+        const response = await axios.get('https://product-catalog-service.deno.dev/api/best-sellers');
+        this.bestSellers = response.data;
+      } catch (error) {
+        this.error = 'Erro ao carregar best sellers.';
+      } finally {
+        this.loading = false;
+      }
+    },
+    selectCategory(category) {
+      this.selectedCategory = category;
+    },
+    applyPriceFilter(event) {
+      this.selectedPriceFilter = event.target.value;
+    },
+    applySearchFilter(searchTerm) {
+      this.searchTerm = searchTerm;
+    },
+    toggleSideBar(){
+      this.isShowSideBar = !this.isShowSideBar
+    }
+  },
+};
 </script>
-
-<style scoped>
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.aside {
-  background-color: #1a202c;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.checkbox-filter .input-checkbox {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.checkbox-filter .input-checkbox input {
-  margin-right: 10px;
-}
-
-.product-list .product-widget {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.product-widget .product-img img {
-  width: 100%;
-  border-radius: 8px;
-}
-
-.product-widget .product-body {
-  margin-left: 10px;
-}
-
-.grid {
-  display: grid;
-  gap: 20px;
-}
-
-.input-range {
-  width: 100%;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-</style>

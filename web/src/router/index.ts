@@ -20,6 +20,7 @@ import OrderTrackingView from '../pages/OrderTracking.vue'
 import BlogView from '../pages/Blog.vue'
 import ContactView from '../pages/Contact.vue'
 import FAQView from '../pages/FAQ.vue'
+import AdminView from '../pages/Admin.vue'
 import PedidoseDevolucoesView from '../pages/PedidoseDevolucoes.vue'
 
 const routes = [
@@ -43,6 +44,7 @@ const routes = [
   { path: '/blog', component: BlogView },
   { path: '/contato', component: ContactView },
   { path: '/faq', component: FAQView },
+  { path: '/administrador', component: AdminView },
   { path: '/:catchAll(.*)', component: NotFoundView } // Página não encontrada
 ]
 

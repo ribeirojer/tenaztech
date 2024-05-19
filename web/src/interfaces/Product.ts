@@ -11,3 +11,12 @@ export interface IProduct {
   stars?: any[];
   emptyStars?: any[];
 }
+
+export interface CartItem {
+  id: number;
+  slug: string;
+  name?: string;
+  price: number;
+  quantity: number;
+  image: string;
+}

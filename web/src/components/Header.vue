@@ -60,9 +60,8 @@ export default {
   methods: {
     submitForm() {
       console.log("Form submitted");
-      // Adicione a lógica para enviar o formulário aqui
-      // Por exemplo, você pode redirecionar para uma página de resultados com a pesquisa atual
-      this.$router.push("/produtos");
+      this.$router.push({ path: '/produtos', query: { p: this.searchQuery } });
+
     },
     updateItemCount() {
       const wishlist = getWishlist()
