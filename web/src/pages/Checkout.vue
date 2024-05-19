@@ -7,6 +7,9 @@
       </div>
       <div v-else-if="currentStep === 1">
         <StepBillingShipping @next-step="handleBillingShipping" />
+        <button @click="currentStep--" class="mt-4 px-4 py-2 rounded text-white font-bold bg-gray-300 hover:bg-gray-400 focus:outline-none">
+          Voltar
+        </button>
       </div>
       <div v-else-if="currentStep === 2">
         <StepDelivery :shipping="shipping" :billing="billing" :products="products" @next-step="checkout"/>
@@ -44,7 +47,7 @@ export default {
       selectedShippingOption: null as any,
       totalPrice: 0, 
       paymentStatus: '',
-      currentStep: 2,
+      currentStep: 0,
       paymentLink: '',
       coupon: {} as any,
       steps: [
@@ -134,15 +137,16 @@ export default {
         billing: this.billing,
         shipping: this.shipping,
         products: this.products,
+        selectedShippingOption: this.selectedShippingOption,
         total: this.totalPrice,
       };
 
       // Envia a requisição HTTP POST para fazer o pedido
-      const response = await axios.post('/api/orders', orderDetails)
+      const response = await axios.post('http://localhost:3000/orders', orderDetails)
 
       const { data } = response
       
-      this.paymentLink = data.paymentLink;
+      this.paymentLink = data.order.id;
       localStorage.removeItem('cart');
       } catch (error) {
         console.error('Erro ao processar pagamento:', error);

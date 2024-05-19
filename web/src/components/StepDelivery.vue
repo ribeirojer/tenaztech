@@ -118,6 +118,7 @@
           }
           
           this.shippingOptionsJadlog = await responseJadlog.json();
+
         } catch (error: any) {
           this.error = error.message;
           console.error('Erro ao obter opções de frete:', error);
