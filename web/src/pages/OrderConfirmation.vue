@@ -39,31 +39,47 @@
 </template>
 
 <script lang="ts">
-export default {
+import axios from 'axios';
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'OrderConfirmationView',
   data() {
     return {
-      orderNumber: '123456',
-      orderDate: '10/05/2024',
-      products: [
-        { name: 'Produto 1', price: '50,00' },
-        { name: 'Produto 2', price: '30,00' },
-        { name: 'Produto 3', price: '20,00' },
-      ],
-      deliveryAddress: 'Rua Agrolândia, 325, Joinville - SC',
-      paymentMethod: 'Cartão de Crédito',
+      orderNumber: '',
+      orderDate: '',
+      products: [] as any,
+      deliveryAddress: '',
+      paymentMethod: '',
       paymentLink: '', // O link será obtido da query da URL
-      deliveryDate: '15/05/2024',
+      deliveryDate: '',
     };
   },
   mounted() {
     this.getPaymentLinkFromQuery();
+    this.fetchOrderDetails();
   },
   methods: {
-    getPaymentLinkFromQuery(this: any) {
-      const urlParams = new URLSearchParams(this.$route.query);
-      this.paymentLink = urlParams.get('link') || 'Link de pagamento não encontrado';
+    getPaymentLinkFromQuery() {
+      const urlParams = new URLSearchParams(this.$route.fullPath);
+      this.orderNumber = urlParams.get('link') || 'Link de pagamento não encontrado';
+    },
+    async fetchOrderDetails() {
+      const orderId = this.orderNumber
+      try {
+        const response = await axios.get(`https://api.example.com/orders/${orderId}`);
+        const orderData = response.data;
+
+        this.orderNumber = orderData.id;
+        this.orderDate = new Date(orderData.date).toLocaleDateString();
+        this.products = orderData.products;
+        this.deliveryAddress = orderData.deliveryAddress;
+        this.paymentMethod = orderData.paymentMethod;
+        this.deliveryDate = new Date(orderData.deliveryDate).toLocaleDateString();
+      } catch (error) {
+        console.error('Erro ao buscar os detalhes do pedido:', error);
+      }
     },
   },
-};
+});
 </script>

@@ -10,6 +10,7 @@ electro-master
 node_modules
 
 apoio
+coverage
 
 # Logs
 logs
