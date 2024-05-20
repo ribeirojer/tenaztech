@@ -2,7 +2,7 @@
     <div class="mt-8">
       <h2 class="text-2xl font-semibold mb-4">Best Sellers</h2>
       <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        <div v-for="product in bestSellers" :key="product.id" class="group relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:border-gray-50">
+        <div v-for="product in bestSellers as any" :key="product.id" class="group relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:border-gray-50">
           <div class="aspect-[4/3] overflow-hidden">
             <img :src="product.image" alt="Product Image" class="h-full w-full object-cover transition-all group-hover:scale-105" />
           </div>
@@ -28,7 +28,7 @@
     </div>
   </template>
   
-  <script>
+  <script lang="ts">
   import ShoppingCartIcon from './ShoppingCartIcon.vue';
   import StarIcon from './StarIcon.vue';
   

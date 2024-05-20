@@ -29,16 +29,16 @@ export default {
   },
   data() {
     return {
-      categories: [],
-      products: [],
-      bestSellers: [],
+      categories: [] as any,
+      products: [] as any,
+      bestSellers: [] as any,
       selectedCategory: null,
-      selectedPriceFilter: null,
+      selectedPriceFilter: null as any,
       loading: false,
       isShowSideBar: false,
       searchTerm: '',
       category: '',
-      error: null,
+      error: '',
     };
   },
   mounted() {
@@ -52,15 +52,15 @@ export default {
     displayedProducts() {
       let filteredProducts = this.products;
       if (this.selectedCategory) {
-        filteredProducts = filteredProducts.filter(product => product.category === this.selectedCategory);
+        filteredProducts = filteredProducts.filter((product: { category: null; }) => product.category === this.selectedCategory);
       }
       if (this.selectedPriceFilter) {
         const [minPrice, maxPrice] = this.selectedPriceFilter.split('-').map(parseFloat);
-        filteredProducts = filteredProducts.filter(product => product.price >= minPrice && product.price <= maxPrice);
+        filteredProducts = filteredProducts.filter((product: { price: number; }) => product.price >= minPrice && product.price <= maxPrice);
       }
       if (this.searchTerm) {
         const lowerCaseSearchTerm = this.searchTerm.toLowerCase();
-        filteredProducts = filteredProducts.filter(product =>
+        filteredProducts = filteredProducts.filter((product: { name: string; }) =>
           product.name.toLowerCase().includes(lowerCaseSearchTerm)
         );
       }
@@ -73,7 +73,7 @@ export default {
       try {
         const response = await axios.get('https://product-catalog-service.deno.dev/api/products');
         this.products = response.data;
-        this.categories = [...new Set(this.products.map(product => product.category))];
+        this.categories = [...new Set(this.products.map((product: { category: any; }) => product.category))];
       } catch (error) {
         this.error = 'Erro ao carregar produtos.';
       } finally {
@@ -91,13 +91,13 @@ export default {
         this.loading = false;
       }
     },
-    selectCategory(category) {
+    selectCategory(category: null) {
       this.selectedCategory = category;
     },
-    applyPriceFilter(event) {
+    applyPriceFilter(event: { target: { value: null; }; }) {
       this.selectedPriceFilter = event.target.value;
     },
-    applySearchFilter(searchTerm) {
+    applySearchFilter(searchTerm: string) {
       this.searchTerm = searchTerm;
     },
     toggleSideBar(){

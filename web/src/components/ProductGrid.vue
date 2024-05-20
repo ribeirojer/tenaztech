@@ -18,9 +18,9 @@
         type: Array as PropType<Array<{
           name: string;
           image: string;
-          description: string;
           price: number;
           rating: number;
+          slug: string;
         }>>,
         required: true
       }

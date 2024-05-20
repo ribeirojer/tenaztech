@@ -1,9 +1,7 @@
 <template>
-  <!-- Mostrar termo de pesquisa -->
     <div v-if="searchTerm" class="text-gray-700 mb-4">
       Resultados para: <span class="font-semibold">{{ searchTerm }}</span>
     </div>
-    <!-- Grid de produtos -->
     <div v-if="loading" class="text-gray-600">Carregando...</div>
     <div v-else-if="error" class="text-red-600">{{ error }}</div>
     <div v-else>
@@ -11,12 +9,12 @@
         Nenhum produto encontrado para "{{ searchTerm }}".
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <ProductCard v-for="product in displayedProducts" :key="product.id" :product="product"/>
+        <ProductCard v-for="product in displayedProducts as any" :key="product.id" :product="product"/>
       </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import ProductCard from './ProductCard.vue';
 
 export default {

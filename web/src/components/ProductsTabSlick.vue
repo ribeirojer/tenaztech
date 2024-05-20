@@ -1,13 +1,13 @@
 <template>
   <div class="container mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 px-4 md:px-0" :data-nav="navId">
-              <Product v-for="(product, index) in products" :key="index" :product="product" />
+              <ProductCard v-for="(product, index) in products as any" :key="index" :product="product" />
             </div>
           </div>
   </template>
   
   <script lang="ts">
-import Product from "./Product.vue";
+import ProductCard from "./ProductCard.vue";
 
 export default {
 	props: {
@@ -20,7 +20,7 @@ export default {
 			required: true,
 		},
 		products: {
-			type: Array(Product),
+			type: Array,
 			required: true,
 		},
 		active: {
@@ -29,7 +29,7 @@ export default {
 		},
 	},
 	components: {
-		Product,
+		ProductCard,
 	},
 };
 </script>
