@@ -2,7 +2,7 @@
   <div class="container mx-auto py-8">
     <h1 class="text-3xl font-bold mb-6 text-center">Carrinho de Compras</h1>
     <div v-if="cartItems.length === 0" class="flex flex-col justify-center items-center">
-      <img src="../../public/assets/8-5.png" alt="" class="size-80 -m-4 ">
+      <img src="/assets/8-5.png" alt="" class="size-80 -m-4 ">
       <span class="text-center text-gray-500">Seu carrinho está vazio.</span>
       <RouterLink to="/produtos" class="px-6 my-4 text-white bg-purple-500 hover:bg-purple-600 py-3 rounded-md transition duration-300">
         Ver produtos

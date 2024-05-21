@@ -11,7 +11,7 @@
       >
         <img
           :alt="product.name"
-          :src="product.image"
+          :src="product.images[0]"
           class="h-full w-full object-contain transition-all group-hover:scale-105 rounded-t-lg"
           width="400"
           height="300"
@@ -22,7 +22,7 @@
       <div class="flex flex-col items-center justify-between">
         <router-link
         :to="'/produto/' + product.slug"
-      ><h3 class="font-semibold text-center text-2xl md:text-base text-gray-800 hover:text-gray-600 dark:text-gray-200">{{ product.name }}</h3>
+      ><h3 class="font-semibold text-center text-base md:text-base text-gray-800 hover:text-gray-600 dark:text-gray-200">{{ product.name }}</h3>
         </router-link><div class="flex items-center gap-1 mt-2">
           <StarIcon v-for="n in 5" :key="n" :class="starClass(n, product.rating)" />
         </div>
@@ -53,7 +53,7 @@ export default defineComponent({
     product: {
       type: Object as PropType<{
         name: string;
-        image: string;
+        images: string[];
         price: number;
         rating: number;
         slug: string;

@@ -3,7 +3,7 @@
     <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Categorias</h2>
     <ul>
       <li
-        v-for="category in categories"
+        v-for="category in categories as string[]"
         :key="category"
         @click="selectCategory(category)"
         class="cursor-pointer text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 mb-2 transition-colors duration-200"
@@ -47,7 +47,7 @@ export default {
     applyPriceFilter: {
       type: Function,
       required: true,
-    },
+    } as any,
   },
 };
 </script>

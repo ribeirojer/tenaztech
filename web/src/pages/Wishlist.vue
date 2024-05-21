@@ -6,7 +6,7 @@
     </div>
     <div v-else>
       <div v-if="wishlist.length === 0" class="flex flex-col justify-center items-center">
-          <img src="../../public/assets/19-5.png" alt="" class="size-80 -m-4 ">
+          <img src="/assets/19-5.png" alt="" class="size-80 -m-4 ">
           <span class="text-center text-gray-600">Sua lista de desejos está vazia.</span>
           <RouterLink to="/produtos" class="px-6 my-4 text-white bg-purple-500 hover:bg-purple-600 py-3 rounded-md transition duration-300">
             Ver produtos

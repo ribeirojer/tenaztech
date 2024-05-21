@@ -1,18 +1,17 @@
 <template>
   <div class="flex flex-col md:flex-row">
-    <BarraLateral v-if="isShowSideBar" :categories="categories" :selectCategory="selectCategory" :applyPriceFilter="applyPriceFilter" />
-  <div class="w-full md:w-3/4 p-4">
-    <div class="flex justify-between items-center mb-4">
-
-    <h1 class="text-2xl font-semibold">Produtos</h1>
-    <button @click="toggleSideBar">
-      <span v-if="isShowSideBar">Ocultar filtros</span>
-      <span v-else>Mostrar filtros</span>
-    </button></div>
-    <Produtos :loading="loading" :error="error" :displayedProducts="displayedProducts" :searchTerm="searchTerm"/>
+    <BarraLateral v-if="isShowSideBar || isLargeScreen" :categories="categories" :selectCategory="selectCategory" :applyPriceFilter="applyPriceFilter" />
+    <div class="w-full md:w-3/4 p-4">
+      <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-semibold">Produtos</h1>
+        <button @click="toggleSideBar" v-if="!isLargeScreen">
+          <span v-if="isShowSideBar">Ocultar filtros</span>
+          <span v-else>Mostrar filtros</span>
+        </button>
+      </div>
+      <Produtos :loading="loading" :error="error" :displayedProducts="displayedProducts" :searchTerm="searchTerm"/>
+    </div>
   </div>
-</div>
-  <!--<BestSellers :bestSellers="bestSellers" />-->
 </template>
 
 <script lang="ts">
@@ -36,6 +35,7 @@ export default {
       selectedPriceFilter: null as any,
       loading: false,
       isShowSideBar: false,
+      isLargeScreen: false,
       searchTerm: '',
       category: '',
       error: '',
@@ -47,6 +47,12 @@ export default {
     this.searchTerm = urlParams.split('p=')[1] || '';
     this.fetchProducts();
     this.fetchBestSellers();
+
+    this.checkScreenSize();
+    window.addEventListener('resize', this.checkScreenSize);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.checkScreenSize);
   },
   computed: {
     displayedProducts() {
@@ -101,8 +107,20 @@ export default {
       this.searchTerm = searchTerm;
     },
     toggleSideBar(){
-      this.isShowSideBar = !this.isShowSideBar
+      this.isShowSideBar = !this.isShowSideBar;
+    },
+    checkScreenSize() {
+      this.isLargeScreen = window.innerWidth >= 768;
+      if (this.isLargeScreen) {
+        this.isShowSideBar = true;
+      } else {
+        this.isShowSideBar = false;
+      }
     }
   },
 };
 </script>
+
+<style scoped>
+/* Estilos para a página de lista de produtos */
+</style>
