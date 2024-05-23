@@ -26,9 +26,9 @@
     </div>
   </template>
   
-  <script>
+  <script lang="ts">
   export default {
-    props: ['specs', 'features'],
+    props: ['specs', 'features'] as any,
   };
   </script>
   

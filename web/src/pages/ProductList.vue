@@ -1,6 +1,11 @@
 <template>
   <div class="flex flex-col md:flex-row">
-    <BarraLateral v-if="isShowSideBar || isLargeScreen" :categories="categories" :selectCategory="selectCategory" :applyPriceFilter="applyPriceFilter" />
+    <BarraLateral
+      v-if="isShowSideBar || isLargeScreen"
+      :categories="categories"
+      :selectCategory="selectCategory"
+      :applyPriceFilter="applyPriceFilter"
+    />
     <div class="w-full md:w-3/4 p-4">
       <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-semibold">Produtos</h1>
@@ -9,7 +14,21 @@
           <span v-else>Mostrar filtros</span>
         </button>
       </div>
-      <Produtos :loading="loading" :error="error" :displayedProducts="displayedProducts" :searchTerm="searchTerm"/>
+      <Produtos
+        :loading="loading"
+        :error="error"
+        :displayedProducts="paginatedProducts"
+        :searchTerm="searchTerm"
+      />
+      <div class="flex justify-center mt-4">
+        <button @click="prevPage" :disabled="currentPage === 1" class="mx-2 px-4 py-2 bg-gray-300 rounded">
+          Anterior
+        </button>
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+        <button @click="nextPage" :disabled="currentPage === totalPages" class="mx-2 px-4 py-2 bg-gray-300 rounded">
+          Próxima
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +58,8 @@ export default {
       searchTerm: '',
       category: '',
       error: '',
+      currentPage: 1,
+      itemsPerPage: 10,
     };
   },
   mounted() {
@@ -47,7 +68,6 @@ export default {
     this.searchTerm = urlParams.split('p=')[1] || '';
     this.fetchProducts();
     this.fetchBestSellers();
-
     this.checkScreenSize();
     window.addEventListener('resize', this.checkScreenSize);
   },
@@ -71,6 +91,14 @@ export default {
         );
       }
       return filteredProducts;
+    },
+    paginatedProducts() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.displayedProducts.slice(start, end);
+    },
+    totalPages() {
+      return Math.ceil(this.displayedProducts.length / this.itemsPerPage);
     },
   },
   methods: {
@@ -115,6 +143,16 @@ export default {
         this.isShowSideBar = true;
       } else {
         this.isShowSideBar = false;
+      }
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
       }
     }
   },

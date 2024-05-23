@@ -23,16 +23,17 @@
     </form>
   </template>
   
-  <script>
+  <script lang="ts">
   export default {
     data() {
       return {
         colors: ['black', 'white', 'blue'],
         selectedQuantity: 1,
+        selectedColor: ''
       };
     },
     methods: {
-      radioClass(color) {
+      radioClass(_color: string) {
         return `border cursor-pointer rounded-md p-2 flex items-center gap-2 [&:has(:checked)]:bg-gray-100 dark:[&:has(:checked)]:bg-gray-800`;
       },
       addToCart() {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="loading" class="text-center py-6">Loading...</div>
-    <div v-else-if="error" class="text-center py-6 text-red-500">{{ error.message }}</div>
+    <div v-else-if="error" class="text-center py-6 text-red-500">{{ error }}</div>
     <div v-else-if="product" class="grid md:grid-cols-2 gap-6 lg:gap-12 items-start max-w-6xl px-4 mx-auto py-6">
       <ProductImages v-if="product.images" :images="product.images" />
       <div class="grid gap-4 md:gap-10 items-start">
@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import ProductImages from '../components/ProductImages.vue';
 import ProductDetails from '../components/ProductDetails.vue';
 import ProductForm from '../components/ProductForm.vue';
@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      product: null,
+      product: null as any,
       loading: true,
       error: null,
     };
@@ -47,6 +47,7 @@ export default {
           return response.json();
         })
         .then(data => {
+          console.log(data)
           this.product = data;
           this.loading = false;
         })

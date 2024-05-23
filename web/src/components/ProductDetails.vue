@@ -13,7 +13,7 @@
     </div>
   </template>
   
-  <script>
+  <script lang="ts">
   import StarIcon from './StarIcon.vue';
   
   export default {
@@ -22,7 +22,7 @@
     },
     props: ['product'],
     methods: {
-      getStarClass(n) {
+      getStarClass(n: number) {
         return n <= this.product.rating ? 'fill-primary' : 'fill-muted stroke-muted-foreground';
       },
     },

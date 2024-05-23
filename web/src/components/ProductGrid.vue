@@ -17,7 +17,7 @@
       products: {
         type: Array as PropType<Array<{
           name: string;
-          image: string;
+          images: string[];
           price: number;
           rating: number;
           slug: string;
