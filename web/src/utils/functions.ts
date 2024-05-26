@@ -42,8 +42,3 @@ export function limitarDescricao(descricao: string, limite: number): string {
 	// Caso contrário, retornar a descrição original
 	return descricao;
 }
-
-export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-export const passwordRegex =
-	/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
-export const zipRegex = /^\d{5}-?\d{3}$/;

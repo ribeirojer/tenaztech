@@ -8,12 +8,12 @@
         Ver produtos
       </RouterLink>
     </div>
-    <div v-else class="flex flex-col md:flex-row justify-between gap-4">
+    <div v-else class="flex flex-col md:flex-row justify-between gap-4 px-4 md:px-0">
       <CartItemList :cartItems="cartItems" @removeItem="removeItemFromCart"/>
       <div class="flex flex-col gap-4">              
         <CouponForm @applyCoupon="applyCoupon" :couponApplied="couponApplied" :loading="loading" :message="couponMessage" :success="couponSuccess" />
         <CartSummary :cartTotal="cartTotal" :shippingCost="shippingCost" :discountDetails="discountDetails" />
-        <button @click="checkout" class="px-4 py-2 rounded my-8 text-white font-bold bg-gradient-to-r from-sky-500 from-10% to-green-500 to-90%">Finalizar Compra</button>
+        <button @click="checkout" class="px-4 py-2 rounded my-4 text-white font-bold bg-gradient-to-r from-sky-500 from-10% to-green-500 to-90%">Finalizar Compra</button>
       </div>
     </div>
   </div>

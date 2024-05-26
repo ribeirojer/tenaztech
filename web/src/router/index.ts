@@ -11,7 +11,6 @@ import AccountView from '../pages/Account.vue'
 import LoginView from '../pages/Login.vue'
 import RegisterView from '../pages/Register.vue'
 import NotFoundView from '../pages/NotFound.vue'
-import TermsOfServiceView from '../pages/TermsOfService.vue'
 import PrivacyPolicyView from '../pages/PrivacyPolicy.vue'
 import WishlistView from '../pages/Wishlist.vue'
 import ComparisonView from '../pages/Comparison.vue'
@@ -21,7 +20,11 @@ import BlogView from '../pages/Blog.vue'
 import ContactView from '../pages/Contact.vue'
 import FAQView from '../pages/FAQ.vue'
 import AdminView from '../pages/Admin.vue'
-import PedidoseDevolucoesView from '../pages/PedidoseDevolucoes.vue'
+import OffersView from '../pages/Offers.vue'
+import BlogPostView from '../pages/BlogPost.vue'
+import ReturnPolicyView from '../pages/ReturnPolicy.vue'
+import CustomerSupportView from '../pages/CustomerSupport.vue'
+import TermsAndConditionsView from '../pages/TermsAndConditions.vue'
 
 const routes = [
   { path: '/', component: HomeView },
@@ -31,20 +34,24 @@ const routes = [
   { path: '/carrinho', component: CartView },
   { path: '/checkout', component: CheckoutView },
   { path: '/confirmacao-pedido', component: OrderConfirmationView },
-  { path: '/minha-conta', component: AccountView, meta: { requiresAuth: true } },
+  { path: '/minha-conta', component: AccountView },
   { path: '/login', component: LoginView },
   { path: '/registro', component: RegisterView },
-  { path: '/termos-de-servico', component: TermsOfServiceView },
   { path: '/politica-de-privacidade', component: PrivacyPolicyView },
-  { path: '/lista-de-desejos', component: WishlistView, meta: { requiresAuth: true } },
+  { path: '/lista-de-desejos', component: WishlistView },
   { path: '/comparacao', component: ComparisonView },
   { path: '/ajuda', component: HelpView },
-  { path: '/pedidos-e-devolucoes', component: PedidoseDevolucoesView },
-  { path: '/rastrear-meu-pedido', component: OrderTrackingView, meta: { requiresAuth: true } },
+  { path: '/pedidos-e-devolucoes', component: ReturnPolicyView },
+  { path: '/rastrear-meu-pedido', component: OrderTrackingView },
   { path: '/blog', component: BlogView },
   { path: '/contato', component: ContactView },
   { path: '/faq', component: FAQView },
   { path: '/administrador', component: AdminView },
+  { path: '/ofertas', component: OffersView },
+  { path: '/blog/:slug', component: BlogPostView },
+  { path: '/politica-de-devolucoes', component: ReturnPolicyView },
+  { path: '/suporte-ao-cliente', component: CustomerSupportView },
+  { path: '/termos-e-condicoes', component: TermsAndConditionsView },
   { path: '/:catchAll(.*)', component: NotFoundView } // Página não encontrada
 ]
 
