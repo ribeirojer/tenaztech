@@ -2,7 +2,7 @@
   <div>
     <HeaderTop />
     <div class="header bg-slate-950 flex justify-between items-center py-4 px-6">
-      <RouterLink to="/">
+      <RouterLink to="/administrador">
         <Logo />
       </RouterLink>
       <form class="hidden md:flex items-center space-x-4" @submit.prevent="submitForm">
