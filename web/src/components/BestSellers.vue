@@ -29,8 +29,8 @@
   </template>
   
   <script lang="ts">
-  import ShoppingCartIcon from './ShoppingCartIcon.vue';
-  import StarIcon from './StarIcon.vue';
+  import ShoppingCartIcon from './icons/ShoppingCartIcon.vue';
+  import StarIcon from './icons/StarIcon.vue';
   
   export default {
     components: {

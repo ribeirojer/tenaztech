@@ -6,7 +6,7 @@
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      :stroke-width="2"
+      stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
       v-bind="$attrs"
@@ -16,7 +16,7 @@
     </svg>
   </template>
   
-  <script lang="rs">
+  <script lang="ts">
   export default {
     name: "BatteryIcon",
   };

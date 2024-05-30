@@ -10,7 +10,7 @@
       <ProductImages v-if="product.images" :images="product.images" />
       <div class="grid gap-4 md:gap-10 items-start">
         <ProductDetails :product="product" />
-        <ProductForm v-if="product.form" />
+        <ProductForm v-if="product" />
       </div>
     </div>
     <div v-else class="text-center py-6">Product not found.</div>

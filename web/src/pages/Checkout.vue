@@ -31,7 +31,7 @@ import CheckoutProgress from '../components/checkout/CheckoutProgress.vue';
 import StepPersonalInfo from '../components/checkout/StepPersonalInfo.vue';
 import StepBillingShipping from '../components/checkout/StepBillingShipping.vue';
 import StepDelivery from '../components/checkout/StepDelivery.vue';
-import OrderDetails from '../components/OrderDetails.vue';
+import OrderDetails from '../components/checkout/OrderDetails.vue';
 import axios from 'axios';
 
 export default {

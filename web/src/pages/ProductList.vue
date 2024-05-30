@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col md:flex-row">
-    <BarraLateral
+    <ProductSidebar
       v-if="isShowSideBar || isLargeScreen"
       :categories="categories"
       :selectCategory="selectCategory"
@@ -24,7 +24,7 @@
         Nenhum produto encontrado para "{{ searchTerm }}".
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <ProductCard v-for="product in displayedProducts as any" :key="product.id" :product="product"/>
+        <ProductCard v-for="product in displayedProducts" :key="product.id" :product="product"/>
       </div>
     </div>
       <div class="flex justify-center mt-4">
@@ -41,14 +41,14 @@
 </template>
 
 <script lang="ts">
-import BarraLateral from '../components/BarraLateral.vue';
+import ProductSidebar from '../components/ProductSidebar.vue';
 import ProductCard from '../components/ProductCard.vue';
 import axios from 'axios';
 import BestSellers from '../components/BestSellers.vue';
 
 export default {
   components: {
-    BarraLateral,
+    ProductSidebar,
     ProductCard,
     BestSellers,
   },

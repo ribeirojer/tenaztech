@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { formatCurrency } from '../utils/functions';
+import { formatCurrency } from '../../utils/functions';
 
 export default {
   data() {

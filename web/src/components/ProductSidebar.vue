@@ -1,19 +1,34 @@
 <template>
-    <div class="aside bg-gray-900 p-4 mb-4">
-      <h2 class="text-white text-2xl mb-4">Categorias</h2>
-      <div class="checkbox-filter">
-        <div class="input-checkbox" v-for="category in categories" :key="category.id">
-          <input type="checkbox" :id="category.id" class="checkbox-purple" v-model="selectedCategories" :value="category.name">
-          <label :for="category.id" class="text-white">{{ category.name }}</label>
-        </div>
-      </div>
-    </div>
-    <div class="aside bg-gray-900 p-4 mb-4">
-      <h2 class="text-white text-2xl mb-4">Preço</h2>
-      <div class="price-slider">
-        <input type="range" step="50" min="0" max="5000" class="input-range" v-model="selectedPrice">
-        <h2 class="text-purple-500 text-2xl">R${{ selectedPrice }}</h2>
-      </div>
+  <div class="w-full md:w-1/4 bg-gray-100 dark:bg-gray-800 p-4 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-700">
+    <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Categorias</h2>
+    <ul>
+      <li
+        v-for="category in categories as string[]"
+        :key="category"
+        @click="selectCategory(category)"
+        class="cursor-pointer text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 mb-2 transition-colors duration-200"
+      >
+        {{ category }}
+      </li>
+    </ul>
+    <h2 class="text-xl font-semibold my-4 text-gray-900 dark:text-gray-100">Filtrar por Preço</h2>
+    <div class="space-y-2">
+      <label class="flex items-center">
+        <input type="radio" name="priceFilter" value="0-50" @change="applyPriceFilter" class="mr-2">
+        <span class="text-gray-700 dark:text-gray-300">$0 - $50</span>
+      </label>
+      <label class="flex items-center">
+        <input type="radio" name="priceFilter" value="50-100" @change="applyPriceFilter" class="mr-2">
+        <span class="text-gray-700 dark:text-gray-300">$50 - $100</span>
+      </label>
+      <label class="flex items-center">
+        <input type="radio" name="priceFilter" value="100-200" @change="applyPriceFilter" class="mr-2">
+        <span class="text-gray-700 dark:text-gray-300">$100 - $200</span>
+      </label>
+      <label class="flex items-center">
+        <input type="radio" name="priceFilter" value="200+" @change="applyPriceFilter" class="mr-2">
+        <span class="text-gray-700 dark:text-gray-300">$200+</span>
+      </label>
     </div>
     <div class="aside bg-gray-900 p-4 mb-4">
       <h2 class="text-white text-2xl mb-4">Marca</h2>
@@ -35,79 +50,32 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
+export default {
   name: 'ProductSidebar',
   props: {
     categories: {
-      type: Array as any,
-      required: true
+      type: Array,
+      required: true,
     },
-    selectedCategories: {
-      type: Array as any,
-      required: true
+    selectCategory: {
+      type: Function,
+      required: true,
     },
-    selectedPrice: {
-      type: Number,
-      required: true
-    },
-    brands: {
-      type: Array as any,
-      required: true
-    },
-    selectedBrands: {
-      type: Array as any,
-      required: true
-    },
-    bestSellers: {
-      type: Array as any,
-      required: true
-    }
+    applyPriceFilter: {
+      type: Function,
+      required: true,
+    } as any,
   },
-  methods: {
-    formatCurrency(value: number) {
-      return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    },
-  },
-});
+};
 </script>
 
 <style scoped>
-.aside {
-  background-color: #1a202c;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.checkbox-filter .input-checkbox {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.checkbox-filter .input-checkbox input {
-  margin-right: 10px;
-}
-
-.product-list .product-widget {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.product-widget .product-img img {
-  width: 100%;
-  border-radius: 8px;
-}
-
-.product-widget .product-body {
-  margin-left: 10px;
-}
-
-.input-range {
-  width: 100%;
+/* Estilos da barra lateral */
+li:hover {
+  color: #4a90e2;
 }
 </style>
