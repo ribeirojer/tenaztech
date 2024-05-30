@@ -73,8 +73,11 @@
   <script lang="ts">
   export default {
     props: {
-      rating: Number,
-      reviews: Array,
+      rating: {
+        type: Number,
+        require: true,
+      } as any,
+      reviews: Array as any,
     },
     data() {
       return {

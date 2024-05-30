@@ -57,7 +57,7 @@
 	},
 	mounted() {
 	  // Definindo a data de término da oferta
-	  const endTime = new Date('2024-05-30T00:00:00').getTime();
+	  const endTime = new Date('2024-06-05T00:00:00').getTime();
   
 	  // Atualizando a contagem regressiva a cada segundo
 	  setInterval(() => {

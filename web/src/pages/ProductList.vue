@@ -14,12 +14,19 @@
           <span v-else>Mostrar filtros</span>
         </button>
       </div>
-      <Produtos
-        :loading="loading"
-        :error="error"
-        :displayedProducts="paginatedProducts"
-        :searchTerm="searchTerm"
-      />
+    <div v-if="searchTerm" class="text-gray-700 mb-4">
+      Resultados para: <span class="font-semibold">{{ searchTerm }}</span>
+    </div>
+    <div v-if="loading" class="text-gray-600">Carregando...</div>
+    <div v-else-if="error" class="text-red-600">{{ error }}</div>
+    <div v-else>
+      <div v-if="displayedProducts.length === 0" class="text-gray-700">
+        Nenhum produto encontrado para "{{ searchTerm }}".
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <ProductCard v-for="product in displayedProducts as any" :key="product.id" :product="product"/>
+      </div>
+    </div>
       <div class="flex justify-center mt-4">
         <button @click="prevPage" :disabled="currentPage === 1" class="mx-2 px-4 py-2 bg-gray-300 rounded">
           Anterior
@@ -35,14 +42,14 @@
 
 <script lang="ts">
 import BarraLateral from '../components/BarraLateral.vue';
-import Produtos from '../components/Produtos.vue';
+import ProductCard from '../components/ProductCard.vue';
 import axios from 'axios';
 import BestSellers from '../components/BestSellers.vue';
 
 export default {
   components: {
     BarraLateral,
-    Produtos,
+    ProductCard,
     BestSellers,
   },
   data() {

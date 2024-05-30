@@ -22,9 +22,9 @@
 <script lang="ts">
 import axios from 'axios';
 import { defineComponent } from 'vue';
-import CartItemList from '../components/CartItemList.vue';
-import CouponForm from '../components/CouponForm.vue';
-import CartSummary from '../components/CartSummary.vue';
+import CartItemList from '../components/cart/CartItemList.vue';
+import CouponForm from '../components/cart/CouponForm.vue';
+import CartSummary from '../components/cart/CartSummary.vue';
 import { getCart, removeFromCart } from '../utils/localStorage';
 import { CartItem } from '../interfaces/Product';
 

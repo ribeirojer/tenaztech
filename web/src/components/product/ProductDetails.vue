@@ -20,8 +20,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import StarIcon from './StarIcon.vue';
-import { addToCart } from "../utils/localStorage"
+import StarIcon from '../icons/StarIcon.vue';
+import { addToCart } from "../../utils/localStorage"
 export default defineComponent({
   components: {
     StarIcon,

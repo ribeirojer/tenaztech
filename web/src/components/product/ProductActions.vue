@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { addToCart, addToWishlist, getCart, getWishlist } from "../utils/localStorage";
+import { addToCart, addToWishlist, getCart, getWishlist } from "../../utils/localStorage";
 
 export default {
   data() {

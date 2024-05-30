@@ -39,10 +39,10 @@
 <script lang="ts">
 
 import { RouterLink } from 'vue-router'
-import PhoneIcon from './svgs/PhoneIcon.vue'
-import EmailIcon from './svgs/EmailIcon.vue'
-import MapPinIcon from './svgs/MapPinIcon.vue'
-import UserIcon from './svgs/UserIcon.vue'
+import PhoneIcon from './icons/PhoneIcon.vue'
+import EmailIcon from './icons/EmailIcon.vue'
+import MapPinIcon from './icons/MapPinIcon.vue'
+import UserIcon from './icons/UserIcon.vue'
 
   export default {
     name: 'HeaderTop',

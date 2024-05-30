@@ -4,16 +4,14 @@
     <SecondSection />
     <HotDeal />
     <Newsletter />
-    <!--<Blog />-->
   </template>
   
   <script lang="ts">
-  import Navigation from "../components/Navigation.vue";
-  import Newsletter from "../components/Newsletter.vue";
-  import ShopsSection from "../components/ShopsSection.vue";
-  import SecondSection from "../components/SecondSection.vue";
-  import HotDeal from "../components/HotDeal.vue";
-  import Blog from "../components/Blog.vue";
+  import Navigation from "../components/home/Navigation.vue";
+  import Newsletter from "../components/home/Newsletter.vue";
+  import ShopsSection from "../components/home/ShopsSection.vue";
+  import SecondSection from "../components/home/SecondSection.vue";
+  import HotDeal from "../components/home/HotDeal.vue";
 
   export default {
     name: 'HomeView',
@@ -23,7 +21,6 @@
     ShopsSection,
     SecondSection,
     HotDeal,
-    Blog
   },
   };
   </script>

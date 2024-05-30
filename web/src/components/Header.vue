@@ -33,10 +33,10 @@
 import { RouterLink } from 'vue-router';
 import Logo from './Logo.vue';
 import HeaderTop from './HeaderTop.vue';
-import MagnifyGlassIcon from './svgs/MagnifyGlassIcon.vue';
-import HearthIcon from './svgs/HearthIcon.vue';
-import CartIcon from './svgs/CartIcon.vue';
-import ArrowIcon from './svgs/ArrowIcon.vue';
+import MagnifyGlassIcon from './icons/MagnifyGlassIcon.vue';
+import HearthIcon from './icons/HearthIcon.vue';
+import CartIcon from './icons/CartIcon.vue';
+import ArrowIcon from './icons/ArrowIcon.vue';
 import { getCart, getWishlist } from '../utils/localStorage.ts';
 
 export default {

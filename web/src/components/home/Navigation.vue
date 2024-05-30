@@ -18,9 +18,11 @@
 	  <li class="">
 		<RouterLink to="/produtos?c=Acessórios" class="text-white hover:text-purple-300 transition duration-300 ease-in-out">Acessórios</RouterLink>
 	  </li>
+	  <!--
 	  <li class="">
-		<RouterLink to="/compare" class="text-white hover:text-purple-300 transition duration-300 ease-in-out">Ver Comparação</RouterLink>
+		<RouterLink to="/comparacao" class="text-white hover:text-purple-300 transition duration-300 ease-in-out">Ver Comparação</RouterLink>
 	  </li>
+	  -->
 	</section>
   </template>
   <script lang="ts">

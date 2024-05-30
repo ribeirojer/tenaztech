@@ -38,11 +38,11 @@
 </template>
 
 <script lang="ts">
-import ProductImages from '../components/ProductImages.vue';
-import ProductDetails from '../components/ProductDetails.vue';
-import ProductForm from '../components/ProductForm.vue';
-import ProductSpecifications from '../components/ProductSpecifications.vue';
-import ProductReviews from '../components/ProductReviews.vue';
+import ProductImages from '../components/product/ProductImages.vue';
+import ProductDetails from '../components/product/ProductDetails.vue';
+import ProductForm from '../components/product/ProductForm.vue';
+import ProductSpecifications from '../components/product/ProductSpecifications.vue';
+import ProductReviews from '../components/product/ProductReviews.vue';
 import Tabs from '../components/product/Tabs.vue';
 import LoadingSpinner from '../components/core/LoadingSpinner.vue';
 
@@ -88,7 +88,7 @@ export default {
           this.loading = false;
         });
     },
-    selectTab(value){
+    selectTab(value: string){
       this.selectedTab = value;
     }
   },

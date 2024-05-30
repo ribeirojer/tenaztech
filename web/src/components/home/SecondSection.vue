@@ -1,17 +1,16 @@
 <template>
 	<div>
 		<h3 class="text-center text-2xl font-semibold text-gray-800">Novos produtos</h3>
-	  <ProductsTabSlick
-		tabId="tab1"
-		navId="slick-nav-1"
-		:products="products.slice(0,4)"
-		:active="true"
-	  />
+  <div class="container mx-auto">
+	<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 px-4 md:px-0">
+	  <ProductCard v-for="(product, index) in products as any" :key="index" :product="product" />
+	</div>
+  </div>
 	</div>
   </template>
   
   <script lang="ts">
-  import ProductsTabSlick from "./ProductsTabSlick.vue";
+  import ProductCard from "../ProductCard.vue";
   import axios from 'axios';
   
   export default {
@@ -21,7 +20,7 @@
 	  };
 	},
 	components: {
-	  ProductsTabSlick
+	  ProductCard
 	},
 	mounted() {
 	  // Faz a requisição HTTP para obter os produtos

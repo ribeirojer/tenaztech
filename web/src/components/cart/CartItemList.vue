@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { CartItem } from '../interfaces/Product';
+import { CartItem } from '../../interfaces/Product';
 
 export default defineComponent({
   name: 'CartItemList',

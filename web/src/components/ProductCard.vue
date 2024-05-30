@@ -42,7 +42,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import StarIcon from './StarIcon.vue';
+import StarIcon from './icons/StarIcon.vue';
 
 export default defineComponent({
   name: 'ProductCard',
