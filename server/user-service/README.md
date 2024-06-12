@@ -95,11 +95,6 @@
    - Deve ser possível editar a quantidade de itens no carrinho antes de finalizar a compra.
    - Exemplo de caso de uso: Um usuário remove um item específico do carrinho de compras antes de fazer o checkout.
 
-3. **Cálculo de Subtotal e Total:**
-   - O sistema deve calcular automaticamente o subtotal e o total do carrinho com base nos itens adicionados, seus preços e quantidades.
-   - Quaisquer descontos, promoções ou cupons aplicados devem ser refletidos nos cálculos do subtotal e do total.
-   - Exemplo de caso de uso: Um usuário visualiza o subtotal e o total atualizados após adicionar ou remover itens do carrinho.
-
 4. **Gestão de Promoções e Cupons:**
    - O sistema deve ser capaz de aplicar promoções ou cupons de desconto aos itens do carrinho, se aplicável.
    - Os usuários devem poder inserir códigos de cupom durante o checkout para receber descontos em suas compras.

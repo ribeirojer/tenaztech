@@ -2,10 +2,13 @@
   "name": "user-authentication-service",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "test": "bun test --watch",
+    "coverage": "$ bun test --coverage",
+    "start": "bun run --watch src/index.ts",
+    "build": "bun build"
   },
   "dependencies": {
+    "@elysiajs/cors": "^1.0.2",
     "@supabase/supabase-js": "^2.38.4",
     "bcryptjs": "^2.4.3",
     "elysia": "latest",
@@ -13,7 +16,7 @@
     "nodemailer": "^6.9.7"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
+    "@biomejs/biome": "1.8.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/nodemailer": "^6.4.14",
