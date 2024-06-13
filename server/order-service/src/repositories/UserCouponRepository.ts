@@ -1,4 +1,41 @@
 import { supabase } from "../services/supabaseService";
+
+class UserCouponRepository {
+    static async assign(userId: string, couponId: string) {
+        // Implement logic to assign coupon to user here
+            const { data, error } = await supabase.from('user_coupons').insert(couponId);
+        if (error) throw error;
+        return data;}
+
+    static async remove(id: string) {
+        // Implement removing user coupon logic here
+            const { data, error } = await supabase.from('user_coupons').delete().eq('id', id);
+        if (error) throw error;
+        return data;}
+
+    static async getAll() {
+        const { data, error } = await supabase.from('user_coupons').select('*');
+        if (error) throw error;
+        return data;
+    }
+
+    static async getById(couponId: string) {
+        const { data, error } = await supabase.from('user_coupons').select('*').eq('id', couponId).single();
+        if (error) throw error;
+        return data;
+    }
+
+    static async update(couponId: string, updateData: any) {
+        const { data, error } = await supabase.from('user_coupons').update(updateData).eq('id', couponId);
+        if (error) throw error;
+        return data;
+    }
+}
+
+export { UserCouponRepository }
+
+
+
 import { UserCoupon } from "../models/UserCoupon";
 import { generateCouponCode } from "../utils/coupons";
 

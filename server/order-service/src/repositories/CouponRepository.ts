@@ -1,4 +1,45 @@
-import { supabase } from '../services/supabaseService';
+import { supabase } from "../services/supabaseService";
+
+class CouponRepository {
+    static async create(couponData: any) {
+        const { data, error } = await supabase.from('coupons').insert(couponData);
+        if (error) throw error;
+        return data;
+    }
+
+    static async getAll() {
+        const { data, error } = await supabase.from('coupons').select('*');
+        if (error) throw error;
+        return data;
+    }
+
+    static async getById(couponId: string) {
+        const { data, error } = await supabase.from('coupons').select('*').eq('id', couponId).single();
+        if (error) throw error;
+        return data;
+    }
+
+    static async update(couponId: string, updateData: any) {
+        const { data, error } = await supabase.from('coupons').update(updateData).eq('id', couponId);
+        if (error) throw error;
+        return data;
+    }
+
+    static async delete(couponId: string) {
+        const { data, error } = await supabase.from('coupons').delete().eq('id', couponId);
+        if (error) throw error;
+        return data;
+    }
+
+    static async validate(couponCode: string) {
+        const { data, error } = await supabase.from('coupons').select('*').eq('code', couponCode).single();
+        if (error) throw error;
+        return data;
+    }
+}
+
+export { CouponRepository };
+
 import { DiscountCoupon } from '../models/DiscountCoupon';
 import { getExpirationDate } from '../utils/coupons';
 
