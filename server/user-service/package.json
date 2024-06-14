@@ -2,10 +2,11 @@
   "name": "user-authentication-service",
   "version": "1.0.50",
   "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "build": "bun build ./src/index.ts --target=bun --outfile=index.js",
+    "start": "NODE_ENV=production bun src/index.ts",
     "test": "bun test --watch",
-    "coverage": "$ bun test --coverage",
-    "start": "bun run --watch src/index.ts",
-    "build": "bun build"
+    "coverage": "bun test --coverage"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.0.2",
@@ -13,7 +14,8 @@
     "bcryptjs": "^2.4.3",
     "elysia": "latest",
     "jsonwebtoken": "^9.0.2",
-    "nodemailer": "^6.9.7"
+    "nodemailer": "^6.9.7",
+    "winston": "^3.13.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.1",
