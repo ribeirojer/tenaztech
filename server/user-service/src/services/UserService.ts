@@ -26,7 +26,7 @@ export class UserService {
 		}
 	}
 
-	static async getUserById(userId: number): Promise<IUser | null> {
+	static async getUserById(userId: string): Promise<IUser | null> {
 		try {
 			const { data, error } = await supabase
 				.from("users")

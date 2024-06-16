@@ -38,10 +38,10 @@ router.group("/api", (router) =>
 				}),
 			})
 			.put("/reset-password", AuthController.resetPassword)
-			
+
 			//Autenticação de Dois Fatores (2FA)
 			.post("/enable-2fa", AuthController.enable2FA)
-			.post("/disable-2fa", AuthController.disable2FA)
+			.post("/disable-2fa", AuthController.disable2FA),
 	),
 );
 

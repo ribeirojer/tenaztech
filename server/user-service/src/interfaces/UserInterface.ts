@@ -6,7 +6,7 @@ export interface IUser {
 	emailverified?: boolean;
 	_id?: any;
 	confirmationtoken?: string | null;
-	passwordresetexpiresat?: Date | null;
+	passwordresetexpiresat?: string;
 	passwordResetExpiresAt?: Date | null;
 	passwordResetToken?: string | null;
 	id?: number;

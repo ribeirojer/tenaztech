@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "bun --watch src/index.ts",
     "build": "bun build ./src/index.ts --target=bun --outfile=index.js",
-    "start": "NODE_ENV=production bun src/index.js",
+    "start": "NODE_ENV=production bun index.js",
     "test": "bun test --watch",
     "coverage": "bun test --coverage"
   },

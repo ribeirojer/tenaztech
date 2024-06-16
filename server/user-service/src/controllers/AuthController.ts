@@ -1,5 +1,6 @@
 import bcryptjs, { compareSync } from "bcryptjs";
 import jwt from "jsonwebtoken";
+import type { Context } from "../interfaces/ElysiaContext";
 import AuthService from "../services/AuthService";
 import { UserService } from "../services/UserService";
 import {
@@ -11,16 +12,16 @@ import { generateToken } from "../utils/passwordUtils";
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
 export class AuthController {
-	static enable2FA(arg0: string, enable2FA: any) {
+	static enable2FA({ body, set }: Context) {
 		throw new Error("Method not implemented.");
 	}
-	static disable2FA(arg0: string, enable2FA: any) {
+	static disable2FA({ body, set }: Context) {
 		throw new Error("Method not implemented.");
 	}
-	static logout(arg0: string, logout: any) {
+	static logout({ body, set }: Context) {
 		throw new Error("Method not implemented.");
 	}
-	public static async login({ body, set }: any) {
+	public static async login({ body, set }: Context) {
 		try {
 			const { email, password } = body;
 
@@ -69,7 +70,7 @@ export class AuthController {
 		}
 	}
 
-	public static async register({ body, set }: any) {
+	public static async register({ body, set }: Context) {
 		try {
 			const { name, email, password } = body;
 
@@ -152,7 +153,7 @@ export class AuthController {
 		}
 	}
 
-	public static async forgotPassword({ body, set }: any) {
+	public static async forgotPassword({ body, set }: Context) {
 		try {
 			const { email } = body;
 
@@ -181,7 +182,7 @@ export class AuthController {
 		}
 	}
 
-	public static async changePassword({ body, set }: any) {
+	public static async changePassword({ body, set }: Context) {
 		try {
 			const { password, confirmPassword, token } = body;
 
@@ -222,7 +223,7 @@ export class AuthController {
 
 			const dateNow = new Date(Date.now());
 			const passwordresetexpiresat = new Date(
-				user.passwordresetexpiresat as any,
+				user.passwordresetexpiresat || "",
 			);
 
 			if (passwordresetexpiresat && passwordresetexpiresat <= dateNow) {
@@ -236,7 +237,6 @@ export class AuthController {
 			// Update the user's password in the database
 			user.password = hashedPassword;
 			user.passwordresettoken = null; // Clear the password reset token after the change
-			user.passwordresetexpiresat = null;
 
 			await UserService.updateUser(user.id as number, user);
 
@@ -251,7 +251,7 @@ export class AuthController {
 		}
 	}
 
-	public static async resetPassword({ body, set }: any) {
+	public static async resetPassword({ body, set }: Context) {
 		try {
 			const { resetToken, password } = body;
 
@@ -265,7 +265,7 @@ export class AuthController {
 		}
 	}
 
-	public static async confirmEmail({ body, set }: any) {
+	public static async confirmEmail({ body, set }: Context) {
 		try {
 			const { userId, token } = body;
 

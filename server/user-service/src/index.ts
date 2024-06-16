@@ -4,8 +4,7 @@ import AuthRoutes from "./routes/AuthRoutes";
 
 const app = new Elysia().get("/", () => "User Service");
 
-app.use(cors())
-.use(AuthRoutes);
+app.use(cors()).use(AuthRoutes);
 
 const port = process.env.PORT as string;
 
