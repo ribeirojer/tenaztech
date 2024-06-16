@@ -1,89 +1,89 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from "express";
 import { CouponRepository } from "../repositories/CouponRepository";
 import logger from "../utils/logger";
 
 class CouponController {
-    static async createCoupon(req: Request, res: Response) {
-        try {
-            const coupon = await CouponRepository.create(req.body);
-            logger.info('Coupon created successfully');
-            res.status(201).json(coupon);
-        } catch (error: any) {
-            logger.error(`Failed to create coupon: ${error.message}`);
-            res.status(500).json({ error: error.message });
-        }
-    }
+	static async createCoupon(req: Request, res: Response) {
+		try {
+			const coupon = await CouponRepository.create(req.body);
+			logger.info("Coupon created successfully");
+			res.status(201).json(coupon);
+		} catch (error: any) {
+			logger.error(`Failed to create coupon: ${error.message}`);
+			res.status(500).json({ error: error.message });
+		}
+	}
 
-    static async getCoupons(req: Request, res: Response) {
-        try {
-            const coupons = await CouponRepository.getAll();
-            logger.info('Fetched all coupons');
-            res.status(200).json(coupons);
-        } catch (error: any) {
-            logger.error(`Failed to fetch coupons: ${error.message}`);
-            res.status(500).json({ error: error.message });
-        }
-    }
+	static async getCoupons(req: Request, res: Response) {
+		try {
+			const coupons = await CouponRepository.getAll();
+			logger.info("Fetched all coupons");
+			res.status(200).json(coupons);
+		} catch (error: any) {
+			logger.error(`Failed to fetch coupons: ${error.message}`);
+			res.status(500).json({ error: error.message });
+		}
+	}
 
-    static async getCoupon(req: Request, res: Response) {
-        try {
-            const { id } = req.params;
-            const coupon = await CouponRepository.getById(id);
-            if (!coupon) {
-                logger.warn(`Coupon not found: ${id}`);
-                return res.status(404).json({ error: 'Coupon not found' });
-            }
-            logger.info('Fetched coupon', { couponId: id });
-            res.status(200).json(coupon);
-        } catch (error: any) {
-            logger.error(`Failed to fetch coupon: ${error.message}`);
-            res.status(500).json({ error: error.message });
-        }
-    }
+	static async getCoupon(req: Request, res: Response) {
+		try {
+			const { id } = req.params;
+			const coupon = await CouponRepository.getById(id);
+			if (!coupon) {
+				logger.warn(`Coupon not found: ${id}`);
+				return res.status(404).json({ error: "Coupon not found" });
+			}
+			logger.info("Fetched coupon", { couponId: id });
+			res.status(200).json(coupon);
+		} catch (error: any) {
+			logger.error(`Failed to fetch coupon: ${error.message}`);
+			res.status(500).json({ error: error.message });
+		}
+	}
 
-    static async updateCoupon(req: Request, res: Response) {
-        try {
-            const { id } = req.params;
-            const updatedCoupon = await CouponRepository.update(id, req.body);
-            if (!updatedCoupon) {
-                logger.warn(`Coupon not found for update: ${id}`);
-                return res.status(404).json({ error: 'Coupon not found' });
-            }
-            logger.info('Updated coupon', { couponId: id });
-            res.status(200).json(updatedCoupon);
-        } catch (error: any) {
-            logger.error(`Failed to update coupon: ${error.message}`);
-            res.status(500).json({ error: error.message });
-        }
-    }
+	static async updateCoupon(req: Request, res: Response) {
+		try {
+			const { id } = req.params;
+			const updatedCoupon = await CouponRepository.update(id, req.body);
+			if (!updatedCoupon) {
+				logger.warn(`Coupon not found for update: ${id}`);
+				return res.status(404).json({ error: "Coupon not found" });
+			}
+			logger.info("Updated coupon", { couponId: id });
+			res.status(200).json(updatedCoupon);
+		} catch (error: any) {
+			logger.error(`Failed to update coupon: ${error.message}`);
+			res.status(500).json({ error: error.message });
+		}
+	}
 
-    static async deleteCoupon(req: Request, res: Response) {
-        try {
-            const { id } = req.params;
-            const deletedCoupon = await CouponRepository.delete(id);
-            if (!deletedCoupon) {
-                logger.warn(`Coupon not found for deletion: ${id}`);
-                return res.status(404).json({ error: 'Coupon not found' });
-            }
-            logger.info('Deleted coupon', { couponId: id });
-            res.status(200).json(deletedCoupon);
-        } catch (error: any) {
-            logger.error(`Failed to delete coupon: ${error.message}`);
-            res.status(500).json({ error: error.message });
-        }
-    }
+	static async deleteCoupon(req: Request, res: Response) {
+		try {
+			const { id } = req.params;
+			const deletedCoupon = await CouponRepository.delete(id);
+			if (!deletedCoupon) {
+				logger.warn(`Coupon not found for deletion: ${id}`);
+				return res.status(404).json({ error: "Coupon not found" });
+			}
+			logger.info("Deleted coupon", { couponId: id });
+			res.status(200).json(deletedCoupon);
+		} catch (error: any) {
+			logger.error(`Failed to delete coupon: ${error.message}`);
+			res.status(500).json({ error: error.message });
+		}
+	}
 
-    static async validateCoupon(req: Request, res: Response) {
-        try {
-            const { code } = req.body;
-            const isValid = await CouponRepository.validate(code);
-            logger.info('Coupon validated', { code });
-            res.status(200).json({ isValid });
-        } catch (error: any) {
-            logger.error(`Failed to validate coupon: ${error.message}`);
-            res.status(500).json({ error: error.message });
-        }
-    }
+	static async validateCoupon(req: Request, res: Response) {
+		try {
+			const { code } = req.body;
+			const isValid = await CouponRepository.validate(code);
+			logger.info("Coupon validated", { code });
+			res.status(200).json({ isValid });
+		} catch (error: any) {
+			logger.error(`Failed to validate coupon: ${error.message}`);
+			res.status(500).json({ error: error.message });
+		}
+	}
 }
 
 export default CouponController;

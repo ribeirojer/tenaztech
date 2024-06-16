@@ -1,67 +1,70 @@
-import express from 'express';
-import CouponController from '../controllers/CouponController';
-import NotificationController from '../controllers/NotificationController';
-import OrderController from '../controllers/OrderController';
-import PaymentController from '../controllers/PaymentController';
-import ReviewController from '../controllers/ReviewController';
-import ReportController from '../controllers/ReportController';
-import UserCouponController from '../controllers/UserCouponController';
+import express from "express";
+import CouponController from "../controllers/CouponController";
+import NotificationController from "../controllers/NotificationController";
+import OrderController from "../controllers/OrderController";
+import PaymentController from "../controllers/PaymentController";
+import ReportController from "../controllers/ReportController";
+import ReviewController from "../controllers/ReviewController";
+import UserCouponController from "../controllers/UserCouponController";
 
 const router = express.Router();
 
 // Rotas de pedidos
-    router
-        .post("/api/orders/", OrderController.createOrder)  // Processar novos pedidos
-        .get("/api/orders/", OrderController.getOrders)  // Obter todos os pedidos
-        .get("/api/orders/:id", OrderController.getOrder)  // Obter um pedido específico
-        .put("/api/orders/:id/status", OrderController.updateOrderStatus)  // Atualizar status de entrega de um pedido
-        .get("/api/orders/:id/track", OrderController.trackOrder)  // Rastrear envio de um pedido
-        .delete("/api/orders/:id/cancel", OrderController.cancelOrder)  // Cancelar um pedido
-        .post("/api/orders/:id/refund", OrderController.processRefund)  // Processar reembolso
-        .get("/api/orders/:id/products", OrderController.getOrderProducts)  // Obter produtos de um pedido
-        .post("/api/orders/:id/apply-coupon", OrderController.applyCoupon)  // Aplicar cupom a um pedido
-        .delete("/api/orders/:id/remove-coupon", OrderController.removeCoupon)  // Remover cupom de um pedido
+router
+	.post("/api/orders/", OrderController.createOrder) // Processar novos pedidos
+	.get("/api/orders/", OrderController.getOrders) // Obter todos os pedidos
+	.get("/api/orders/:id", OrderController.getOrder) // Obter um pedido específico
+	.put("/api/orders/:id/status", OrderController.updateOrderStatus) // Atualizar status de entrega de um pedido
+	.get("/api/orders/:id/track", OrderController.trackOrder) // Rastrear envio de um pedido
+	.delete("/api/orders/:id/cancel", OrderController.cancelOrder) // Cancelar um pedido
+	.post("/api/orders/:id/refund", OrderController.processRefund) // Processar reembolso
+	.get("/api/orders/:id/products", OrderController.getOrderProducts) // Obter produtos de um pedido
+	.post("/api/orders/:id/apply-coupon", OrderController.applyCoupon) // Aplicar cupom a um pedido
+	.delete("/api/orders/:id/remove-coupon", OrderController.removeCoupon); // Remover cupom de um pedido
 
 // Integração com serviços de logística
-router.post("/api/orders/:id/logistics", OrderController.integrateLogistics);  // Integração com serviços de logística
+router.post("/api/orders/:id/logistics", OrderController.integrateLogistics); // Integração com serviços de logística
 
 // Integração com provedores de pagamento
-    router
-        .post("/api/payments/", PaymentController.processPayment)  // Processamento de pagamentos online
-        .post("/api/payments/providers", PaymentController.configurePaymentProvider)  // Configuração de provedores de pagamento
-        .get("/api/payments/providers", PaymentController.getPaymentProviders)  // Obter lista de provedores de pagamento
-        .get("/api/payments/history", PaymentController.getPaymentHistory)  // Histórico de transações
-        .get("/api/payments/:transactionId", PaymentController.getTransactionDetails);  // Detalhes de transação
+router
+	.post("/api/payments/", PaymentController.processPayment) // Processamento de pagamentos online
+	.post("/api/payments/providers", PaymentController.configurePaymentProvider) // Configuração de provedores de pagamento
+	.get("/api/payments/providers", PaymentController.getPaymentProviders) // Obter lista de provedores de pagamento
+	.get("/api/payments/history", PaymentController.getPaymentHistory) // Histórico de transações
+	.get("/api/payments/:transactionId", PaymentController.getTransactionDetails); // Detalhes de transação
 
 // Rotas de cupons
 router
-    .post("/api/coupons/", CouponController.createCoupon)  // Gerar cupons
-    .get("/api/coupons/", CouponController.getCoupons)  // Obter todos os cupons
-    .get("/api/coupons/:id", CouponController.getCoupon)  // Obter um cupom específico
-    .put("/api/coupons/:id", CouponController.updateCoupon)  // Atualizar um cupom
-    .delete("/api/coupons/:id", CouponController.deleteCoupon)  // Deletar um cupom
-    .post("/api/coupons/validate", CouponController.validateCoupon)  // Validar um cupom
+	.post("/api/coupons/", CouponController.createCoupon) // Gerar cupons
+	.get("/api/coupons/", CouponController.getCoupons) // Obter todos os cupons
+	.get("/api/coupons/:id", CouponController.getCoupon) // Obter um cupom específico
+	.put("/api/coupons/:id", CouponController.updateCoupon) // Atualizar um cupom
+	.delete("/api/coupons/:id", CouponController.deleteCoupon) // Deletar um cupom
+	.post("/api/coupons/validate", CouponController.validateCoupon); // Validar um cupom
 
 // Rotas de cupons de usuário
 router
-    .post("/api/user-coupons/", UserCouponController.assignCouponToUser)  // Atribuir um cupom a um usuário
-    .get("/api/user-coupons/", UserCouponController.getUserCoupons)  // Obter todos os cupons de usuários
-    .get("/api/user-coupons/:id", UserCouponController.getUserCoupon)  // Obter um cupom de usuário específico
-    .put("/api/user-coupons/:id", UserCouponController.updateUserCoupon)  // Atualizar um cupom de usuário
-    .delete("/api/user-coupons/:id", UserCouponController.removeUserCoupon)  // Remover um cupom de usuário
+	.post("/api/user-coupons/", UserCouponController.assignCouponToUser) // Atribuir um cupom a um usuário
+	.get("/api/user-coupons/", UserCouponController.getUserCoupons) // Obter todos os cupons de usuários
+	.get("/api/user-coupons/:id", UserCouponController.getUserCoupon) // Obter um cupom de usuário específico
+	.put("/api/user-coupons/:id", UserCouponController.updateUserCoupon) // Atualizar um cupom de usuário
+	.delete("/api/user-coupons/:id", UserCouponController.removeUserCoupon); // Remover um cupom de usuário
 
 // Rotas de notificações
-router.get("/api/notifications/orders", NotificationController.getOrderNotifications);  // Notificações de pedidos
+router.get(
+	"/api/notifications/orders",
+	NotificationController.getOrderNotifications,
+); // Notificações de pedidos
 
 // Rotas de relatórios
-    router
-        .get("/api/reports/orders", ReportController.getOrderReports)  // Relatórios de pedidos
-        .get("/api/reports/payments", ReportController.getPaymentReports);  // Relatórios de pagamentos
+router
+	.get("/api/reports/orders", ReportController.getOrderReports) // Relatórios de pedidos
+	.get("/api/reports/payments", ReportController.getPaymentReports); // Relatórios de pagamentos
 
 // Rotas de avaliações de pedidos
-    router
-        .post("/api/orders/:id/reviews/", ReviewController.createOrderReview)  // Avaliar um pedido
-        .get("/api/orders/:id/reviews/", ReviewController.getOrderReviews);  // Obter avaliações de um pedido
+router
+	.post("/api/orders/:id/reviews/", ReviewController.createOrderReview) // Avaliar um pedido
+	.get("/api/orders/:id/reviews/", ReviewController.getOrderReviews); // Obter avaliações de um pedido
 
 export default router;
 
