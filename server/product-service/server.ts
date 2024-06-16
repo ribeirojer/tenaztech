@@ -1,7 +1,7 @@
-import { Application } from 'https://deno.land/x/oak/mod.ts';
-import { oakCors } from "https://deno.land/x/cors/mod.ts";
 import { load } from "https://deno.land/std@0.224.0/dotenv/mod.ts";
-import router from './router.ts';
+import { oakCors } from "https://deno.land/x/cors/mod.ts";
+import { Application } from "https://deno.land/x/oak/mod.ts";
+import router from "./router.ts";
 
 const env = await load();
 
@@ -12,7 +12,7 @@ app.use(oakCors()); // Enable CORS for All Routes
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-const PORT = env['PORT'] || Deno.env.get("PORT");
+const PORT = env.PORT || Deno.env.get("PORT");
 
 // Iniciar o servidor
 console.log(`Servidor ouvindo na porta ${PORT}`);
