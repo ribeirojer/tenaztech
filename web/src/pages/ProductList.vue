@@ -112,7 +112,7 @@ export default {
     async fetchProducts() {
       this.loading = true;
       try {
-        const response = await axios.get('https://product-catalog-service.deno.dev/api/products');
+        const response = await axios.get(import.meta.env.PRODUCT_SERVICE_API_URL + '/api/products');
         this.products = response.data;
         this.categories = [...new Set(this.products.map((product: { category: any; }) => product.category))];
       } catch (error) {
@@ -124,7 +124,7 @@ export default {
     async fetchBestSellers() {
       this.loading = true;
       try {
-        const response = await axios.get('https://product-catalog-service.deno.dev/api/best-sellers');
+        const response = await axios.get(import.meta.env.PRODUCT_SERVICE_API_URL + '/api/best-sellers');
         this.bestSellers = response.data;
       } catch (error) {
         this.error = 'Erro ao carregar best sellers.';

@@ -24,7 +24,7 @@
 	},
 	mounted() {
 	  // Faz a requisição HTTP para obter os produtos
-	  axios.get('https://product-catalog-service.deno.dev/api/products')
+	  axios.get('https://product-service.deno.dev/api/products')
 		.then(response => {
 		  // Define os produtos retornados na resposta da requisição
 		  this.products = response.data;
