@@ -86,7 +86,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import axios from 'axios';
 import ArrowLeftIcon from '../icons/ArrowLeftIcon.vue';
 import CalendarClockIcon from '../icons/CalendarClockIcon.vue';

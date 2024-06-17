@@ -29,7 +29,7 @@
             <ProductSpecifications :product="product" />
           </div>
           <div v-if="selectedTab === 'reviews'">
-            <ProductReviews :product="product" />
+            <ProductReviews :rating="5" :reviews="[]" />
           </div>
         </div>
       </transition>

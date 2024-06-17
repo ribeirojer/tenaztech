@@ -55,7 +55,7 @@
   </template>
   
   <script lang="ts">
-  import Input from "./core/Input.vue";
+  import Input from "../core/Input.vue";
   
   export default {
     props: {

@@ -56,6 +56,11 @@
 <script lang="ts">
 export default {
   name: 'ProductSidebar',
+  data() {
+    return {
+      selectedBrands: ''
+    }
+  },
   props: {
     categories: {
       type: Array,
@@ -69,6 +74,8 @@ export default {
       type: Function,
       required: true,
     } as any,
+    brands: [] as any,
+    bestSellers: [] as any
   },
 };
 </script>

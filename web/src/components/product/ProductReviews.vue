@@ -88,7 +88,7 @@ export default {
     reviews: {
       type: Array,
       required: true,
-    },
+    } as any,
   },
   data() {
     return {
