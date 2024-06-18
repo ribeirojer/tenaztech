@@ -53,7 +53,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      customers: [],
+      customers: [] as any,
       dropdownVisible: null
     };
   },
@@ -69,7 +69,7 @@ export default {
         console.error('Error fetching customers:', error);
       }
     },
-    toggleDropdown(id) {
+    toggleDropdown(id: any) {
       this.dropdownVisible = this.dropdownVisible === id ? null : id;
     }
   }

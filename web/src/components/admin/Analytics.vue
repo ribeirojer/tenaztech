@@ -104,7 +104,7 @@ export default {
         returningCustomers: '',
         visitors: '',
         pageViews: '',
-        topReferrers: [],
+        topReferrers: [] as any,
       },
     };
   },

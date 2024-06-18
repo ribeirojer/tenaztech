@@ -59,7 +59,6 @@ export default {
   },
   methods: {
     submitForm() {
-      console.log("Form submitted");
       this.$router.push({ path: '/produtos', query: { p: this.searchQuery } });
 
     },
