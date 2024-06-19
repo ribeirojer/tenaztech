@@ -112,8 +112,9 @@ export default {
     async fetchProducts() {
       this.loading = true;
       try {
-        const response = await axios.get(import.meta.env.PRODUCT_SERVICE_API_URL + '/api/products');
+        const response = await axios.get(import.meta.env.VITE_PRODUCT_SERVICE_API_URL + '/api/products');
         this.products = response.data;
+        console.log(import.meta.env.VITE_PRODUCT_SERVICE_API_URL + '/api/products')
         this.categories = [...new Set(this.products.map((product: { category: any; }) => product.category))];
       } catch (error) {
         this.error = 'Erro ao carregar produtos.';
@@ -124,9 +125,10 @@ export default {
     async fetchBestSellers() {
       this.loading = true;
       try {
-        const response = await axios.get(import.meta.env.PRODUCT_SERVICE_API_URL + '/api/best-sellers');
-        this.bestSellers = response.data;
+        //const response = await axios.get(import.meta.env.VITE_PRODUCT_SERVICE_API_URL + '/api/best-sellers');
+        this.bestSellers = []//response.data;
       } catch (error) {
+
         this.error = 'Erro ao carregar best sellers.';
       } finally {
         this.loading = false;
