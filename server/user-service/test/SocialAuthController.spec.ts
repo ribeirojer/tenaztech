@@ -1,3 +1,7 @@
+import { app } from "../src";
+import { describe, expect, it } from "bun:test";
+import { post, put, del, get } from "./utils";
+
 describe("Social Auth Routes", () => {
 	describe("POST /api/auth/social/:provider", () => {
 		it("Should initiate social auth for a provider", async () => {

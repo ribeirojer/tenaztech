@@ -1,3 +1,7 @@
+import { app } from "../src";
+import { describe, expect, it } from "bun:test";
+import { post, put, del, get } from "./utils";
+
 describe("Product Review Routes", () => {
 	describe("POST /api/products/:productId/reviews", () => {
 		it("Should add a review to a product", async () => {

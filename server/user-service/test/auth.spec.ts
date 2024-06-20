@@ -157,7 +157,7 @@ describe("POST /auth/register", () => {
 			},
 		};
 
-		await AuthController.register({ body, set });
+		await AuthController.register({ body, set } as any as any);
 	});
 });
 
@@ -247,7 +247,7 @@ describe("POST /auth/login", () => {
 			},
 		};
 
-		await AuthController.login({ body, set });
+		await AuthController.login({ body, set } as any);
 	});
 });
 
@@ -301,13 +301,14 @@ describe("POST /auth/forgot-password", () => {
 
 describe("POST /auth/change-password", () => {
 	it("Should successfully change the password", async () => {
-		const user = await UserService.getUserByEmail("maria@example.com");
+		const user: any = await UserService.getUserByEmail("maria@example.com");
 		if (user) {
 			user.passwordresettoken = "validToken";
-			user.passwordresetexpiresat = new Date(Date.now() + 3600000);
+			const onehour = new Date(Date.now() + 3600000)
+			user.passwordresetexpiresat = onehour.toISOString()
 		}
 
-		await UserService.updateUser(user?.id as number, user);
+		await UserService.updateUser(user.id, user);
 
 		const newPassword = "NewPassword123";
 
@@ -418,14 +419,15 @@ describe("POST /auth/change-password", () => {
 	});
 
 	it("Should return a 400 error if the Password reset token has expired.", async () => {
-		const user = await UserService.getUserByEmail("joao@example.com");
+		const user: any = await UserService.getUserByEmail("joao@example.com");
 
 		if (user) {
 			user.passwordresettoken = "ValidToken";
-			user.passwordresetexpiresat = new Date(Date.now() - 3600000);
+			const onehourpast = new Date(Date.now() - 3600000)
+			user.passwordresetexpiresat = onehourpast.toISOString()
 		}
 
-		await UserService.updateUser(user?.id as number, user);
+		await UserService.updateUser(user.id , user);
 
 		const newPassword = "NewPassword123";
 
@@ -456,14 +458,14 @@ describe("POST /auth/change-password", () => {
 			},
 		};
 
-		await AuthController.changePassword({ body, set });
+		await AuthController.changePassword({ body, set } as any);
 	});
 });
 
 describe("POST /auth/confirm-email", () => {
 	it("Should successfully confirm the e-mail", async () => {
 		const userData = {
-			userId: 3,
+			userId: "3",
 			token: "valid_token",
 		};
 
@@ -550,6 +552,6 @@ describe("POST /auth/confirm-email", () => {
 			},
 		};
 
-		await AuthController.confirmEmail({ body, set });
+		await AuthController.confirmEmail({ body, set } as any);
 	});
 });

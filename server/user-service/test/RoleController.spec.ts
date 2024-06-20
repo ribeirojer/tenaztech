@@ -1,5 +1,6 @@
-import request from "supertest";
-import app from "../app"; // Assumindo que 'app' é a instância do seu aplicativo Express
+import { app } from "../src";
+import { describe, expect, it } from "bun:test";
+import { post, put, del, get } from "./utils";
 
 describe("Role Routes", () => {
 	describe("GET /api/roles", () => {

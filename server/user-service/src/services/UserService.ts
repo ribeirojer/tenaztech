@@ -89,7 +89,7 @@ export class UserService {
 	}
 
 	static async updateUser(
-		userId: number,
+		userId: string,
 		updatedUser: any,
 	): Promise<IUser | null> {
 		try {

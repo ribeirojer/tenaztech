@@ -1,11 +1,12 @@
-import request from "supertest";
-import app from "../app"; // Assumindo que 'app' é a instância do seu aplicativo Express
+import { app } from "../src";
+import { describe, expect, it } from "bun:test";
+import { post, put, del, get } from "./utils";
 
 describe("Cart Routes", () => {
 	describe("GET /api/carts/:userId", () => {
 		it("Should fetch the user's cart", async () => {
 			const userId = "validUserId";
-			const response = await request(app).get(`/api/carts/${userId}`);
+			const response = await app.handle(get(`/api/carts/${userId}`));
 			expect(response.status).toBe(200);
 			expect(response.body).toHaveProperty("items");
 		});
@@ -18,9 +19,7 @@ describe("Cart Routes", () => {
 				productId: "validProductId",
 				quantity: 1,
 			};
-			const response = await request(app)
-				.post(`/api/carts/${userId}/items`)
-				.send(newItem);
+			const response = await app.handle(post(`/api/carts/${userId}/items`, newItem));
 			expect(response.status).toBe(201);
 			expect(response.body).toHaveProperty("items");
 		});
@@ -30,9 +29,7 @@ describe("Cart Routes", () => {
 			const invalidItem = {
 				productId: "validProductId",
 			};
-			const response = await request(app)
-				.post(`/api/carts/${userId}/items`)
-				.send(invalidItem);
+			const response = await app.handle(post(`/api/carts/${userId}/items`, invalidItem));
 			expect(response.status).toBe(400);
 			expect(response.body).toHaveProperty("error");
 		});
@@ -45,9 +42,7 @@ describe("Cart Routes", () => {
 			const updatedItem = {
 				quantity: 2,
 			};
-			const response = await request(app)
-				.put(`/api/carts/${userId}/items/${itemId}`)
-				.send(updatedItem);
+			const response = await app.handle(put(`/api/carts/${userId}/items/${itemId}`, updatedItem));
 			expect(response.status).toBe(200);
 			expect(response.body).toHaveProperty("items");
 		});
@@ -58,9 +53,7 @@ describe("Cart Routes", () => {
 			const updatedItem = {
 				quantity: 2,
 			};
-			const response = await request(app)
-				.put(`/api/carts/${userId}/items/${itemId}`)
-				.send(updatedItem);
+			const response = await app.handle(put(`/api/carts/${userId}/items/${itemId}`, updatedItem));
 			expect(response.status).toBe(404);
 			expect(response.body).toHaveProperty("error");
 		});
@@ -70,9 +63,7 @@ describe("Cart Routes", () => {
 		it("Should remove an item from the cart", async () => {
 			const userId = "validUserId";
 			const itemId = "validItemId";
-			const response = await request(app).delete(
-				`/api/carts/${userId}/items/${itemId}`,
-			);
+			const response = await app.handle(del(`/api/carts/${userId}/items/${itemId}`));
 			expect(response.status).toBe(200);
 			expect(response.body).toHaveProperty("items");
 		});
@@ -80,8 +71,7 @@ describe("Cart Routes", () => {
 		it("Should return 404 if the item is not found", async () => {
 			const userId = "validUserId";
 			const itemId = "invalidItemId";
-			const response = await request(app).delete(
-				`/api/carts/${userId}/items/${itemId}`,
+			const response = await app.handle(get(`/api/carts/${userId}/items/${itemId}`),
 			);
 			expect(response.status).toBe(404);
 			expect(response.body).toHaveProperty("error");
@@ -95,9 +85,7 @@ describe("Cart Routes", () => {
 				paymentMethod: "validPaymentMethod",
 				addressId: "validAddressId",
 			};
-			const response = await request(app)
-				.post(`/api/carts/${userId}/checkout`)
-				.send(checkoutData);
+			const response = await app.handle(post(`/api/carts/${userId}/checkout`, checkoutData));
 			expect(response.status).toBe(201);
 			expect(response.body).toHaveProperty("orderId");
 		});
@@ -107,9 +95,7 @@ describe("Cart Routes", () => {
 			const invalidCheckoutData = {
 				paymentMethod: "validPaymentMethod",
 			};
-			const response = await request(app)
-				.post(`/api/carts/${userId}/checkout`)
-				.send(invalidCheckoutData);
+			const response = await app.handle(post(`/api/carts/${userId}/checkout`, invalidCheckoutData));
 			expect(response.status).toBe(400);
 			expect(response.body).toHaveProperty("error");
 		});

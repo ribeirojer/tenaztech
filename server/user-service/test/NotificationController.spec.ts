@@ -1,3 +1,7 @@
+import { app } from "../src";
+import { describe, expect, it } from "bun:test";
+import { post, put, del, get } from "./utils";
+
 describe("Notification Routes", () => {
 	describe("GET /api/notifications", () => {
 		it("Should fetch all notifications", async () => {
