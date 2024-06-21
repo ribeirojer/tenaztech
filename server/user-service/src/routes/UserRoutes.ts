@@ -1,7 +1,6 @@
 import Elysia, { t } from "elysia";
 import { AddressController } from "../controllers/AddressController";
 import { NotificationController } from "../controllers/NotificationController";
-import { OrderController } from "../controllers/OrderController";
 import { ProductReviewController } from "../controllers/ProductReviewController";
 import { RoleController } from "../controllers/RoleController";
 import { SocialAuthController } from "../controllers/SocialAuthController";
@@ -105,14 +104,6 @@ router.group("/api/users", (router) =>
 			}),
 		})
 		.delete("/addresses/:id", AddressController.deleteAddress, {
-			params: t.Object({
-				id: t.String(),
-			}),
-		})
-
-		// Histórico de Pedidos (Opcional)
-		.get("/orders", OrderController.getOrders)
-		.get("/orders/:id", OrderController.getOrder, {
 			params: t.Object({
 				id: t.String(),
 			}),

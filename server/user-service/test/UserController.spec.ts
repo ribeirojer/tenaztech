@@ -1,11 +1,11 @@
 import { describe, expect, it } from "bun:test";
 import { app } from "../src";
-import { post, req } from "./utils";
+import { post, get, put, del } from "./utils";
 
 describe("User Routes", () => {
 	describe("GET /api/users", () => {
 		it("Should fetch all users", async () => {
-			const response = await request(app).get("/api/users");
+			const response = await app.handle(get("/api/users"));
 			expect(response.status).toBe(200);
 			expect(Array.isArray(response.body)).toBe(true);
 		});
@@ -14,14 +14,14 @@ describe("User Routes", () => {
 	describe("GET /api/users/:id", () => {
 		it("Should fetch a specific user by ID", async () => {
 			const userId = "validUserId"; // Substitua pelo ID de um usuário válido no seu banco de dados de teste
-			const response = await request(app).get(`/api/users/${userId}`);
+			const response = await app.handle(get(`/api/users/${userId}`));
 			expect(response.status).toBe(200);
 			expect(response.body).toHaveProperty("id", userId);
 		});
 
 		it("Should return 404 if the user is not found", async () => {
 			const userId = "invalidUserId";
-			const response = await request(app).get(`/api/users/${userId}`);
+			const response = await app.handle(get(`/api/users/${userId}`));
 			expect(response.status).toBe(404);
 			expect(response.body).toHaveProperty("error", "User not found");
 		});
@@ -34,11 +34,13 @@ describe("User Routes", () => {
 				email: "johndoe@example.com",
 				password: "Password123",
 			};
-			const response = await request(app).post("/api/users").send(newUser);
+			const response = await app.handle(post("/api/users", newUser));
 			expect(response.status).toBe(201);
 			expect(response.body).toHaveProperty("id");
-			expect(response.body.name).toBe(newUser.name);
-			expect(response.body.email).toBe(newUser.email);
+			const { name, email } = JSON.parse(await response.text());
+
+			expect(name).toBe(newUser.name);
+			expect(email).toBe(newUser.email);
 		});
 
 		it("Should return 400 if the request body is invalid", async () => {
@@ -46,7 +48,7 @@ describe("User Routes", () => {
 				email: "invalidEmail",
 				password: "short",
 			};
-			const response = await request(app).post("/api/users").send(invalidUser);
+			const response = await app.handle(post("/api/users", invalidUser));
 			expect(response.status).toBe(400);
 			expect(response.body).toHaveProperty("error");
 		});
@@ -59,12 +61,12 @@ describe("User Routes", () => {
 				name: "Jane Doe",
 				email: "janedoe@example.com",
 			};
-			const response = await request(app)
-				.put(`/api/users/${userId}`)
-				.send(updatedData);
+			const response = await app.handle(put(`/api/users/${userId}`, updatedData));
 			expect(response.status).toBe(200);
-			expect(response.body.name).toBe(updatedData.name);
-			expect(response.body.email).toBe(updatedData.email);
+			const { name, email } = JSON.parse(await response.text());
+
+			expect(name).toBe(updatedData.name);
+			expect(email).toBe(updatedData.email);
 		});
 
 		it("Should return 404 if the user is not found", async () => {
@@ -73,9 +75,7 @@ describe("User Routes", () => {
 				name: "Jane Doe",
 				email: "janedoe@example.com",
 			};
-			const response = await request(app)
-				.put(`/api/users/${userId}`)
-				.send(updatedData);
+			const response = await app.handle(put(`/api/users/${userId}`, updatedData));
 			expect(response.status).toBe(404);
 			expect(response.body).toHaveProperty("error", "User not found");
 		});
@@ -84,7 +84,7 @@ describe("User Routes", () => {
 	describe("DELETE /api/users/:id", () => {
 		it("Should delete a user", async () => {
 			const userId = "validUserId"; // Substitua pelo ID de um usuário válido no seu banco de dados de teste
-			const response = await request(app).delete(`/api/users/${userId}`);
+			const response = await app.handle(del(`/api/users/${userId}`));
 			expect(response.status).toBe(200);
 			expect(response.body).toHaveProperty(
 				"message",
@@ -94,7 +94,7 @@ describe("User Routes", () => {
 
 		it("Should return 404 if the user is not found", async () => {
 			const userId = "invalidUserId";
-			const response = await request(app).delete(`/api/users/${userId}`);
+			const response = await app.handle(del(`/api/users/${userId}`));
 			expect(response.status).toBe(404);
 			expect(response.body).toHaveProperty("error", "User not found");
 		});
@@ -102,16 +102,15 @@ describe("User Routes", () => {
 
 	describe("GET /api/users/profile", () => {
 		it("Should fetch the current user's profile", async () => {
-			const response = await request(app)
-				.get("/api/users/profile")
-				.set("Authorization", "Bearer validToken");
+			const response = await app.handle(get("/api/users/profile"))
+			//	.set("Authorization", "Bearer validToken");
 			expect(response.status).toBe(200);
 			expect(response.body).toHaveProperty("id");
 			expect(response.body).toHaveProperty("email");
 		});
 
 		it("Should return 401 if the user is not authenticated", async () => {
-			const response = await request(app).get("/api/users/profile");
+			const response = await app.handle(get("/api/users/profile"));
 			expect(response.status).toBe(401);
 			expect(response.body).toHaveProperty("error", "Unauthorized");
 		});
@@ -123,13 +122,13 @@ describe("User Routes", () => {
 				name: "John Updated",
 				email: "johnupdated@example.com",
 			};
-			const response = await request(app)
-				.put("/api/users/profile")
-				.set("Authorization", "Bearer validToken")
-				.send(updatedProfile);
+			const response = await app.handle(put("/api/users/profile", updatedProfile))
+			//	.set, "Bearer) validToken")
 			expect(response.status).toBe(200);
-			expect(response.body.name).toBe(updatedProfile.name);
-			expect(response.body.email).toBe(updatedProfile.email);
+			const { name, email } = JSON.parse(await response.text());
+
+			expect(name).toBe(updatedProfile.name);
+			expect(email).toBe(updatedProfile.email);
 		});
 
 		it("Should return 401 if the user is not authenticated", async () => {
@@ -137,9 +136,8 @@ describe("User Routes", () => {
 				name: "John Updated",
 				email: "johnupdated@example.com",
 			};
-			const response = await request(app)
-				.put("/api/users/profile")
-				.send(updatedProfile);
+			const response = await app.handle(put("/api/users/profile", updatedProfile))
+			
 			expect(response.status).toBe(401);
 			expect(response.body).toHaveProperty("error", "Unauthorized");
 		});
@@ -150,18 +148,14 @@ describe("User Permission Routes", () => {
 	describe("GET /api/user-permissions/:userId", () => {
 		it("Should fetch user permissions", async () => {
 			const userId = "validUserId"; // Substitua pelo ID de um usuário válido no seu banco de dados de teste
-			const response = await request(app).get(
-				`/api/user-permissions/${userId}`,
-			);
+			const response = await app.handle(get(`/api/user-permissions/${userId}`));
 			expect(response.status).toBe(200);
 			expect(Array.isArray(response.body)).toBe(true);
 		});
 
 		it("Should return 404 if the user is not found", async () => {
 			const userId = "invalidUserId";
-			const response = await request(app).get(
-				`/api/user-permissions/${userId}`,
-			);
+			const response = await app.handle(get(`/api/user-permissions/${userId}`));
 			expect(response.status).toBe(404);
 			expect(response.body).toHaveProperty("error", "User not found");
 		});
@@ -173,9 +167,7 @@ describe("User Permission Routes", () => {
 			const newPermissions = {
 				roles: ["roleId1", "roleId2"],
 			};
-			const response = await request(app)
-				.post(`/api/user-permissions/${userId}`)
-				.send(newPermissions);
+			const response = await app.handle(post(`/api/user-permissions/${userId}`, newPermissions));
 			expect(response.status).toBe(200);
 			expect(Array.isArray(response.body)).toBe(true);
 		});
@@ -185,9 +177,7 @@ describe("User Permission Routes", () => {
 			const invalidPermissions = {
 				roles: "invalidRoleId", // Deve ser um array
 			};
-			const response = await request(app)
-				.post(`/api/user-permissions/${userId}`)
-				.send(invalidPermissions);
+			const response = await app.handle(post(`/api/user-permissions/${userId}`, invalidPermissions));
 			expect(response.status).toBe(400);
 			expect(response.body).toHaveProperty("error");
 		});
@@ -197,9 +187,7 @@ describe("User Permission Routes", () => {
 		it("Should remove a user's permission", async () => {
 			const userId = "validUserId"; // Substitua pelo ID de um usuário válido no seu banco de dados de teste
 			const roleId = "roleId"; // Substitua pelo ID de um papel válido no seu banco de dados de teste
-			const response = await request(app).delete(
-				`/api/user-permissions/${userId}/${roleId}`,
-			);
+			const response = await app.handle(del(`/api/user-permissions/${userId}/${roleId}`));
 			expect(response.status).toBe(200);
 			expect(response.body).toHaveProperty(
 				"message",
@@ -210,9 +198,7 @@ describe("User Permission Routes", () => {
 		it("Should return 404 if the user or role is not found", async () => {
 			const userId = "invalidUserId";
 			const roleId = "invalidRoleId";
-			const response = await request(app).delete(
-				`/api/user-permissions/${userId}/${roleId}`,
-			);
+			const response = await app.handle(del(`/api/user-permissions/${userId}/${roleId}`));
 			expect(response.status).toBe(404);
 			expect(response.body).toHaveProperty("error", "User or role not found");
 		});
@@ -223,13 +209,13 @@ describe("Search and Gamification Routes", () => {
 	describe("GET /api/search", () => {
 		it("Should search users by query", async () => {
 			const query = "testUser";
-			const response = await request(app).get("/api/search").query({ query });
+			const response = await app.handle(get("/api/search/" + query))
 			expect(response.status).toBe(200);
 			expect(Array.isArray(response.body)).toBe(true);
 		});
 
 		it("Should return 400 if query parameter is missing", async () => {
-			const response = await request(app).get("/api/search");
+			const response = await app.handle(get("/api/search"));
 			expect(response.status).toBe(400);
 			expect(response.body).toHaveProperty("error");
 		});
@@ -238,16 +224,14 @@ describe("Search and Gamification Routes", () => {
 	describe("GET /api/user-points", () => {
 		it("Should fetch user points by userId", async () => {
 			const userId = "validUserId"; // Substitua pelo ID de um usuário válido no seu banco de dados de teste
-			const response = await request(app)
-				.get("/api/user-points")
-				.query({ userId });
+			const response = await app.handle(get("/api/user-points/" + userId))
 			expect(response.status).toBe(200);
 			expect(response.body).toHaveProperty("userId", userId);
 			expect(response.body).toHaveProperty("points");
 		});
 
 		it("Should return 400 if userId query parameter is missing", async () => {
-			const response = await request(app).get("/api/user-points");
+			const response = await app.handle(get("/api/user-points"));
 			expect(response.status).toBe(400);
 			expect(response.body).toHaveProperty("error");
 		});
@@ -259,21 +243,19 @@ describe("Search and Gamification Routes", () => {
 				userId: "validUserId",
 				points: 100,
 			};
-			const response = await request(app)
-				.post("/api/user-points/add")
-				.send(pointsData);
+			const response = await app.handle(post("/api/user-points/add", pointsData));
 			expect(response.status).toBe(200);
 			expect(response.body).toHaveProperty("userId", pointsData.userId);
-			expect(response.body.points).toBe(pointsData.points);
+			const { points } = JSON.parse(await response.text());
+
+			expect(points).toBe(pointsData.points);
 		});
 
 		it("Should return 400 if the request body is invalid", async () => {
 			const invalidPointsData = {
 				userId: "validUserId",
 			};
-			const response = await request(app)
-				.post("/api/user-points/add")
-				.send(invalidPointsData);
+			const response = await app.handle(post("/api/user-points/add", invalidPointsData));
 			expect(response.status).toBe(400);
 			expect(response.body).toHaveProperty("error");
 		});
@@ -281,7 +263,7 @@ describe("Search and Gamification Routes", () => {
 
 	describe("GET /api/leaderboard", () => {
 		it("Should fetch the leaderboard", async () => {
-			const response = await request(app).get("/api/leaderboard");
+			const response = await app.handle(get("/api/leaderboard"));
 			expect(response.status).toBe(200);
 			expect(Array.isArray(response.body)).toBe(true);
 		});

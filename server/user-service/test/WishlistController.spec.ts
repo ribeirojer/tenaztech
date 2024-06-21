@@ -5,7 +5,7 @@ import { post, put, del, get } from "./utils";
 describe("Wishlist Routes", () => {
 	describe("GET /api/wishlists", () => {
 		it("Should fetch the user's wishlist", async () => {
-			const response = await request(app).get("/api/wishlists");
+			const response = await app.handle(get("/api/wishlists"));
 			expect(response.status).toBe(200);
 			expect(Array.isArray(response.body)).toBe(true);
 		});
@@ -17,9 +17,7 @@ describe("Wishlist Routes", () => {
 				userId: "validUserId",
 				productId: "validProductId",
 			};
-			const response = await request(app)
-				.post("/api/wishlists/items")
-				.send(newItem);
+			const response = await app.handle(post("/api/wishlists/items", newItem));
 			expect(response.status).toBe(201);
 			expect(response.body).toHaveProperty("userId", newItem.userId);
 			expect(response.body).toHaveProperty("productId", newItem.productId);
@@ -29,9 +27,7 @@ describe("Wishlist Routes", () => {
 			const invalidItem = {
 				userId: "validUserId",
 			};
-			const response = await request(app)
-				.post("/api/wishlists/items")
-				.send(invalidItem);
+			const response = await app.handle(post("/api/wishlists/items", invalidItem));
 			expect(response.status).toBe(400);
 			expect(response.body).toHaveProperty("error");
 		});
@@ -40,9 +36,7 @@ describe("Wishlist Routes", () => {
 	describe("DELETE /api/wishlists/items/:itemId", () => {
 		it("Should remove an item from the wishlist", async () => {
 			const itemId = "validItemId"; // Substitua pelo ID de um item válido no seu banco de dados de teste
-			const response = await request(app).delete(
-				`/api/wishlists/items/${itemId}`,
-			);
+			const response = await app.handle(del(`/api/wishlists/items/${itemId}`));
 			expect(response.status).toBe(200);
 			expect(response.body).toHaveProperty(
 				"message",
@@ -52,9 +46,7 @@ describe("Wishlist Routes", () => {
 
 		it("Should return 404 if the item is not found", async () => {
 			const itemId = "invalidItemId";
-			const response = await request(app).delete(
-				`/api/wishlists/items/${itemId}`,
-			);
+			const response = await app.handle(del(`/api/wishlists/items/${itemId}`));
 			expect(response.status).toBe(404);
 			expect(response.body).toHaveProperty(
 				"error",
@@ -69,9 +61,7 @@ describe("Wishlist Routes", () => {
 			const updatedItem = {
 				notes: "Updated notes",
 			};
-			const response = await request(app)
-				.put(`/api/wishlists/items/${itemId}`)
-				.send(updatedItem);
+			const response = await app.handle(put(`/api/wishlists/items/${itemId}`, updatedItem));
 			expect(response.status).toBe(200);
 			expect(response.body).toHaveProperty("notes", updatedItem.notes);
 		});
@@ -81,9 +71,7 @@ describe("Wishlist Routes", () => {
 			const updatedItem = {
 				notes: "Updated notes",
 			};
-			const response = await request(app)
-				.put(`/api/wishlists/items/${itemId}`)
-				.send(updatedItem);
+			const response = await app.handle(put(`/api/wishlists/items/${itemId}`, updatedItem));
 			expect(response.status).toBe(404);
 			expect(response.body).toHaveProperty(
 				"error",

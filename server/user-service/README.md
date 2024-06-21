@@ -2,6 +2,9 @@
 
 ## Requisitos Funcionais
 
+(listar ordens puxando do order-service)
+
+
 1. **Registro de Usuário:**
    - Os usuários devem poder se registrar no sistema fornecendo um nome de usuário, endereço de e-mail e senha.
    - O sistema deve validar os dados fornecidos durante o registro, incluindo a verificação da disponibilidade do nome de usuário e a validade do endereço de e-mail.
