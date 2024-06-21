@@ -1,7 +1,8 @@
 import { supabase } from "../config/supabase.ts";
+import { IReview } from "../interfaces/Review.ts"
 
 export class ReviewRepository {
-	async addReview(productId: string, reviewData: any) {
+	async addReview(productId: string, reviewData: IReview) {
 		const { data, error } = await supabase
 			.from("reviews")
 			.insert({ ...reviewData, product_id: productId })
@@ -19,7 +20,7 @@ export class ReviewRepository {
 		return data;
 	}
 
-	async updateReview(productId: string, reviewId: string, reviewData: any) {
+	async updateReview(productId: string, reviewId: string, reviewData: IReview) {
 		const { data, error } = await supabase
 			.from("reviews")
 			.update(reviewData)

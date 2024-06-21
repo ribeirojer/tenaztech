@@ -33,7 +33,7 @@ class AuthService {
 			user.passwordResetExpiresAt = new Date(
 				now.getTime() + expirationTimeInMinutes * 60000,
 			); // 1 minuto = 60000 milissegundos
-			await UserService.updateUser(user.id as number, user);
+			await UserService.updateUser(user.id as any, user);
 
 			//Envia um email com o link para redefinir a senha
 

@@ -1,7 +1,6 @@
 import Elysia, { t } from "elysia";
 import { AddressController } from "../controllers/AddressController";
 import { NotificationController } from "../controllers/NotificationController";
-import { ProductReviewController } from "../controllers/ProductReviewController";
 import { RoleController } from "../controllers/RoleController";
 import { SocialAuthController } from "../controllers/SocialAuthController";
 import { SubscriptionController } from "../controllers/SubscriptionController";
@@ -198,18 +197,6 @@ router.group("/api/users", (router) =>
 				notes: t.Optional(t.String()),
 			}),
 		})
-
-		// Gerenciamento de Avaliações de Produtos (Opcional)
-		.post("/products/:productId/reviews", ProductReviewController.addReview, {
-			params: t.Object({
-				productId: t.String(),
-			}),
-			body: t.Object({
-				userId: t.String(),
-				rating: t.Number({ min: 1, max: 5 }),
-				comment: t.Optional(t.String()),
-			}),
-		}),
 );
 
 export default router;

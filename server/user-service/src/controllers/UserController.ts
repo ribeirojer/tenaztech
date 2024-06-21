@@ -24,14 +24,14 @@ class UserController {
 				return { error: "User not found" };
 			}
 
-			await UserRepository.updateOne(
-				{ _id: id },
+			await UserRepository.updateUser(
+				id,
 				{
 					name,
 					email,
 					phoneNumber,
 					address,
-				},
+				} as any,
 			);
 
 			set.status = 200;
