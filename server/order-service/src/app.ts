@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(errorHandler);
 
-app.use("/orders", routes);
+app.use("/api", routes);
 
 app.listen(port, () => {
 	console.log(`Server is running on port ${port}`);

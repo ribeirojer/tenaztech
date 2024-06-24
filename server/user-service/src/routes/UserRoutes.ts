@@ -10,13 +10,13 @@ import { WishlistController } from "../controllers/WishlistController";
 const router = new Elysia();
 
 // Rotas de usuários
-router.group("/api/users", (router) =>
+router.group("/api", (router) =>
 	router
-		.get("/", UserController.index)
-		.get("/:id", UserController.show)
-		.post("/", UserController.store)
-		.put("/:id", UserController.update)
-		.delete("/:id", UserController.destroy)
+		.get("/users", UserController.index)
+		.get("/users/:id", UserController.show)
+		.post("/users", UserController.store)
+		.put("/users/:id", UserController.update)
+		.delete("/users/:id", UserController.destroy)
 
 		// Gerenciamento de Perfil
 		.get("/profile", UserController.showProfile)

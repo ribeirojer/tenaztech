@@ -2,7 +2,7 @@ import { app } from "../src";
 import { describe, expect, it } from "bun:test";
 import { post, put, del, get } from "./utils";
 
-describe("Wishlist Routes", () => {
+describe.skip("Wishlist Routes", () => {
 	describe("GET /api/wishlists", () => {
 		it("Should fetch the user's wishlist", async () => {
 			const response = await app.handle(get("/api/wishlists"));

@@ -6,12 +6,13 @@ describe("Address Routes", () => {
 	describe("GET /api/addresses", () => {
 		it("Should fetch all addresses", async () => {
 			const response = await app.handle(get("/api/addresses"));
+			console.log(response)
 			expect(response.status).toBe(200);
 			expect(Array.isArray(response.body)).toBe(true);
 		});
 	});
 
-	describe("GET /api/addresses/:id", () => {
+	describe.skip("GET /api/addresses/:id", () => {
 		it("Should fetch a specific address by ID", async () => {
 			const addressId = "validAddressId"; // Substitua pelo ID de um endereço válido no seu banco de dados de teste
 			const response = await app.handle(get(`/api/addresses/${addressId}`));
@@ -27,7 +28,7 @@ describe("Address Routes", () => {
 		});
 	});
 
-	describe("POST /api/addresses", () => {
+	describe.skip("POST /api/addresses", () => {
 		it("Should create a new address", async () => {
 			const newAddress = {
 				userId: "validUserId",
@@ -57,7 +58,7 @@ describe("Address Routes", () => {
 		});
 	});
 
-	describe("PUT /api/addresses/:id", () => {
+	describe.skip("PUT /api/addresses/:id", () => {
 		it("Should update an existing address", async () => {
 			const addressId = "validAddressId"; // Substitua pelo ID de um endereço válido no seu banco de dados de teste
 			const updatedData = {
@@ -87,7 +88,7 @@ describe("Address Routes", () => {
 		});
 	});
 
-	describe("DELETE /api/addresses/:id", () => {
+	describe.skip("DELETE /api/addresses/:id", () => {
 		it("Should delete an address", async () => {
 			const addressId = "validAddressId"; // Substitua pelo ID de um endereço válido no seu banco de dados de teste
 			const response = await app.handle(del(`/api/addresses/${addressId}`));

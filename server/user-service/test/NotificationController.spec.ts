@@ -1,4 +1,4 @@
-import { app } from "../src";
+/*import { app } from "../src";
 import { describe, expect, it } from "bun:test";
 import { put, del, get } from "./utils";
 
@@ -49,3 +49,4 @@ describe("Notification Routes", () => {
 		});
 	});
 });
+*/

@@ -3,6 +3,7 @@ import { supabase } from "../config/supabase";
 class AddressRepository {
 	static async getAll() {
 		const { data, error } = await supabase.from("addresses").select("*");
+		console.log(data, error?.message)
 		if (error) throw error;
 		return data;
 	}

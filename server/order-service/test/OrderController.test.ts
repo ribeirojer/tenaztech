@@ -4,11 +4,12 @@ import { app } from "../src/app";
 import { OrderRepository } from "../src/repositories/OrderRepository";
 
 vi.mock("../src/repositories/OrderRepository");
+
 describe("OrderController", () => {
 	describe("GET /orders", () => {
 		it("should fetch all orders", async () => {
 			(OrderRepository.getAll as any).mockResolvedValue([]);
-			const response = await request(app).get("/orders");
+			const response = await request(app).get("/api/orders");
 			expect(response.status).toBe(200);
 			expect(Array.isArray(response.body)).toBe(true);
 		});
@@ -17,7 +18,7 @@ describe("OrderController", () => {
 			(OrderRepository.getAll as any).mockRejectedValue(
 				new Error("Failed to fetch orders"),
 			);
-			const response = await request(app).get("/orders");
+			const response = await request(app).get("/api/orders");
 			expect(response.status).toBe(500);
 			expect(response.body.error).toBe("Failed to fetch orders");
 		});
@@ -27,7 +28,7 @@ describe("OrderController", () => {
 		it("should create a new order", async () => {
 			const newOrder = { id: "1", product: "Product 1", quantity: 1 };
 			(OrderRepository.create as any).mockResolvedValue(newOrder);
-			const response = await request(app).post("/orders").send(newOrder);
+			const response = await request(app).post("/api/orders").send(newOrder);
 			expect(response.status).toBe(201);
 			expect(response.body).toEqual(newOrder);
 		});
@@ -37,7 +38,7 @@ describe("OrderController", () => {
 				new Error("Failed to create order"),
 			);
 			const response = await request(app)
-				.post("/orders")
+				.post("/api/orders")
 				.send({ product: "Product 1", quantity: 1 });
 			expect(response.status).toBe(500);
 			expect(response.body.error).toBe("Failed to create order");
@@ -48,14 +49,14 @@ describe("OrderController", () => {
 		it("should fetch an order by id", async () => {
 			const order = { id: "1", product: "Product 1", quantity: 1 };
 			(OrderRepository.getById as any).mockResolvedValue(order);
-			const response = await request(app).get("/orders/1");
+			const response = await request(app).get("/api/orders/1");
 			expect(response.status).toBe(200);
 			expect(response.body).toEqual(order);
 		});
 
 		it("should return 404 if order not found", async () => {
 			(OrderRepository.getById as any).mockResolvedValue(null);
-			const response = await request(app).get("/orders/1");
+			const response = await request(app).get("/api/orders/1");
 			expect(response.status).toBe(404);
 			expect(response.body.error).toBe("Order not found");
 		});
@@ -64,7 +65,7 @@ describe("OrderController", () => {
 			(OrderRepository.getById as any).mockRejectedValue(
 				new Error("Failed to fetch order"),
 			);
-			const response = await request(app).get("/orders/1");
+			const response = await request(app).get("/api/orders/1");
 			expect(response.status).toBe(500);
 			expect(response.body.error).toBe("Failed to fetch order");
 		});
@@ -75,7 +76,7 @@ describe("OrderController", () => {
 			const updatedOrder = { id: "1", status: "Shipped" };
 			(OrderRepository.updateStatus as any).mockResolvedValue(updatedOrder);
 			const response = await request(app)
-				.put("/orders/1/status")
+				.put("/api/orders/1/status")
 				.send({ status: "Shipped" });
 			expect(response.status).toBe(200);
 			expect(response.body).toEqual(updatedOrder);
@@ -86,7 +87,7 @@ describe("OrderController", () => {
 				new Error("Failed to update status"),
 			);
 			const response = await request(app)
-				.put("/orders/1/status")
+				.put("/api/orders/1/status")
 				.send({ status: "Shipped" });
 			expect(response.status).toBe(500);
 			expect(response.body.error).toBe("Failed to update status");

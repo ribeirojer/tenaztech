@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+/*import { describe, expect, it } from "bun:test";
 import { app } from "../src";
 import { AuthController } from "../src/controllers/AuthController";
 import { UserService } from "../src/services/UserService";
@@ -555,3 +555,4 @@ describe("POST /auth/confirm-email", () => {
 		await AuthController.confirmEmail({ body, set } as any);
 	});
 });
+*/

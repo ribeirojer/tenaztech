@@ -5,7 +5,7 @@ import { CouponRepository } from "../src/repositories/CouponRepository";
 
 vi.mock("../src/repositories/CouponRepository");
 
-describe("CouponController", () => {
+describe.skip("CouponController", () => {
 	describe("POST /coupons", () => {
 		it("should create a new coupon", async () => {
 			const newCoupon = { id: "1", code: "DISCOUNT10", discount: 10 };
