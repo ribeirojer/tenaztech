@@ -1,0 +1,235 @@
+/src
+    /application
+        /dto
+            - CreateOrderDTO.ts
+            - UpdateOrderDTO.ts
+            - RegisterCustomerDTO.ts
+            - CreateProductDTO.ts
+            - UpdateProductDTO.ts
+            - AddCategoryDTO.ts
+            - UpdateCategoryDTO.ts
+            - CreatePromotionDTO.ts
+            - UpdatePromotionDTO.ts
+            - CreateSupportTicketDTO.ts
+            - UpdateSupportTicketDTO.ts
+            - CreateWishlistDTO.ts
+            - AddToWishlistDTO.ts
+        /use-cases
+            /product
+                - AddProductUseCase.ts
+                - UpdateProductUseCase.ts
+                - RemoveProductUseCase.ts
+                - ListProductsUseCase.ts
+                - GetProductDetailUseCase.ts
+            /order
+                - CreateOrderUseCase.ts
+                - UpdateOrderUseCase.ts
+                - CancelOrderUseCase.ts
+                - ListOrdersUseCase.ts
+                - GetOrderDetailUseCase.ts
+                - TrackOrderUseCase.ts
+            /customer
+                - RegisterCustomerUseCase.ts
+                - UpdateCustomerUseCase.ts
+                - RemoveCustomerUseCase.ts
+                - ListCustomersUseCase.ts
+                - GetCustomerDetailUseCase.ts
+            /stock
+                - UpdateStockUseCase.ts
+                - CheckAvailabilityUseCase.ts
+            /category
+                - AddCategoryUseCase.ts
+                - UpdateCategoryUseCase.ts
+                - RemoveCategoryUseCase.ts
+                - ListCategoriesUseCase.ts
+                - GetCategoryDetailUseCase.ts
+            /promotion
+                - CreatePromotionUseCase.ts
+                - UpdatePromotionUseCase.ts
+                - RemovePromotionUseCase.ts
+                - ListPromotionsUseCase.ts
+            /payment
+                - ProcessPaymentUseCase.ts
+                - RefundPaymentUseCase.ts
+            /support
+                - CreateSupportTicketUseCase.ts
+                - UpdateSupportTicketUseCase.ts
+                - CloseSupportTicketUseCase.ts
+                - ListSupportTicketsUseCase.ts
+            /wishlist
+                - CreateWishlistUseCase.ts
+                - AddToWishlistUseCase.ts
+                - RemoveFromWishlistUseCase.ts
+                - ShareWishlistUseCase.ts
+                - ListWishlistsUseCase.ts
+            /review
+                - AddProductReviewUseCase.ts
+                - UpdateProductReviewUseCase.ts
+                - RemoveProductReviewUseCase.ts
+                - ListProductReviewsUseCase.ts
+            /recommendation
+                - RecommendProductsUseCase.ts
+                - ListRelatedProductsUseCase.ts
+            /delivery
+                - ScheduleDeliveryUseCase.ts
+                - UpdateDeliveryDateUseCase.ts
+                - NotifyDeliveryDelayUseCase.ts
+            /auth
+                - LoginUseCase.ts
+                - LogoutUseCase.ts
+                - RegisterAccountUseCase.ts
+                - RecoverPasswordUseCase.ts
+            /report
+                - GenerateSalesReportUseCase.ts
+                - GenerateStockReportUseCase.ts
+                - GenerateCustomerReportUseCase.ts
+            /notification
+                - SendOrderNotificationUseCase.ts
+                - SendPromotionNotificationUseCase.ts
+            /address
+                - AddAddressUseCase.ts
+                - UpdateAddressUseCase.ts
+                - RemoveAddressUseCase.ts
+                - ListAddressesUseCase.ts
+            /search
+                - FilteredSearchUseCase.ts
+                - KeywordSearchUseCase.ts
+    /domain
+        /entities
+            - Product.ts
+            - Order.ts
+            - Customer.ts
+            - Category.ts
+            - Promotion.ts
+            - SupportTicket.ts
+            - Wishlist.ts
+            - Review.ts
+            - Address.ts
+        /repositories
+            - IProductRepository.ts
+            - IOrderRepository.ts
+            - ICustomerRepository.ts
+            - ICategoryRepository.ts
+            - IPromotionRepository.ts
+            - ISupportTicketRepository.ts
+            - IWishlistRepository.ts
+            - IReviewRepository.ts
+            - IAddressRepository.ts
+        /value-objects
+            - ProductID.ts
+            - OrderID.ts
+            - CustomerID.ts
+            - CategoryID.ts
+            - PromotionID.ts
+            - SupportTicketID.ts
+            - WishlistID.ts
+            - ReviewID.ts
+            - AddressID.ts
+        /events
+            - ProductCreatedEvent.ts
+            - OrderCreatedEvent.ts
+            - CustomerRegisteredEvent.ts
+            - CategoryCreatedEvent.ts
+            - PromotionCreatedEvent.ts
+            - SupportTicketCreatedEvent.ts
+            - WishlistCreatedEvent.ts
+            - ReviewAddedEvent.ts
+        /exceptions
+            - ProductNotFoundException.ts
+            - OrderNotFoundException.ts
+            - CustomerNotFoundException.ts
+            - CategoryNotFoundException.ts
+            - PromotionNotFoundException.ts
+            - SupportTicketNotFoundException.ts
+            - WishlistNotFoundException.ts
+            - ReviewNotFoundException.ts
+            - AddressNotFoundException.ts
+    /infrastructure
+        /persistence
+            /repositories
+                - ProductRepository.ts
+                - OrderRepository.ts
+                - CustomerRepository.ts
+                - CategoryRepository.ts
+                - PromotionRepository.ts
+                - SupportTicketRepository.ts
+                - WishlistRepository.ts
+                - ReviewRepository.ts
+                - AddressRepository.ts
+            - DatabaseConnection.ts
+        /external-services
+            - PaymentGatewayService.ts
+            - NotificationService.ts
+            - AuthService.ts
+        /config
+            - DatabaseConfig.ts
+            - AppConfig.ts
+    /presentation
+        /controllers
+            - ProductController.ts
+            - OrderController.ts
+            - CustomerController.ts
+            - CategoryController.ts
+            - PromotionController.ts
+            - SupportTicketController.ts
+            - WishlistController.ts
+            - ReviewController.ts
+            - AuthController.ts
+            - AddressController.ts
+        /routes
+            - productRoutes.ts
+            - orderRoutes.ts
+            - customerRoutes.ts
+            - categoryRoutes.ts
+            - promotionRoutes.ts
+            - supportTicketRoutes.ts
+            - wishlistRoutes.ts
+            - reviewRoutes.ts
+            - authRoutes.ts
+            - addressRoutes.ts
+        /middlewares
+            - AuthMiddleware.ts
+            - ErrorHandlingMiddleware.ts
+        /views
+            - ProductView.ts
+            - OrderView.ts
+            - CustomerView.ts
+            - CategoryView.ts
+            - PromotionView.ts
+            - SupportTicketView.ts
+            - WishlistView.ts
+            - ReviewView.ts
+            - AuthView.ts
+            - AddressView.ts
+    /shared
+        /utils
+            - DateUtils.ts
+            - ValidationUtils.ts
+        /constants
+            - ErrorMessages.ts
+        /types
+            - CommonTypes.ts
+    /tests
+        /unit
+            - ProductService.test.ts
+            - OrderService.test.ts
+            - CustomerService.test.ts
+            - CategoryService.test.ts
+            - PromotionService.test.ts
+            - SupportTicketService.test.ts
+            - WishlistService.test.ts
+            - ReviewService.test.ts
+            - AuthService.test.ts
+            - AddressService.test.ts
+        /integration
+            - ProductController.test.ts
+            - OrderController.test.ts
+            - CustomerController.test.ts
+            - CategoryController.test.ts
+            - PromotionController.test.ts
+            - SupportTicketController.test.ts
+            - WishlistController.test.ts
+            - ReviewController.test.ts
+            - AuthController.test.ts
+            - AddressController.test.ts
+    - index.ts

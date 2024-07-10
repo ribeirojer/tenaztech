@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+
+  --pink-pulse: #ff19a3;
+  --vibrant-blossom: #ff78c1;
+  --sandstorm: #fabf42;
+  --off-white: #f4f5f0;
+  --glow-tech: #97dfd6;
+  --electric-blue: #00a6ea;
+  --midnight: #000816;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /*font-family: "G";*/
+}
+
+body {
+  color: var(--midnight);
+  background: var(--off-white)
+}
+
