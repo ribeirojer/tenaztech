@@ -215,50 +215,50 @@ const pagamento = (props: Props) => {
 		}
 	};
 
-	return (		<Layout>
-
-		<div className="container mx-auto flex flex-col lg:flex-row gap-4 px-4 lg:px-0 my-8 lg:my-12">
-			<div className="w-full lg:w-2/3">
-				<CheckoutProgress currentStep={currentStep} steps={steps} />
-				{currentStep === 0 && (
-					<StepPersonalInfo
-						personalInfo={personalInfo}
-						nextStep={handlePersonalInfo}
-					/>
-				)}
-				{currentStep === 1 && (
-					<>
-						<StepBillingShipping nextStep={handleBillingShipping} />
-						<button
-							onClick={() => setCurrentStep(currentStep - 1)}
-							className="mt-4 px-4 py-2 rounded text-white font-bold bg-gray-300 hover:bg-gray-400 focus:outline-none"
-						>
-							Voltar
-						</button>
-					</>
-				)}
-				{currentStep === 2 && (
-					<>
-						<StepDelivery
-							shipping={shipping}
-							billing={billing}
-							products={products}
-							nextStep={checkout}
+	return (
+		<Layout>
+			<div className="container mx-auto flex flex-col lg:flex-row gap-4 px-4 lg:px-0 my-8 lg:my-12">
+				<div className="w-full lg:w-2/3">
+					<CheckoutProgress currentStep={currentStep} steps={steps} />
+					{currentStep === 0 && (
+						<StepPersonalInfo
+							personalInfo={personalInfo}
+							nextStep={handlePersonalInfo}
 						/>
-						<button
-							onClick={() => setCurrentStep(currentStep - 1)}
-							className="mt-4 px-4 py-2 rounded text-white font-bold bg-gray-300 hover:bg-gray-400 focus:outline-none"
-						>
-							Voltar
-						</button>
-					</>
-				)}
-			</div>
-			<div className="w-full lg:w-1/3">
-				<OrderDetails products={products} />
-			</div>
-		</div>		</Layout>
-
+					)}
+					{currentStep === 1 && (
+						<>
+							<StepBillingShipping nextStep={handleBillingShipping} />
+							<button
+								onClick={() => setCurrentStep(currentStep - 1)}
+								className="mt-4 px-4 py-2 rounded text-white font-bold bg-gray-300 hover:bg-gray-400 focus:outline-none"
+							>
+								Voltar
+							</button>
+						</>
+					)}
+					{currentStep === 2 && (
+						<>
+							<StepDelivery
+								shipping={shipping}
+								billing={billing}
+								products={products}
+								nextStep={checkout}
+							/>
+							<button
+								onClick={() => setCurrentStep(currentStep - 1)}
+								className="mt-4 px-4 py-2 rounded text-white font-bold bg-gray-300 hover:bg-gray-400 focus:outline-none"
+							>
+								Voltar
+							</button>
+						</>
+					)}
+				</div>
+				<div className="w-full lg:w-1/3">
+					<OrderDetails products={products} />
+				</div>
+			</div>{" "}
+		</Layout>
 	);
 };
 

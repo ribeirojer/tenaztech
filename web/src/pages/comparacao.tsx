@@ -36,49 +36,50 @@ const comparacao = (props: Props) => {
 		// Adicione mais características conforme necessário
 	];
 
-	return (		<Layout>
-
-		<div className="container mx-auto">
-			<h1 className="text-3xl font-bold mb-4">Comparação de Produtos</h1>
-			<table className="w-full border-collapse border border-gray-200">
-				<thead>
-					<tr className="bg-gray-200">
-						<th className="border border-gray-200 py-2 px-4">
-							Características
-						</th>
-						{products.map((product) => {
+	return (
+		<Layout>
+			<div className="container mx-auto">
+				<h1 className="text-3xl font-bold mb-4">Comparação de Produtos</h1>
+				<table className="w-full border-collapse border border-gray-200">
+					<thead>
+						<tr className="bg-gray-200">
+							<th className="border border-gray-200 py-2 px-4">
+								Características
+							</th>
+							{products.map((product) => {
+								return (
+									<th className="border border-gray-200 py-2 px-4">
+										{product.name}
+									</th>
+								);
+							})}
+						</tr>
+					</thead>
+					<tbody>
+						{features.map((feature) => {
 							return (
-								<th className="border border-gray-200 py-2 px-4">
-									{product.name}
-								</th>
+								<tr key="index" className="border-b border-gray-200">
+									<td className="border border-gray-200 py-2 px-4">
+										{feature.name}
+									</td>
+									{products.map((product: any) => {
+										return (
+											<td
+												v-for="(product, idx) in products"
+												key="idx"
+												className="border border-gray-200 py-2 px-4"
+											>
+												{product.features[feature.key] || "-"}
+											</td>
+										);
+									})}
+								</tr>
 							);
 						})}
-					</tr>
-				</thead>
-				<tbody>
-					{features.map((feature) => {
-						return (
-							<tr key="index" className="border-b border-gray-200">
-								<td className="border border-gray-200 py-2 px-4">
-									{feature.name}
-								</td>
-								{products.map((product: any) => {
-									return (
-										<td
-											v-for="(product, idx) in products"
-											key="idx"
-											className="border border-gray-200 py-2 px-4"
-										>
-											{product.features[feature.key] || "-"}
-										</td>
-									);
-								})}
-							</tr>
-						);
-					})}
-				</tbody>
-			</table>
-		</div></Layout>
+					</tbody>
+				</table>
+			</div>
+		</Layout>
 	);
 };
 

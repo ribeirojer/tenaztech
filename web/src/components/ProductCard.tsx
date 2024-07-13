@@ -3,6 +3,7 @@ import { formatCurrency } from "../utils/formatCurrency";
 import StarIcon from "./icons/StarIcon";
 
 export interface IProduct {
+	category?: string;
 	name: string;
 	images: string[];
 	price: number;

@@ -1,54 +1,56 @@
-import axios from 'axios';
-import React from 'react'
-import ArrowLeftIcon from '../icons/ArrowLeftIcon';
-import CalendarClockIcon from '../icons/CalendarClockIcon';
+import axios from "axios";
+import React from "react";
+import ArrowLeftIcon from "../icons/ArrowLeftIcon";
+import CalendarClockIcon from "../icons/CalendarClockIcon";
 
-type Props = {}
+type Props = {};
 
 const Analytics = (props: Props) => {
-    let analyticsData = {
-      totalSales: "",
-      sessions: "",
-      returningCustomers: "",
-      visitors: "",
-      pageViews: "",
-      topReferrers: [] as any,
-    }
-    
- 
-		const fetchAnalyticsData = async () => {
-			try {
-				const response = await axios.get("https://api.example.com/analytics");
-				analyticsData = response.data;
-			} catch (error) {
-				console.error("Error fetching analytics data:", Error);
-			}
-		}
-     return (
+	let analyticsData = {
+		totalSales: "",
+		sessions: "",
+		returningCustomers: "",
+		visitors: "",
+		pageViews: "",
+		topReferrers: [] as any,
+	};
 
-    <div>
-    <div className="flex items-center gap-4">
-      <button className="px-2 py-1 bg-transparent border border-gray-400 rounded-full">
-        <ArrowLeftIcon className="h-4 w-4" />
-        <span className="sr-only">Back</span>
-      </button>
-      <h1 className="font-semibold text-lg md:text-xl">Analytics</h1>
-      <div className="ml-auto flex items-center gap-2">
-        <button className="hidden sm:flex px-4 py-2 bg-transparent border border-gray-400 rounded-md">Today</button>
-        <button className="hidden md:flex px-4 py-2 bg-transparent border border-gray-400 rounded-md">This Month</button>
-        <div className="relative">
-          <button className="w-[280px] justify-start text-left font-normal px-4 py-2 bg-transparent border border-gray-400 rounded-md">
-            <CalendarClockIcon className="mr-2 h-4 w-4" />
-            June 01, 2023 - June 30, 2023
-          </button>
-          <div className="absolute right-0 mt-2 w-auto p-0 border bg-white rounded shadow-lg">
-            {/*<calendar initial-focus mode="range" number-of-months="2"></calendar>*/}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="grid gap-6 mt-4">
-      {/*<div className="grid md:grid-cols-3 gap-6">
+	const fetchAnalyticsData = async () => {
+		try {
+			const response = await axios.get("https://api.example.com/analytics");
+			analyticsData = response.data;
+		} catch (error) {
+			console.error("Error fetching analytics data:", Error);
+		}
+	};
+	return (
+		<div>
+			<div className="flex items-center gap-4">
+				<button className="px-2 py-1 bg-transparent border border-gray-400 rounded-full">
+					<ArrowLeftIcon className="h-4 w-4" />
+					<span className="sr-only">Back</span>
+				</button>
+				<h1 className="font-semibold text-lg md:text-xl">Analytics</h1>
+				<div className="ml-auto flex items-center gap-2">
+					<button className="hidden sm:flex px-4 py-2 bg-transparent border border-gray-400 rounded-md">
+						Today
+					</button>
+					<button className="hidden md:flex px-4 py-2 bg-transparent border border-gray-400 rounded-md">
+						This Month
+					</button>
+					<div className="relative">
+						<button className="w-[280px] justify-start text-left font-normal px-4 py-2 bg-transparent border border-gray-400 rounded-md">
+							<CalendarClockIcon className="mr-2 h-4 w-4" />
+							June 01, 2023 - June 30, 2023
+						</button>
+						<div className="absolute right-0 mt-2 w-auto p-0 border bg-white rounded shadow-lg">
+							{/*<calendar initial-focus mode="range" number-of-months="2"></calendar>*/}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div className="grid gap-6 mt-4">
+				{/*<div className="grid md:grid-cols-3 gap-6">
         <div className="bg-white rounded shadow p-4 flex flex-col">
           <div>
             <p className="text-gray-600">Total Sales</p>
@@ -107,9 +109,9 @@ const Analytics = (props: Props) => {
             </div>
           </div>
         </div>*/}
-     </div>
-    </div>
-   )
-}
+			</div>
+		</div>
+	);
+};
 
-export default Analytics
+export default Analytics;

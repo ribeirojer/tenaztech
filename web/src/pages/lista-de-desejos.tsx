@@ -11,9 +11,19 @@ import Layout from "@/components/core/Layout";
 
 type Props = {};
 
-const listaDeDesejos = (props: Props) => {
-	const [wishlist, setWishlist] = useState<any>([]);
+interface WishlistItem {
+	id: string;
+	slug: string;
+	image: string;
+	name: string;
+	description: string;
+	price: number;
+}
+
+const ListaDeDesejos = (props: Props) => {
+	const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
 	const router = useRouter();
 
 	useEffect(() => {
@@ -22,40 +32,40 @@ const listaDeDesejos = (props: Props) => {
 
 	const loadWishlist = () => {
 		const localWishlist = getWishlist();
-		const promises = localWishlist.map((item) => {
+		const promises = localWishlist.map((item: { slug: string }) => {
 			return axios
 				.get(
 					`https://product-catalog-service.deno.dev/api/products/${item.slug}`,
 				)
-				.then((response) => {
-					setWishlist((prevWishlist: any) => [...prevWishlist, response.data]);
-				})
+				.then((response) => response.data)
 				.catch((error) => {
 					console.error("Erro ao carregar detalhes do produto:", error);
+					setError(
+						"Erro ao carregar detalhes do produto. Por favor, tente novamente mais tarde.",
+					);
 				});
 		});
 
-		Promise.all(promises).finally(() => {
-			setIsLoading(false);
-		});
+		Promise.all(promises)
+			.then((results) => {
+				setWishlist(results);
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
 	};
 
-	const removeFromWishlistHandler = (productId: any) => {
+	const removeFromWishlistHandler = (productId: string) => {
 		removeFromWishlist(productId);
-		setWishlist(wishlist.filter((item: { id: any }) => item.id !== productId));
+		setWishlist(wishlist.filter((item) => item.id !== productId));
 	};
 
-	const addToCartHandler = (item: any) => {
+	const addToCartHandler = (item: WishlistItem) => {
 		addToCart(item, 1); // Adiciona 1 unidade do item ao carrinho
 		removeFromWishlistHandler(item.id); // Remove o item da lista de desejos após adicioná-lo ao carrinho
 	};
 
-	const formatCurrency = (value: {
-		toLocaleString: (
-			arg0: string,
-			arg1: { style: string; currency: string },
-		) => any;
-	}) => {
+	const formatCurrency = (value: number) => {
 		return value.toLocaleString("pt-BR", {
 			style: "currency",
 			currency: "BRL",
@@ -64,64 +74,32 @@ const listaDeDesejos = (props: Props) => {
 
 	return (
 		<Layout>
-		<div className="wishlist container mx-auto py-8">
-			<h1 className="text-3xl font-bold mb-6 text-center">Lista de Desejos</h1>
-			{isLoading ? (
-				<div className="text-center text-gray-600">
-					<span className="loader"></span> Carregando...
-				</div>
-			) : wishlist.length === 0 ? (
-				<div className="flex flex-col justify-center items-center">
-					<img src="/assets/19-5.png" alt="" className="size-80 -m-4" />
-					<span className="text-center text-gray-600">
-						Sua lista de desejos está vazia.
-					</span>
-					<Link href="/produtos">
-						<a className="px-6 my-4 text-white bg-purple-500 hover:bg-purple-600 py-3 rounded-md transition duration-300">
-							Ver produtos
-						</a>
-					</Link>
-				</div>
-			) : (
-				wishlist.map(
-					(item: {
-						id: React.Key | null | undefined;
-						image: string | undefined;
-						name:
-							| string
-							| number
-							| bigint
-							| boolean
-							| React.ReactElement<
-									any,
-									string | React.JSXElementConstructor<any>
-							  >
-							| Iterable<React.ReactNode>
-							| React.ReactPortal
-							| Promise<React.AwaitedReactNode>
-							| null
-							| undefined;
-						description:
-							| string
-							| number
-							| bigint
-							| boolean
-							| React.ReactElement<
-									any,
-									string | React.JSXElementConstructor<any>
-							  >
-							| Iterable<React.ReactNode>
-							| React.ReactPortal
-							| Promise<React.AwaitedReactNode>
-							| null
-							| undefined;
-						price: {
-							toLocaleString: (
-								arg0: string,
-								arg1: { style: string; currency: string },
-							) => any;
-						};
-					}) => (
+			<div className="wishlist container mx-auto py-8">
+				<h1 className="text-3xl font-bold mb-6 text-center">
+					Lista de Desejos
+				</h1>
+				{isLoading ? (
+					<div className="text-center text-gray-600">
+						<span className="loader"></span> Carregando...
+					</div>
+				) : error ? (
+					<div className="text-center text-red-500">
+						<p>{error}</p>
+					</div>
+				) : wishlist.length === 0 ? (
+					<div className="flex flex-col justify-center items-center">
+						<img src="/assets/19-5.png" alt="" className="size-80 -m-4" />
+						<span className="text-center text-gray-600">
+							Sua lista de desejos está vazia.
+						</span>
+						<Link href="/produtos">
+							<a className="px-6 my-4 text-white bg-purple-500 hover:bg-purple-600 py-3 rounded-md transition duration-300">
+								Ver produtos
+							</a>
+						</Link>
+					</div>
+				) : (
+					wishlist.map((item) => (
 						<div
 							key={item.id}
 							className="wishlist-item border rounded-lg shadow-lg p-4 mb-4"
@@ -172,11 +150,11 @@ const listaDeDesejos = (props: Props) => {
 								</div>
 							</div>
 						</div>
-					),
-				)
-			)}
-		</div></Layout>
+					))
+				)}
+			</div>
+		</Layout>
 	);
 };
 
-export default listaDeDesejos;
+export default ListaDeDesejos;

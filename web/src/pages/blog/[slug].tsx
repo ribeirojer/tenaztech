@@ -32,12 +32,13 @@ const blogSingle = (props: Props) => {
 	}
 	return (
 		<Layout>
-
-		<div className="blog-post-view">
-			<h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-			<p className="text-gray-600 mb-4">Publicado em {formatDate(post.date)}</p>
-			<div v-html="post.content" className="prose"></div>
-		</div>
+			<div className="blog-post-view">
+				<h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+				<p className="text-gray-600 mb-4">
+					Publicado em {formatDate(post.date)}
+				</p>
+				<div v-html="post.content" className="prose"></div>
+			</div>
 		</Layout>
 	);
 };

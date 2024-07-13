@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import { useCart } from "../contexts/CartContext";
+import { useAuth } from "../contexts/AuthContext";
 
 const useHeader = () => {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [searchOpen, setSearchOpen] = useState(false);
 	const [search, setSearch] = useState("");
 	const [show, setShow] = useState(false);
+	const { cartItems } = useCart();
+	const { isLoggedIn } = useAuth();
 	const router = useRouter();
 	const [lastScrollY, setLastScrollY] = useState(0);
 	const searchRef = useRef<HTMLInputElement | null>(null);
@@ -68,6 +72,8 @@ const useHeader = () => {
 		handleMenu,
 		handleSearch,
 		handleSearchSubmit,
+		cartItems,
+		isLoggedIn,
 	};
 };
 

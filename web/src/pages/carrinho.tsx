@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
-
 import { getCart, removeFromCart } from "../utils/localStorage";
 import CartItemList from "@/components/cart/CartItemList";
 import CouponForm from "@/components/cart/CouponForm";
@@ -80,47 +79,52 @@ const carrinho = (props: Props) => {
 
 	return (
 		<Layout>
-
-		<div className="container mx-auto py-8">
-			<h1 className="text-3xl font-bold mb-6 text-center">
-				Carrinho de Compras
-			</h1>
-			{cartItems.length === 0 ? (
-				<div className="flex flex-col justify-center items-center">
-					<img src="/assets/8-5.png" alt="" className="size-80 -m-4" />
-					<span className="text-center text-gray-500">
-						Seu carrinho está vazio.
-					</span>
-					<Link href="/produtos"className="px-6 my-4 text-white bg-purple-500 hover:bg-purple-600 py-3 rounded-md transition duration-300">
-							Ver produtos
-					</Link>
-				</div>
-			) : (
-				<div className="flex flex-col md:flex-row justify-between gap-4 px-4 md:px-0">
-					<CartItemList cartItems={cartItems} removeItem={removeItemFromCart} />
-					<div className="flex flex-col gap-4">
-						<CouponForm
-							applyCoupon={applyCoupon}
-							couponApplied={couponApplied}
-							loading={loading}
-							message={couponMessage}
-							success={couponSuccess}
-						/>
-						<CartSummary
-							cartTotal={cartTotal}
-							shippingCost={shippingCost}
-							discountDetails={discountDetails}
-						/>
-						<button
-							onClick={checkout}
-							className="px-4 py-2 rounded my-4 text-white font-bold bg-gradient-to-r from-sky-500 from-10% to-green-500 to-90%"
+			<div className="container mx-auto py-8">
+				<h1 className="text-3xl font-bold mb-6 text-center">
+					Carrinho de Compras
+				</h1>
+				{cartItems.length === 0 ? (
+					<div className="flex flex-col justify-center items-center">
+						<img src="/assets/8-5.png" alt="" className="size-80 -m-4" />
+						<span className="text-center text-gray-500">
+							Seu carrinho está vazio.
+						</span>
+						<Link
+							href="/produtos"
+							className="px-6 my-4 text-white bg-purple-500 hover:bg-purple-600 py-3 rounded-md transition duration-300"
 						>
-							Finalizar Compra
-						</button>
+							Ver produtos
+						</Link>
 					</div>
-				</div>
-			)}
-		</div>
+				) : (
+					<div className="flex flex-col md:flex-row justify-between gap-4 px-4 md:px-0">
+						<CartItemList
+							cartItems={cartItems}
+							removeItem={removeItemFromCart}
+						/>
+						<div className="flex flex-col gap-4">
+							<CouponForm
+								applyCoupon={applyCoupon}
+								couponApplied={couponApplied}
+								loading={loading}
+								message={couponMessage}
+								success={couponSuccess}
+							/>
+							<CartSummary
+								cartTotal={cartTotal}
+								shippingCost={shippingCost}
+								discountDetails={discountDetails}
+							/>
+							<button
+								onClick={checkout}
+								className="px-4 py-2 rounded my-4 text-white font-bold bg-gradient-to-r from-sky-500 from-10% to-green-500 to-90%"
+							>
+								Finalizar Compra
+							</button>
+						</div>
+					</div>
+				)}
+			</div>
 		</Layout>
 	);
 };

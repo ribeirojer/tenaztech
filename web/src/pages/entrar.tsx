@@ -28,8 +28,11 @@ const entrar = (props: Props) => {
 		}
 	};
 
-	return 		(<Layout>
-	<div>Entrar</div></Layout>);
+	return (
+		<Layout>
+			<div>Entrar</div>
+		</Layout>
+	);
 };
 
 export default entrar;

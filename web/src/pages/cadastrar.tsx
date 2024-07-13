@@ -4,8 +4,11 @@ import React from "react";
 type Props = {};
 
 const cadastrar = (props: Props) => {
-	return 		(<Layout>
-	<div>cadastrar</div></Layout>);
+	return (
+		<Layout>
+			<div>cadastrar</div>
+		</Layout>
+	);
 };
 
 export default cadastrar;

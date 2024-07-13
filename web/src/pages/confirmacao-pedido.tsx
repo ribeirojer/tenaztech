@@ -46,56 +46,57 @@ const confirmacaoPedido = (props: Props) => {
 		}
 	};
 
-	return (		<Layout>
-
-		<div className="max-w-4xl mx-auto px-4 py-8">
-			<h1 className="text-3xl font-bold mb-4">Confirmação de Pedido</h1>
-			<div className="bg-white shadow-md rounded-lg p-6 mb-6">
-				<p className="text-lg mb-4">Obrigado por fazer seu pedido conosco!</p>
-				<p className="text-gray-600 mb-4">
-					Aqui estão os detalhes do seu pedido:
-				</p>
-				<div className="border-b border-gray-300 pb-4 mb-4">
-					<p className="text-lg font-semibold">Número do Pedido:</p>
-					<p className="text-gray-600">{orderNumber}</p>
-				</div>
-				<div className="border-b border-gray-300 pb-4 mb-4">
-					<p className="text-lg font-semibold">Data do Pedido:</p>
-					<p className="text-gray-600">{orderDate}</p>
-				</div>
-				<div className="border-b border-gray-300 pb-4 mb-4">
-					<p className="text-lg font-semibold">Produtos:</p>
-					<ul>
-						{products.map(
-							(
-								product: { name: string; price: string | number },
-								index: React.Key | null | undefined,
-							) => (
-								<li key={index} className="text-gray-600">
-									{product.name} - R$ {product.price}
-								</li>
-							),
-						)}
-					</ul>
-				</div>
-				<div className="border-b border-gray-300 pb-4 mb-4">
-					<p className="text-lg font-semibold">Endereço de Entrega:</p>
-					<p className="text-gray-600">{deliveryAddress}</p>
-				</div>
-				<div className="border-b border-gray-300 pb-4 mb-4">
-					<p className="text-lg font-semibold">Método de Pagamento:</p>
-					<p className="text-gray-600">{paymentMethod}</p>
-				</div>
-				<div className="border-b border-gray-300 pb-4 mb-4">
-					<p className="text-lg font-semibold">Link para Pagamento:</p>
-					<p className="text-blue-500 underline">{paymentLink}</p>
-				</div>
-				<div className="border-b border-gray-300 pb-4 mb-4">
-					<p className="text-lg font-semibold">Data Estimada de Entrega:</p>
-					<p className="text-gray-600">{deliveryDate}</p>
+	return (
+		<Layout>
+			<div className="max-w-4xl mx-auto px-4 py-8">
+				<h1 className="text-3xl font-bold mb-4">Confirmação de Pedido</h1>
+				<div className="bg-white shadow-md rounded-lg p-6 mb-6">
+					<p className="text-lg mb-4">Obrigado por fazer seu pedido conosco!</p>
+					<p className="text-gray-600 mb-4">
+						Aqui estão os detalhes do seu pedido:
+					</p>
+					<div className="border-b border-gray-300 pb-4 mb-4">
+						<p className="text-lg font-semibold">Número do Pedido:</p>
+						<p className="text-gray-600">{orderNumber}</p>
+					</div>
+					<div className="border-b border-gray-300 pb-4 mb-4">
+						<p className="text-lg font-semibold">Data do Pedido:</p>
+						<p className="text-gray-600">{orderDate}</p>
+					</div>
+					<div className="border-b border-gray-300 pb-4 mb-4">
+						<p className="text-lg font-semibold">Produtos:</p>
+						<ul>
+							{products.map(
+								(
+									product: { name: string; price: string | number },
+									index: React.Key | null | undefined,
+								) => (
+									<li key={index} className="text-gray-600">
+										{product.name} - R$ {product.price}
+									</li>
+								),
+							)}
+						</ul>
+					</div>
+					<div className="border-b border-gray-300 pb-4 mb-4">
+						<p className="text-lg font-semibold">Endereço de Entrega:</p>
+						<p className="text-gray-600">{deliveryAddress}</p>
+					</div>
+					<div className="border-b border-gray-300 pb-4 mb-4">
+						<p className="text-lg font-semibold">Método de Pagamento:</p>
+						<p className="text-gray-600">{paymentMethod}</p>
+					</div>
+					<div className="border-b border-gray-300 pb-4 mb-4">
+						<p className="text-lg font-semibold">Link para Pagamento:</p>
+						<p className="text-blue-500 underline">{paymentLink}</p>
+					</div>
+					<div className="border-b border-gray-300 pb-4 mb-4">
+						<p className="text-lg font-semibold">Data Estimada de Entrega:</p>
+						<p className="text-gray-600">{deliveryDate}</p>
+					</div>
 				</div>
 			</div>
-		</div></Layout>
+		</Layout>
 	);
 };
 
