@@ -1,14 +1,14 @@
-import { CustomerRepository } from '../../domain/interfaces/CustomerRepository.ts';
+import { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
 
 export class RemoveCustomerUseCase {
-    constructor(private readonly customerRepository: CustomerRepository) {}
+	constructor(private readonly customerRepository: CustomerRepository) {}
 
-    async execute(id: string): Promise<void> {
-        const customer = await this.customerRepository.getById(id);
-        if (!customer) {
-            throw new Error('Customer not found');
-        }
+	async execute(id: string): Promise<void> {
+		const customer = await this.customerRepository.findById(id);
+		if (!customer) {
+			throw new Error("Customer not found");
+		}
 
-        await this.customerRepository.remove(id);
-    }
+		await this.customerRepository.remove(id);
+	}
 }
