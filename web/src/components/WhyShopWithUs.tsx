@@ -19,28 +19,28 @@ const WhyShopWithUs = (props: Props) => {
           </p>
         </div>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
-          <div className="flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
+          <div className="bg-glow-tech bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
             <TruckIcon className="h-10 w-10 text-primary" />
             <h3 className="text-xl font-bold text-secondary">Frete Grátis</h3>
             <p className="text-muted-foreground">
               Aproveite frete grátis em todos os pedidos acima de R$ 50.
             </p>
           </div>
-          <div className="flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
+          <div className="bg-sandstorm bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
             <ShieldCheckIcon className="h-10 w-10 text-primary" />
             <h3 className="text-xl font-bold text-secondary">Garantia de Satisfação</h3>
             <p className="text-muted-foreground">
               Se você não estiver satisfeito, devolvemos o seu dinheiro.
             </p>
           </div>
-          <div className="flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
+          <div className="bg-electric-blue bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
             <ClockIcon className="h-10 w-10 text-primary" />
             <h3 className="text-xl font-bold text-secondary">Entrega Rápida</h3>
             <p className="text-muted-foreground">
               Seu pedido será enviado em 1-2 dias úteis.
             </p>
           </div>
-          <div className="flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
+          <div className="bg-pink-pulse bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
             <CouponIcon className="h-10 w-10 text-primary" />
             <h3 className="text-xl font-bold text-secondary">Cupons Cumulativos</h3>
             <p className="text-muted-foreground">

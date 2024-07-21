@@ -4,7 +4,7 @@ import Layout from "@/components/core/Layout";
 import WhyShopWithUs from "@/components/WhyShopWithUs";
 import Newsletter from "@/components/Newsletter";
 
-const productService = process.env.PRODUCT_SERVICE_API_URL + "/api/products";
+const productService = process.env.SERVER_API_URL + "/api/products";
 
 export const getStaticProps = async () => {
 	const res = await fetch(productService);
@@ -15,15 +15,15 @@ export const getStaticProps = async () => {
 export default function Home({ products }: any) {
 	return (
 		<Layout>
-			<h1 className="text-center max-w-4xl mx-auto text-3xl py-4 px-4 md:py-8 md:px-0 font-extrabold sm:text-5xl md:text-6xl">
+			<h1 className="text-center max-w-4xl mx-auto text-3xl py-4 px-2 md:py-8 md:px-0 font-extrabold sm:text-4xl md:text-6xl">
 				Potencialize seu dia a dia com o melhor da tecnologia!
 			</h1>
-			<section className="container mx-auto px-4 md:px-0 grid gap-6 md:grid-cols-2">
+			<section className="container mx-auto px-4 md:px-0 flex flex-col-reverse md:grid gap-6 md:grid-cols-2">
 							<div className="bg-[url('/banner2.png')] bg-contain md:bg-cover border rounded-tl-3xl rounded-b-3xl w-full h-[523px] md:h-[768px] md:col-span-2 lg:col-span-1 flex justify-start items-end">
 					<Link href={"/produtos"} className="bg-midnight p-4 ml-16 mb-10 font-extrabold rounded-b-2xl rounded-tl-2xl sm:text-lg md:text-xl text-off-white">Ver Produtos</Link>
 				</div>
 				<div className="bg-[url('/banner1.png')] bg-contain md:bg-cover border rounded-tl-3xl rounded-b-3xl w-full h-[523px] md:h-[768px] md:col-span-2 lg:col-span-1 flex justify-start items-end">
-					<Link href={"/produtos?c=headphones"} className="bg-off-white p-4 ml-16 mb-10 font-extrabold rounded-b-2xl rounded-tl-2xl sm:text-lg md:text-xl">Ver Produtos</Link>
+					<Link href={"/produtos?c=headphones"} className="bg-off-white p-4 ml-12 md:ml-16 mb-10 font-extrabold rounded-b-2xl rounded-tl-2xl sm:text-lg md:text-xl">Ver Produtos</Link>
 				</div>
 			</section>
 			<section className="w-full py-12 md:py-24 lg:py-32">
@@ -45,6 +45,9 @@ export default function Home({ products }: any) {
 					</div>
 				</div>
 			</section>
+						<div className="flex justify-center">
+							<Link href={"/produtos"} className="bg-midnight p-4 font-extrabold rounded-b-2xl rounded-tl-2xl text-off-white">Ver mais produtos</Link>
+						</div>
 			<WhyShopWithUs />
 			<Newsletter />
 		</Layout>

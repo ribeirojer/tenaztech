@@ -92,10 +92,8 @@ const ListaDeDesejos = (props: Props) => {
 						<span className="text-center text-gray-600">
 							Sua lista de desejos está vazia.
 						</span>
-						<Link href="/produtos">
-							<a className="px-6 my-4 text-white bg-purple-500 hover:bg-purple-600 py-3 rounded-md transition duration-300">
+						<Link href="/produtos" className="px-6 my-4 text-white bg-purple-500 hover:bg-purple-600 py-3 rounded-md transition duration-300">
 								Ver produtos
-							</a>
 						</Link>
 					</div>
 				) : (
