@@ -1,5 +1,4 @@
-import { SupportTicketRepository } from "../../domain/interfaces/SupportTicketRepository.ts";
-import { SupportTicket } from "../../domain/entities/SupportTicket.ts";
+import { SupportTicketRepository } from "../../../domain/interfaces/SupportTicketRepository.ts";
 
 export class UpdateSupportTicketUseCase {
 	constructor(
@@ -12,7 +11,7 @@ export class UpdateSupportTicketUseCase {
 			throw new Error("Support ticket not found");
 		}
 
-		ticket.description = description;
+		ticket.message = description;
 		await this.supportTicketRepository.update(ticket);
 	}
 }

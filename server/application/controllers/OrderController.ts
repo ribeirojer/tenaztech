@@ -1,5 +1,7 @@
-import { RouterContext } from "https://deno.land/x/oak/mod.ts";
-import { orderUseCases } from "../UseCaseFactory.ts";
+import { RouterContext } from "https://deno.land/x/oak@v12.6.1/mod.ts";
+import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
+
+const orderUseCases = UseCaseFactory.createOrderUseCases();
 
 export class OrderController {
 	static async create(ctx: RouterContext) {

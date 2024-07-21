@@ -1,16 +1,15 @@
 import { NewsletterRepository } from "../../domain/interfaces/NewsletterRepository.ts";
-import { NewsletterSubscription } from "../../domain/entities/NewsletterSubscription.ts";
+import { Newsletter } from "../../domain/entities/Newsletter.ts";
 import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabaseNewsletterRepository implements NewsletterRepository {
-	async subscribe(subscription: NewsletterSubscription): Promise<void> {
+	async subscribe(subscription: Newsletter): Promise<void> {
 		const { data, error } = await supabase
-			.from("newsletter_subscriptions")
+			.from("newsletter")
 			.insert([
 				{
 					id: subscription.id,
 					email: subscription.email,
-					name: subscription.name,
 					subscribed_at: subscription.subscribedAt,
 				},
 			]);
@@ -22,7 +21,7 @@ export class SupabaseNewsletterRepository implements NewsletterRepository {
 
 	async unsubscribe(email: string): Promise<void> {
 		const { data, error } = await supabase
-			.from("newsletter_subscriptions")
+			.from("newsletter")
 			.delete()
 			.eq("email", email);
 
@@ -45,7 +44,7 @@ export class SupabaseNewsletterRepository implements NewsletterRepository {
 		}
 	}
 
-	async list(): Promise<NewsletterSubscription[]> {
+	async list(): Promise<Newsletter[]> {
 		const { data, error } = await supabase
 			.from("newsletter_subscriptions")
 			.select("*");
@@ -56,18 +55,17 @@ export class SupabaseNewsletterRepository implements NewsletterRepository {
 
 		return data.map(
 			(record: any) =>
-				new NewsletterSubscription(
+				new Newsletter(
 					record.id,
 					record.email,
-					record.name,
 					new Date(record.subscribed_at),
 				),
 		);
 	}
 
-	async findById(id: string): Promise<NewsletterSubscription | null> {
+	async findById(id: string): Promise<Newsletter | null> {
 		const { data, error } = await supabase
-			.from("newsletter_subscriptions")
+			.from("newsletter")
 			.select("*")
 			.eq("id", id)
 			.single();
@@ -80,10 +78,9 @@ export class SupabaseNewsletterRepository implements NewsletterRepository {
 			return null;
 		}
 
-		return new NewsletterSubscription(
+		return new Newsletter(
 			data.id,
 			data.email,
-			data.name,
 			new Date(data.subscribed_at),
 		);
 	}

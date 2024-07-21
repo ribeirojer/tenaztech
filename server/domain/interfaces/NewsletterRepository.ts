@@ -1,13 +1,13 @@
-import { NewsletterSubscription } from "../entities/NewsletterSubscription.ts";
+import { Newsletter } from "../entities/Newsletter.ts";
 
 export interface NewsletterRepository {
-	subscribe(subscription: NewsletterSubscription): Promise<void>;
+	subscribe(email: string): Promise<void>;
 	unsubscribe(email: string): Promise<void>;
 	send(newsletter: {
 		subject: string;
 		content: string;
 		sentAt: Date;
 	}): Promise<void>;
-	list(): Promise<NewsletterSubscription[]>;
-	findById(id: string): Promise<NewsletterSubscription | null>;
+	list(): Promise<Newsletter[]>;
+	findById(id: string): Promise<Newsletter | null>;
 }

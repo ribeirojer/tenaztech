@@ -1,7 +1,4 @@
-import {
-	createClient,
-	SupabaseClient,
-} from "https://deno.land/x/supabase/mod.ts";
+import { createClient, SupabaseClient } from 'jsr:@supabase/supabase-js@2'
 
 const supabaseUrl = "https://your-supabase-url.supabase.co";
 const supabaseKey = "your-supabase-key";

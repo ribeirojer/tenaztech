@@ -1,5 +1,5 @@
 import { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
-import { Product } from "../../../domain/entities/Product.ts";
+import { Price } from "../../../domain/value-objects/Price.ts";
 
 export class UpdateProductUseCase {
 	constructor(private productRepository: ProductRepository) {}
@@ -15,7 +15,7 @@ export class UpdateProductUseCase {
 			throw new Error("Product not found");
 		}
 		product.name = name;
-		//product.price = price;
+		product.price = new Price(price);
 		product.stock = stock;
 		await this.productRepository.update(product);
 	}

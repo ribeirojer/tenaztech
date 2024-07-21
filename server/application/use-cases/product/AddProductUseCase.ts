@@ -1,5 +1,4 @@
-import { Product } from "../../../domain/entities/Product";
-import { ProductRepository } from "../../../domain/interfaces/ProductRepository";
+import { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
 
 export class AddProductUseCase {
 	constructor(private productRepository: ProductRepository) {}

@@ -5,8 +5,7 @@ import { Address } from "../value-objects/Address.ts";
 export class Customer {
 	constructor(
 		public id: string,
-		public firstName: string,
-		public lastName: string,
+		public name: string,
 		public email: Email,
 		public password: Password,
 		public phone: string,

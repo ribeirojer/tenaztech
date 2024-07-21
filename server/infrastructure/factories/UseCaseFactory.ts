@@ -1,7 +1,7 @@
 import { MercadoPagoService } from "../services/MercadoPagoService.ts";
 import { SupabaseAuthRepository } from "../repositories/SupabaseAuthRepository.ts";
 import { SupabaseCustomerRepository } from "../repositories/SupabaseCustomerRepository.ts";
-/*import { SupabaseOrderRepository } from "../repositories/SupabaseOrderRepository.ts";
+import { SupabaseOrderRepository } from "../repositories/SupabaseOrderRepository.ts";
 import { SupabaseProductRepository } from "../repositories/SupabaseProductRepository.ts";
 import { SupabasePaymentRepository } from "../repositories/SupabasePaymentRepository.ts";
 import { SupabaseSupportTicketRepository } from "../repositories/SupabaseSupportTicketRepository.ts";
@@ -42,7 +42,6 @@ import { ListSupportTicketsUseCase } from "../../application/use-cases/support/L
 import { CreateWishlistUseCase } from "../../application/use-cases/wishlist/CreateWishlistUseCase.ts";
 import { AddToWishlistUseCase } from "../../application/use-cases/wishlist/AddToWishlistUseCase.ts";
 import { RemoveFromWishlistUseCase } from "../../application/use-cases/wishlist/RemoveFromWishlistUseCase.ts";
-import { ShareWishlistUseCase } from "../../application/use-cases/wishlist/ShareWishlistUseCase.ts";
 import { ListWishlistsUseCase } from "../../application/use-cases/wishlist/ListWishlistsUseCase.ts";
 
 // Review Use Cases
@@ -59,7 +58,6 @@ import { ListRelatedProductsUseCase } from "../../application/use-cases/recommen
 import { ScheduleDeliveryUseCase } from "../../application/use-cases/delivery/ScheduleDeliveryUseCase.ts";
 import { UpdateDeliveryDateUseCase } from "../../application/use-cases/delivery/UpdateDeliveryDateUseCase.ts";
 import { NotifyDeliveryDelayUseCase } from "../../application/use-cases/delivery/NotifyDeliveryDelayUseCase.ts";
-*/
 
 // Auth Use Cases
 import { LoginUseCase } from "../../application/use-cases/auth/LoginUseCase.ts";
@@ -71,7 +69,6 @@ import { RecoverPasswordUseCase } from "../../application/use-cases/auth/Recover
 import { SubscribeNewsletterUseCase } from "../../application/use-cases/newsletter/SubscribeNewsletterUseCase.ts";
 import { UnsubscribeNewsletterUseCase } from "../../application/use-cases/newsletter/UnsubscribeNewsletterUseCase.ts";
 import { ListNewslettersUseCase } from "../../application/use-cases/newsletter/ListNewslettersUseCase.ts";
-import { GetNewsletterDetailUseCase } from "../../application/use-cases/newsletter/GetNewsletterDetailUseCase.ts";
 
 import { SupabaseNewsletterRepository } from "../repositories/SupabaseNewsletterRepository.ts";
 
@@ -80,7 +77,7 @@ export class UseCaseFactory {
 		const accessToken = "YOUR_MERCADO_PAGO_ACCESS_TOKEN";
 		return new MercadoPagoService(accessToken);
 	}
-	/** 
+
     // Order Use Cases
     static createOrderUseCases() {
         const orderRepository = new SupabaseOrderRepository();
@@ -154,7 +151,6 @@ export class UseCaseFactory {
             create: new CreateWishlistUseCase(wishlistRepository),
             add: new AddToWishlistUseCase(wishlistRepository),
             remove: new RemoveFromWishlistUseCase(wishlistRepository),
-            share: new ShareWishlistUseCase(wishlistRepository),
             list: new ListWishlistsUseCase(wishlistRepository),
         };
     }
@@ -188,7 +184,7 @@ export class UseCaseFactory {
             notifyDelay: new NotifyDeliveryDelayUseCase(deliveryRepository),
         };
     }
-*/
+    
 	// Auth Use Cases
 	static createAuthUseCases() {
 		const authRepository = new SupabaseAuthRepository();

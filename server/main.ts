@@ -1,18 +1,20 @@
-import { Application } from "https://deno.land/x/oak/mod.ts";
-import { EventPublisher } from "./application/services/EventPublisher.ts";
-import router from "./routes.ts";
+import { Application } from "https://deno.land/x/oak@v12.6.1/mod.ts";
+import productRouter from "./application/routes/productRoutes.ts";
+import orderRouter from "./application/routes/orderRoutes.ts";
+import customerRouter from "./application/routes/customerRoutes.ts";
 
 const app = new Application();
 
-// Configurando o EventPublisher
-const eventPublisher = new EventPublisher();
+app.use(productRouter.routes());
+app.use(productRouter.allowedMethods());
 
-// Registrando um handler para o evento de criação de ticket de suporte
-eventPublisher.register("SupportTicketCreatedEvent", (event: any) => {
-	console.log("Support ticket created:", event);
-});
+app.use(orderRouter.routes());
+app.use(orderRouter.allowedMethods());
 
-app.use(router.routes());
-app.use(router.allowedMethods());
+app.use(customerRouter.routes());
+app.use(customerRouter.allowedMethods());
 
+console.log("Servidor rodando na porta 8000");
 await app.listen({ port: 8000 });
+
+export { app }

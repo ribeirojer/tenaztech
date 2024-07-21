@@ -3,7 +3,7 @@ import { OrderId } from "../../domain/value-objects/OrderId.ts";
 import { DeliveryDate } from "../../domain/value-objects/DeliveryDate.ts";
 import { supabase } from "../persistence/DatabaseConnection.ts";
 
-export class DeliveryRepository {
+export class SupabaseDeliveryRepository {
 	async add(delivery: Delivery): Promise<void> {
 		const { data, error } = await supabase.from("deliveries").insert([
 			{
