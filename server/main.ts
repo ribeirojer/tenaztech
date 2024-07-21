@@ -9,7 +9,7 @@ const eventPublisher = new EventPublisher();
 
 // Registrando um handler para o evento de criação de ticket de suporte
 eventPublisher.register("SupportTicketCreatedEvent", (event: any) => {
-    console.log("Support ticket created:", event);
+	console.log("Support ticket created:", event);
 });
 
 app.use(router.routes());

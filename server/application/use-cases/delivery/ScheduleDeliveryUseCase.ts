@@ -8,31 +8,34 @@ import { EventPublisher } from "../../services/EventPublisher.ts";
 import { InvalidOrderException } from "../../exceptions/InvalidOrderException.ts";
 
 interface ScheduleDeliveryInput {
-    orderId: string;
-    deliveryDate: Date;
+	orderId: string;
+	deliveryDate: Date;
 }
 
 export class ScheduleDeliveryUseCase {
-    constructor(
-        private readonly deliveryRepository: DeliveryRepository,
-        private readonly orderRepository: OrderRepository,
-        private readonly eventPublisher: EventPublisher
-    ) {}
+	constructor(
+		private readonly deliveryRepository: DeliveryRepository,
+		private readonly orderRepository: OrderRepository,
+		private readonly eventPublisher: EventPublisher,
+	) {}
 
-    async execute(input: ScheduleDeliveryInput): Promise<void> {
-        const orderId = new OrderId(input.orderId);
-        const order = await this.orderRepository.getById(orderId.toString());
-        
-        if (!order) {
-            throw new InvalidOrderException("Order does not exist");
-        }
+	async execute(input: ScheduleDeliveryInput): Promise<void> {
+		const orderId = new OrderId(input.orderId);
+		const order = await this.orderRepository.getById(orderId.toString());
 
-        const deliveryDate = new DeliveryDate(input.deliveryDate);
-        const delivery = new Delivery(orderId, deliveryDate);
+		if (!order) {
+			throw new InvalidOrderException("Order does not exist");
+		}
 
-        await this.deliveryRepository.add(delivery);
+		const deliveryDate = new DeliveryDate(input.deliveryDate);
+		const delivery = new Delivery(orderId, deliveryDate);
 
-        const deliveryScheduledEvent = new DeliveryScheduledEvent(orderId.toString(), deliveryDate.getValue());
-        this.eventPublisher.publish(deliveryScheduledEvent);
-    }
+		await this.deliveryRepository.add(delivery);
+
+		const deliveryScheduledEvent = new DeliveryScheduledEvent(
+			orderId.toString(),
+			deliveryDate.getValue(),
+		);
+		this.eventPublisher.publish(deliveryScheduledEvent);
+	}
 }

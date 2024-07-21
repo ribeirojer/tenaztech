@@ -24,7 +24,7 @@ export class RefundPaymentUseCase {
 
 		const order = await this.orderRepository.getById(payment.orderId);
 		if (order) {
-			order.updateStatus(new OrderStatus("refunded"))
+			order.updateStatus(new OrderStatus("refunded"));
 			await this.orderRepository.update(order);
 		}
 	}

@@ -5,28 +5,31 @@ import { EventPublisher } from "../../services/EventPublisher.ts";
 import { DeliveryNotFoundException } from "../../exceptions/DeliveryNotFoundException.ts";
 
 interface ConfirmDeliveryInput {
-    orderId: string;
+	orderId: string;
 }
 
 export class ConfirmDeliveryUseCase {
-    constructor(
-        private readonly deliveryRepository: DeliveryRepository,
-        private readonly eventPublisher: EventPublisher
-    ) {}
+	constructor(
+		private readonly deliveryRepository: DeliveryRepository,
+		private readonly eventPublisher: EventPublisher,
+	) {}
 
-    async execute(input: ConfirmDeliveryInput): Promise<void> {
-        const orderId = new OrderId(input.orderId);
-        const delivery = await this.deliveryRepository.getByOrderId(orderId);
+	async execute(input: ConfirmDeliveryInput): Promise<void> {
+		const orderId = new OrderId(input.orderId);
+		const delivery = await this.deliveryRepository.getByOrderId(orderId);
 
-        if (!delivery) {
-            throw new DeliveryNotFoundException("Delivery not found");
-        }
+		if (!delivery) {
+			throw new DeliveryNotFoundException("Delivery not found");
+		}
 
-        delivery.confirm();
+		delivery.confirm();
 
-        await this.deliveryRepository.update(delivery);
+		await this.deliveryRepository.update(delivery);
 
-        const deliveryConfirmedEvent = new DeliveryConfirmedEvent(orderId.toString(), delivery.date.getValue());
-        this.eventPublisher.publish(deliveryConfirmedEvent);
-    }
+		const deliveryConfirmedEvent = new DeliveryConfirmedEvent(
+			orderId.toString(),
+			delivery.date.getValue(),
+		);
+		this.eventPublisher.publish(deliveryConfirmedEvent);
+	}
 }

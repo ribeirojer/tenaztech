@@ -1,8 +1,8 @@
 import { MercadoPagoService } from "../services/MercadoPagoService.ts";
 import { SupabaseAuthRepository } from "../repositories/SupabaseAuthRepository.ts";
+import { SupabaseCustomerRepository } from "../repositories/SupabaseCustomerRepository.ts";
 /*import { SupabaseOrderRepository } from "../repositories/SupabaseOrderRepository.ts";
 import { SupabaseProductRepository } from "../repositories/SupabaseProductRepository.ts";
-import { SupabaseCustomerRepository } from "../repositories/SupabaseCustomerRepository.ts";
 import { SupabasePaymentRepository } from "../repositories/SupabasePaymentRepository.ts";
 import { SupabaseSupportTicketRepository } from "../repositories/SupabaseSupportTicketRepository.ts";
 import { SupabaseWishlistRepository } from "../repositories/SupabaseWishlistRepository.ts";
@@ -67,12 +67,20 @@ import { LogoutUseCase } from "../../application/use-cases/auth/LogoutUseCase.ts
 import { RegisterAccountUseCase } from "../../application/use-cases/auth/RegisterAccountUseCase.ts";
 import { RecoverPasswordUseCase } from "../../application/use-cases/auth/RecoverPasswordUseCase.ts";
 
+// casos de uso de Newsletter
+import { SubscribeNewsletterUseCase } from "../../application/use-cases/newsletter/SubscribeNewsletterUseCase.ts";
+import { UnsubscribeNewsletterUseCase } from "../../application/use-cases/newsletter/UnsubscribeNewsletterUseCase.ts";
+import { ListNewslettersUseCase } from "../../application/use-cases/newsletter/ListNewslettersUseCase.ts";
+import { GetNewsletterDetailUseCase } from "../../application/use-cases/newsletter/GetNewsletterDetailUseCase.ts";
+
+import { SupabaseNewsletterRepository } from "../repositories/SupabaseNewsletterRepository.ts";
+
 export class UseCaseFactory {
-    private static createMercadoPagoService(): MercadoPagoService {
-        const accessToken = "YOUR_MERCADO_PAGO_ACCESS_TOKEN";
-        return new MercadoPagoService(accessToken);
-    }
-/** 
+	private static createMercadoPagoService(): MercadoPagoService {
+		const accessToken = "YOUR_MERCADO_PAGO_ACCESS_TOKEN";
+		return new MercadoPagoService(accessToken);
+	}
+	/** 
     // Order Use Cases
     static createOrderUseCases() {
         const orderRepository = new SupabaseOrderRepository();
@@ -181,16 +189,31 @@ export class UseCaseFactory {
         };
     }
 */
-    // Auth Use Cases
-    static createAuthUseCases() {
-        const authRepository = new SupabaseAuthRepository();
-        return {
-            login: new LoginUseCase(authRepository),
-            logout: new LogoutUseCase(authRepository),
-            register: new RegisterAccountUseCase(authRepository),
-            recoverPassword: new RecoverPasswordUseCase(authRepository),
-            //updatePassword: new UpdatePasswordUseCase(authRepository),
-            //delete: new DeleteUserUseCase(authRepository),
-        };
-    }
+	// Auth Use Cases
+	static createAuthUseCases() {
+		const authRepository = new SupabaseAuthRepository();
+		return {
+			login: new LoginUseCase(authRepository),
+			logout: new LogoutUseCase(authRepository),
+			register: new RegisterAccountUseCase(authRepository),
+			recoverPassword: new RecoverPasswordUseCase(authRepository),
+			//updatePassword: new UpdatePasswordUseCase(authRepository),
+			//delete: new DeleteUserUseCase(authRepository),
+		};
+	}
+
+	// Newsletter Use Cases
+	static createNewsletterUseCases() {
+		const newsletterRepository = new SupabaseNewsletterRepository();
+		const customerRepository = new SupabaseCustomerRepository();
+		return {
+			subscribe: new SubscribeNewsletterUseCase(
+				newsletterRepository,
+				customerRepository,
+			),
+			unsubscribe: new UnsubscribeNewsletterUseCase(newsletterRepository),
+			list: new ListNewslettersUseCase(newsletterRepository),
+			detail: new GetNewsletterDetailUseCase(newsletterRepository),
+		};
+	}
 }

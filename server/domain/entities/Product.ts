@@ -13,8 +13,8 @@ export class Product {
 		public createdAt: Date,
 		public updatedAt: Date,
 
-        public category: string,
-        public brand: string,
-        public rating: number,
+		public category: string,
+		public brand: string,
+		public rating: number,
 	) {}
 }

@@ -5,46 +5,46 @@ import { EventPublisher } from "../../services/EventPublisher.ts";
 import { SupportTicketCreatedEvent } from "../../../domain/events/SupportTicketCreatedEvent.ts";
 
 interface CreateSupportTicketInput {
-    customerId: string;
-    subject: string;
-    message: string;
+	customerId: string;
+	subject: string;
+	message: string;
 }
 
 export class CreateSupportTicketUseCase {
-    constructor(
-        private readonly supportTicketRepository: SupportTicketRepository,
-        private readonly eventPublisher: EventPublisher,
-    ) {}
+	constructor(
+		private readonly supportTicketRepository: SupportTicketRepository,
+		private readonly eventPublisher: EventPublisher,
+	) {}
 
-    async execute(input: CreateSupportTicketInput): Promise<void> {
-        this.validateInput(input);
+	async execute(input: CreateSupportTicketInput): Promise<void> {
+		this.validateInput(input);
 
-        const ticket = new SupportTicket(
+		const ticket = new SupportTicket(
 			crypto.randomUUID(),
 			input.customerId,
-            input.subject,
-            input.message,
-            "open",
-            new Date(),
-            new Date()
-        );
+			input.subject,
+			input.message,
+			"open",
+			new Date(),
+			new Date(),
+		);
 
-        await this.supportTicketRepository.add(ticket);
+		await this.supportTicketRepository.add(ticket);
 
-        const supportTicketCreatedEvent = new SupportTicketCreatedEvent(
-            ticket.id,
-            ticket.customerId,
-            ticket.subject,
-            ticket.message,
-            ticket.status,
-            ticket.createdAt
-        );
-        this.eventPublisher.publish(supportTicketCreatedEvent);
-    }
+		const supportTicketCreatedEvent = new SupportTicketCreatedEvent(
+			ticket.id,
+			ticket.customerId,
+			ticket.subject,
+			ticket.message,
+			ticket.status,
+			ticket.createdAt,
+		);
+		this.eventPublisher.publish(supportTicketCreatedEvent);
+	}
 
-    private validateInput(input: CreateSupportTicketInput): void {
-        if (!input.customerId || !input.subject || !input.message) {
-            throw new InvalidSupportTicketException("All fields are required.");
-        }
-    }
+	private validateInput(input: CreateSupportTicketInput): void {
+		if (!input.customerId || !input.subject || !input.message) {
+			throw new InvalidSupportTicketException("All fields are required.");
+		}
+	}
 }

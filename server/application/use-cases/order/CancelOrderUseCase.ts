@@ -12,13 +12,12 @@ export class CancelOrderUseCase {
 		if (!order) {
 			throw new Error("Order not found");
 		}
-/*
+		/*
 		order.items.forEach(async (item) => {
 			await this.productRepository.increaseStock(item.productId, item.quantity);
 		});
 
 		order.status = "Cancelled";
-		*/await this.orderRepository.update(order);
-		
+		*/ await this.orderRepository.update(order);
 	}
 }

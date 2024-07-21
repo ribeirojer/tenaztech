@@ -4,35 +4,37 @@ import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabaseProductRepository implements ProductRepository {
 	async find(filters: any): Promise<Product[]> {
-        let query = supabase.from('products').select('*');
+		let query = supabase.from("products").select("*");
 
-        if (filters.category) {
-            query = query.eq('category', filters.category);
-        }
+		if (filters.category) {
+			query = query.eq("category", filters.category);
+		}
 
-        if (filters.price) {
-            query = query.gte('price', filters.price.$gte).lte('price', filters.price.$lte);
-        }
+		if (filters.price) {
+			query = query
+				.gte("price", filters.price.$gte)
+				.lte("price", filters.price.$lte);
+		}
 
-        if (filters.brand) {
-            query = query.eq('brand', filters.brand);
-        }
+		if (filters.brand) {
+			query = query.eq("brand", filters.brand);
+		}
 
-        const { data, error } = await query;
-        if (error) throw error;
+		const { data, error } = await query;
+		if (error) throw error;
 
-        return data;
-    }
+		return data;
+	}
 
-    async searchByKeyword(keyword: string): Promise<Product[]> {
-        const { data, error } = await supabase
-            .from('products')
-            .select('*')
-            .ilike('name', `%${keyword}%`);
-        if (error) throw error;
+	async searchByKeyword(keyword: string): Promise<Product[]> {
+		const { data, error } = await supabase
+			.from("products")
+			.select("*")
+			.ilike("name", `%${keyword}%`);
+		if (error) throw error;
 
-        return data;
-    }
+		return data;
+	}
 	increaseStock(productId: any, quantity: any): unknown {
 		throw new Error("Method not implemented.");
 	}
@@ -61,16 +63,14 @@ export class SupabaseProductRepository implements ProductRepository {
 	}
 
 	async add(product: Product): Promise<void> {
-		const { error } = await supabase
-			.from("products")
-			.insert([
-				{
-					id: product.id,
-					name: product.name,
-					price: product.price,
-					stock: product.stock,
-				},
-			]);
+		const { error } = await supabase.from("products").insert([
+			{
+				id: product.id,
+				name: product.name,
+				price: product.price,
+				stock: product.stock,
+			},
+		]);
 
 		if (error) {
 			throw error;
@@ -93,10 +93,7 @@ export class SupabaseProductRepository implements ProductRepository {
 	}
 
 	async remove(id: string): Promise<void> {
-		const { error } = await supabase
-			.from("products")
-			.delete()
-			.eq("id", id);
+		const { error } = await supabase.from("products").delete().eq("id", id);
 
 		if (error) {
 			throw error;

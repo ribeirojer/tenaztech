@@ -1,2 +1,1 @@
-export class PaymentRepository {
-}
+export class PaymentRepository {}

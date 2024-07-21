@@ -5,26 +5,28 @@ import { EventPublisher } from "../../services/EventPublisher.ts";
 import { DeliveryNotFoundException } from "../../exceptions/DeliveryNotFoundException.ts";
 
 interface CancelDeliveryInput {
-    orderId: string;
+	orderId: string;
 }
 
 export class CancelDeliveryUseCase {
-    constructor(
-        private readonly deliveryRepository: DeliveryRepository,
-        private readonly eventPublisher: EventPublisher
-    ) {}
+	constructor(
+		private readonly deliveryRepository: DeliveryRepository,
+		private readonly eventPublisher: EventPublisher,
+	) {}
 
-    async execute(input: CancelDeliveryInput): Promise<void> {
-        const orderId = new OrderId(input.orderId);
-        const delivery = await this.deliveryRepository.getByOrderId(orderId);
+	async execute(input: CancelDeliveryInput): Promise<void> {
+		const orderId = new OrderId(input.orderId);
+		const delivery = await this.deliveryRepository.getByOrderId(orderId);
 
-        if (!delivery) {
-            throw new DeliveryNotFoundException("Delivery not found");
-        }
+		if (!delivery) {
+			throw new DeliveryNotFoundException("Delivery not found");
+		}
 
-        await this.deliveryRepository.delete(orderId);
+		await this.deliveryRepository.delete(orderId);
 
-        const deliveryCancelledEvent = new DeliveryCancelledEvent(orderId.toString());
-        this.eventPublisher.publish(deliveryCancelledEvent);
-    }
+		const deliveryCancelledEvent = new DeliveryCancelledEvent(
+			orderId.toString(),
+		);
+		this.eventPublisher.publish(deliveryCancelledEvent);
+	}
 }

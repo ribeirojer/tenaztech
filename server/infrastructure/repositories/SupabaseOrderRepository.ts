@@ -1,6 +1,6 @@
 import { Order } from "../../domain/entities/Order.ts";
 import { OrderRepository } from "../../domain/interfaces/OrderRepository.ts";
-import { supabase } from '../persistence/DatabaseConnection.ts';
+import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabaseOrderRepository implements OrderRepository {
 	getById(id: string): Promise<Order | null> {
@@ -19,7 +19,7 @@ export class SupabaseOrderRepository implements OrderRepository {
 		throw new Error("Method not implemented.");
 	}
 
-/** 
+	/** 
 	async getById(id: string): Promise<Order | null> {
 		const { data, error } = await this.supabase
 			.from("orders")
@@ -103,60 +103,72 @@ export class SupabaseOrderRepository implements OrderRepository {
 		}
 	}
 */
-    async save(order: Order): Promise<void> {
-        const { id, customerId, orderDate, items, totalAmount, shippingAddress, status, createdAt, updatedAt } = order.getOrderDetails();
-        const { data, error } = await supabase
-            .from('orders')
-            .insert({
-                id: id.toString(),
-                customer_id: customerId.toString(),
-                order_date: orderDate.toISOString(),
-                items: items.map(item => ({
-                    product_id: item.productId,
-                    quantity: item.quantity,
-                    price: item.unitPrice
-                })),
-                total_amount: totalAmount,
-                shipping_address: {
-                    street: shippingAddress.street,
-                    city: shippingAddress.city,
-                    state: shippingAddress.state,
-                    zip_code: shippingAddress.zipCode
-                },
-                status: status.getStatus(),
-                created_at: createdAt.toISOString(),
-                updated_at: updatedAt.toISOString()
-            });
+	async save(order: Order): Promise<void> {
+		const {
+			id,
+			customerId,
+			orderDate,
+			items,
+			totalAmount,
+			shippingAddress,
+			status,
+			createdAt,
+			updatedAt,
+		} = order.getOrderDetails();
+		const { data, error } = await supabase.from("orders").insert({
+			id: id.toString(),
+			customer_id: customerId.toString(),
+			order_date: orderDate.toISOString(),
+			items: items.map((item) => ({
+				product_id: item.productId,
+				quantity: item.quantity,
+				price: item.unitPrice,
+			})),
+			total_amount: totalAmount,
+			shipping_address: {
+				street: shippingAddress.street,
+				city: shippingAddress.city,
+				state: shippingAddress.state,
+				zip_code: shippingAddress.zipCode,
+			},
+			status: status.getStatus(),
+			created_at: createdAt.toISOString(),
+			updated_at: updatedAt.toISOString(),
+		});
 
-        if (error) {
-            throw new Error('Failed to save order');
-        }
-    }
+		if (error) {
+			throw new Error("Failed to save order");
+		}
+	}
 
-    async startProcessingOrder(orderId: string): Promise<void> {
-        const { data, error } = await supabase
-            .from('orders')
-            .update({ processing: true })
-            .eq('id', orderId)
-            .eq('processing', false); // Garante que o pedido não está sendo processado
+	async startProcessingOrder(orderId: string): Promise<void> {
+		const { data, error } = await supabase
+			.from("orders")
+			.update({ processing: true })
+			.eq("id", orderId)
+			.eq("processing", false); // Garante que o pedido não está sendo processado
 
-        if (error) {
-            throw new Error(`Error starting processing for order ${orderId}: ${error.message}`);
-        }
+		if (error) {
+			throw new Error(
+				`Error starting processing for order ${orderId}: ${error.message}`,
+			);
+		}
 
-        if (data.length === 0) {
-            throw new Error(`Order ${orderId} is already being processed.`);
-        }
-    }
+		if (data.length === 0) {
+			throw new Error(`Order ${orderId} is already being processed.`);
+		}
+	}
 
-    async completeProcessingOrder(orderId: string): Promise<void> {
-        const { error } = await supabase
-            .from('orders')
-            .update({ processing: false })
-            .eq('id', orderId);
+	async completeProcessingOrder(orderId: string): Promise<void> {
+		const { error } = await supabase
+			.from("orders")
+			.update({ processing: false })
+			.eq("id", orderId);
 
-        if (error) {
-            throw new Error(`Error completing processing for order ${orderId}: ${error.message}`);
-        }
-    }
+		if (error) {
+			throw new Error(
+				`Error completing processing for order ${orderId}: ${error.message}`,
+			);
+		}
+	}
 }

@@ -2,14 +2,16 @@ import { ProductRepository } from "../../../domain/interfaces/ProductRepository.
 import { Product } from "../../../domain/entities/Product.ts";
 
 interface KeywordSearchInput {
-    keyword: string;
+	keyword: string;
 }
 
 export class KeywordSearchUseCase {
-    constructor(private readonly productRepository: ProductRepository) {}
+	constructor(private readonly productRepository: ProductRepository) {}
 
-    async execute(input: KeywordSearchInput): Promise<Product[]> {
-        const products = await this.productRepository.searchByKeyword(input.keyword);
-        return products;
-    }
+	async execute(input: KeywordSearchInput): Promise<Product[]> {
+		const products = await this.productRepository.searchByKeyword(
+			input.keyword,
+		);
+		return products;
+	}
 }

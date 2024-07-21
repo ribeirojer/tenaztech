@@ -30,10 +30,16 @@ export class ProcessPaymentUseCase {
 		);
 
 		if (paymentResponse.status === "approved") {
-			const payment = new Payment(orderId, new Date, amount, paymentMethod, "processed");
+			const payment = new Payment(
+				orderId,
+				new Date(),
+				amount,
+				paymentMethod,
+				"processed",
+			);
 			await this.paymentRepository.add(payment);
 
-			order.updateStatus(new OrderStatus("paid"))
+			order.updateStatus(new OrderStatus("paid"));
 			await this.orderRepository.update(order);
 		} else {
 			throw new Error("Payment not approved");

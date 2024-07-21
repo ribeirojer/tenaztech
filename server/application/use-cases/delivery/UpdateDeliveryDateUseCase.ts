@@ -6,30 +6,33 @@ import { EventPublisher } from "../../services/EventPublisher.ts";
 import { DeliveryNotFoundException } from "../../exceptions/DeliveryNotFoundException.ts";
 
 interface UpdateDeliveryDateInput {
-    orderId: string;
-    newDeliveryDate: Date;
+	orderId: string;
+	newDeliveryDate: Date;
 }
 
 export class UpdateDeliveryDateUseCase {
-    constructor(
-        private readonly deliveryRepository: DeliveryRepository,
-        private readonly eventPublisher: EventPublisher
-    ) {}
+	constructor(
+		private readonly deliveryRepository: DeliveryRepository,
+		private readonly eventPublisher: EventPublisher,
+	) {}
 
-    async execute(input: UpdateDeliveryDateInput): Promise<void> {
-        const orderId = new OrderId(input.orderId);
-        const delivery = await this.deliveryRepository.getByOrderId(orderId);
+	async execute(input: UpdateDeliveryDateInput): Promise<void> {
+		const orderId = new OrderId(input.orderId);
+		const delivery = await this.deliveryRepository.getByOrderId(orderId);
 
-        if (!delivery) {
-            throw new DeliveryNotFoundException("Delivery not found");
-        }
+		if (!delivery) {
+			throw new DeliveryNotFoundException("Delivery not found");
+		}
 
-        const newDeliveryDate = new DeliveryDate(input.newDeliveryDate);
-        delivery.updateDate(newDeliveryDate);
+		const newDeliveryDate = new DeliveryDate(input.newDeliveryDate);
+		delivery.updateDate(newDeliveryDate);
 
-        await this.deliveryRepository.update(delivery);
+		await this.deliveryRepository.update(delivery);
 
-        const deliveryUpdatedEvent = new DeliveryUpdatedEvent(orderId.toString(), newDeliveryDate.getValue());
-        this.eventPublisher.publish(deliveryUpdatedEvent);
-    }
+		const deliveryUpdatedEvent = new DeliveryUpdatedEvent(
+			orderId.toString(),
+			newDeliveryDate.getValue(),
+		);
+		this.eventPublisher.publish(deliveryUpdatedEvent);
+	}
 }

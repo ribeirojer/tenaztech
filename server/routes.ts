@@ -8,7 +8,9 @@ import { WishlistController } from "./application/controllers/WishlistController
 import { ReviewsController } from "./application/controllers/ReviewsController.ts";
 import { RecommendationsController } from "./application/controllers/RecommendationsController.ts";
 import { DeliveryController } from "./application/controllers/DeliveryController.ts";
-*/import { AuthController } from "./application/controllers/AuthController.ts";
+*/
+import { AuthController } from "./application/controllers/AuthController.ts";
+import { NewsletterController } from "./application/controllers/NewsletterController.ts";
 
 const router = new Router();
 /** 
@@ -68,9 +70,15 @@ router.post("/deliveries", DeliveryController.schedule)
 router.put("/deliveries/:id/date", DeliveryController.updateDate)
 router.post("/deliveries/:id/notify-delay", DeliveryController.notifyDelay)
 */
-router.post("/auth/login", AuthController.login)
-router.post("/auth/logout", AuthController.logout)
-router.post("/auth/register", AuthController.register)
-router.post("/auth/recover-password", AuthController.recoverPassword)
+router.post("/auth/login", AuthController.login);
+router.post("/auth/logout", AuthController.logout);
+router.post("/auth/register", AuthController.register);
+router.post("/auth/recover-password", AuthController.recoverPassword);
+
+router.post("/newsletters/subscribe", NewsletterController.subscribe);
+router.post("/newsletters/unsubscribe", NewsletterController.unsubscribe);
+router.post("/newsletters/send", NewsletterController.send);
+router.get("/newsletters", NewsletterController.list);
+router.get("/newsletters/:id", NewsletterController.detail);
 
 export default router;

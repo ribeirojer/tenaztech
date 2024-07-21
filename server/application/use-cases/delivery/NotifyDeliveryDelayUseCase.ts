@@ -5,34 +5,38 @@ import { OrderId } from "../../../domain/value-objects/OrderId.ts";
 import { DeliveryNotFoundException } from "../../exceptions/DeliveryNotFoundException.ts";
 
 interface NotifyDeliveryDelayInput {
-    orderId: string;
-    delayReason: string;
+	orderId: string;
+	delayReason: string;
 }
 
 export class NotifyDeliveryDelayUseCase {
-    constructor(
-        private readonly deliveryRepository: DeliveryRepository,
-        private readonly orderRepository: OrderRepository,
-        private readonly emailService: EmailService
-    ) {}
+	constructor(
+		private readonly deliveryRepository: DeliveryRepository,
+		private readonly orderRepository: OrderRepository,
+		private readonly emailService: EmailService,
+	) {}
 
-    async execute(input: NotifyDeliveryDelayInput): Promise<void> {
-        const orderId = new OrderId(input.orderId);
-        const delivery = await this.deliveryRepository.getByOrderId(orderId);
+	async execute(input: NotifyDeliveryDelayInput): Promise<void> {
+		const orderId = new OrderId(input.orderId);
+		const delivery = await this.deliveryRepository.getByOrderId(orderId);
 
-        if (!delivery) {
-            throw new DeliveryNotFoundException("Delivery not found");
-        }
+		if (!delivery) {
+			throw new DeliveryNotFoundException("Delivery not found");
+		}
 
-        const order = await this.orderRepository.getById(orderId.toString());
+		const order = await this.orderRepository.getById(orderId.toString());
 
-        if (!order) {
-            throw new Error("Order not found");
-        }
+		if (!order) {
+			throw new Error("Order not found");
+		}
 
-        const email = order.getOrderDetails().customerId.toString();
-        const message = `Dear Customer, your delivery scheduled for ${delivery.date.getValue()} has been delayed. Reason: ${input.delayReason}`;
+		const email = order.getOrderDetails().customerId.toString();
+		const message = `Dear Customer, your delivery scheduled for ${delivery.date.getValue()} has been delayed. Reason: ${input.delayReason}`;
 
-        await this.emailService.sendEmail(email, "Delivery Delay Notification", message);
-    }
+		await this.emailService.sendEmail(
+			email,
+			"Delivery Delay Notification",
+			message,
+		);
+	}
 }

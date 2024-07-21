@@ -7,7 +7,7 @@ import { CustomerId } from "../../../domain/value-objects/CustomerId.ts";
 import { OrderItem } from "../../../domain/value-objects/OrderItem.ts";
 import { Address } from "../../../domain/value-objects/Address.ts";
 import { OrderStatus } from "../../../domain/value-objects/OrderStatus.ts";
-import { Coupon } from '../../../domain/value-objects/Coupon.ts';
+import { Coupon } from "../../../domain/value-objects/Coupon.ts";
 
 import { OrderCreatedEvent } from "../../../domain/events/OrderCreatedEvent.ts";
 import { EventPublisher } from "../../services/EventPublisher.ts";
@@ -30,7 +30,7 @@ interface CreateOrderInput {
 	};
 	email: string;
 	customerEmail: string;
-	coupons?: { code: string, discountPercentage: number }[];
+	coupons?: { code: string; discountPercentage: number }[];
 }
 
 export class CreateOrderUseCase {
@@ -42,7 +42,7 @@ export class CreateOrderUseCase {
 	) {}
 
 	async execute(input: CreateOrderInput): Promise<Order> {
-        this.validateInput(input);
+		this.validateInput(input);
 
 		const orderId = new OrderId(this.generateUniqueId());
 		const customerId = new CustomerId(input.customerId);
@@ -53,9 +53,12 @@ export class CreateOrderUseCase {
 			input.shippingAddress.state,
 			input.shippingAddress.zipCode,
 		);
-		const orderStatus = new OrderStatus('pending');
+		const orderStatus = new OrderStatus("pending");
 
-		const totalAmount = orderItems.reduce((sum, item) => sum + item.getTotalPrice(), 0);
+		const totalAmount = orderItems.reduce(
+			(sum, item) => sum + item.getTotalPrice(),
+			0,
+		);
 
 		const order = new Order(
 			orderId,
@@ -64,12 +67,12 @@ export class CreateOrderUseCase {
 			orderItems,
 			totalAmount,
 			shippingAddress,
-			orderStatus
+			orderStatus,
 		);
 
-        if (input.coupons) {
-            this.applyCoupons(order, input.coupons);
-        }
+		if (input.coupons) {
+			this.applyCoupons(order, input.coupons);
+		}
 
 		await this.orderRepository.add(order);
 
@@ -81,17 +84,22 @@ export class CreateOrderUseCase {
 		);
 		this.eventPublisher.publish(orderCreatedEvent);
 
-        // Enviando email de confirmação
+		// Enviando email de confirmação
 		await this.emailService.sendEmail(
-            input.email,
-            OrderConfirmationEmailTemplate.getSubject(),
-            OrderConfirmationEmailTemplate.getHtmlContent(orderId.toString(), totalAmount)
-        );
+			input.email,
+			OrderConfirmationEmailTemplate.getSubject(),
+			OrderConfirmationEmailTemplate.getHtmlContent(
+				orderId.toString(),
+				totalAmount,
+			),
+		);
 
 		return order;
 	}
 
-	private async createOrderItems(items: { productId: string; quantity: number; price: number }[]): Promise<OrderItem[]> {
+	private async createOrderItems(
+		items: { productId: string; quantity: number; price: number }[],
+	): Promise<OrderItem[]> {
 		const orderItems: OrderItem[] = [];
 		for (const item of items) {
 			const product = await this.productRepository.getById(item.productId);
@@ -114,38 +122,48 @@ export class CreateOrderUseCase {
 		return crypto.randomUUID();
 	}
 
-    private validateInput(input: CreateOrderInput): void {
-        if (!input.customerId) {
-            throw new Error('Customer ID is required.');
-        }
+	private validateInput(input: CreateOrderInput): void {
+		if (!input.customerId) {
+			throw new Error("Customer ID is required.");
+		}
 
-        if (!input.items || input.items.length === 0) {
-            throw new Error('At least one order item is required.');
-        }
+		if (!input.items || input.items.length === 0) {
+			throw new Error("At least one order item is required.");
+		}
 
-        input.items.forEach(item => {
-            if (!item.productId || item.quantity <= 0 || item.price < 0) {
-                throw new Error('Invalid order item.');
-            }
-        });
+		input.items.forEach((item) => {
+			if (!item.productId || item.quantity <= 0 || item.price < 0) {
+				throw new Error("Invalid order item.");
+			}
+		});
 
-        if (!input.shippingAddress) {
-            throw new Error('Shipping address is required.');
-        }
+		if (!input.shippingAddress) {
+			throw new Error("Shipping address is required.");
+		}
 
-        if (input.coupons) {
-            input.coupons.forEach(coupon => {
-                if (!coupon.code || coupon.discountPercentage < 0 || coupon.discountPercentage > 100) {
-                    throw new Error('Invalid coupon.');
-                }
-            });
-        }
-    }
+		if (input.coupons) {
+			input.coupons.forEach((coupon) => {
+				if (
+					!coupon.code ||
+					coupon.discountPercentage < 0 ||
+					coupon.discountPercentage > 100
+				) {
+					throw new Error("Invalid coupon.");
+				}
+			});
+		}
+	}
 
-    private applyCoupons(order: Order, coupons: { code: string, discountPercentage: number }[]): void {
-        coupons.forEach(couponInput => {
-            const coupon = new Coupon(couponInput.code, couponInput.discountPercentage);
-            order.applyCoupon(coupon);
-        });
-    }
+	private applyCoupons(
+		order: Order,
+		coupons: { code: string; discountPercentage: number }[],
+	): void {
+		coupons.forEach((couponInput) => {
+			const coupon = new Coupon(
+				couponInput.code,
+				couponInput.discountPercentage,
+			);
+			order.applyCoupon(coupon);
+		});
+	}
 }
