@@ -1,4 +1,4 @@
-import { Price } from "../value-objects/Price.ts";
+import type { Price } from "../value-objects/Price.ts";
 
 export class Product {
 	stock: number;

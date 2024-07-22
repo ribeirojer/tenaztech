@@ -1,6 +1,6 @@
 import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
-import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
 import { logger } from "../../infrastructure/config/logger.ts";
+import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
 
 const wishlistUseCases = UseCaseFactory.createWishlistUseCases();
 const router = new Router();
@@ -25,8 +25,10 @@ router.post("/wishlists/:id/items", async (ctx) => {
 	try {
 		const body = await ctx.request.body().value;
 		const { id } = ctx.params;
-		await wishlistUseCases.add.execute(id, { ...body,  });
-		logger.info(`Item added to wishlist ID: ${id}, Item: ${JSON.stringify(body)}`);
+		await wishlistUseCases.add.execute(id, { ...body });
+		logger.info(
+			`Item added to wishlist ID: ${id}, Item: ${JSON.stringify(body)}`,
+		);
 		ctx.response.status = 200;
 		ctx.response.body = { message: "Item added to wishlist successfully" };
 	} catch (error) {
@@ -54,7 +56,7 @@ router.delete("/wishlists/:wishlistId/items/:itemId", async (ctx) => {
 // List all wishlists
 router.get("/wishlists", async (ctx) => {
 	try {
-		const wishlists = await wishlistUseCases.list.execute('');
+		const wishlists = await wishlistUseCases.list.execute("");
 		logger.info("Fetched all wishlists");
 		ctx.response.status = 200;
 		ctx.response.body = wishlists;

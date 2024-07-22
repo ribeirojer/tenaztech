@@ -1,7 +1,7 @@
-import { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
-import { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
-import { EmailService } from "../../../infrastructure/services/EmailService.ts";
+import type { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
+import type { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
 import { OrderId } from "../../../domain/value-objects/OrderId.ts";
+import type { EmailService } from "../../../infrastructure/services/EmailService.ts";
 import { DeliveryNotFoundException } from "../../exceptions/DeliveryNotFoundException.ts";
 
 interface NotifyDeliveryDelayInput {

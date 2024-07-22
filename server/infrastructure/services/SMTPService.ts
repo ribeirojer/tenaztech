@@ -1,5 +1,5 @@
-import { EmailService } from "../../domain/services/EmailService.ts";
-import { Order } from "../../domain/entities/Order.ts";
+import type { Order } from "../../domain/entities/Order.ts";
+import type { EmailService } from "../../domain/services/EmailService.ts";
 
 export class SMTPService implements EmailService {
 	async sendOrderCreatedEmail(order: Order): Promise<void> {

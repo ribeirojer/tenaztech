@@ -1,6 +1,6 @@
 import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
-import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
 import { logger } from "../../infrastructure/config/logger.ts";
+import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
 
 const supportTicketUseCases = UseCaseFactory.createSupportTicketUseCases();
 const router = new Router();

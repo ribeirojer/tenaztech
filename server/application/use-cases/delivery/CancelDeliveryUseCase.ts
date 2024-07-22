@@ -1,8 +1,8 @@
-import { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
-import { OrderId } from "../../../domain/value-objects/OrderId.ts";
 import { DeliveryCancelledEvent } from "../../../domain/events/DeliveryCancelledEvent.ts";
-import { EventPublisher } from "../../services/EventPublisher.ts";
+import type { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
+import { OrderId } from "../../../domain/value-objects/OrderId.ts";
 import { DeliveryNotFoundException } from "../../exceptions/DeliveryNotFoundException.ts";
+import type { EventPublisher } from "../../services/EventPublisher.ts";
 
 interface CancelDeliveryInput {
 	orderId: string;

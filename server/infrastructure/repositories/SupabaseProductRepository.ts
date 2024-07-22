@@ -1,5 +1,5 @@
-import { Product } from "../../domain/entities/Product.ts";
-import { ProductRepository } from "../../domain/interfaces/ProductRepository.ts";
+import type { Product } from "../../domain/entities/Product.ts";
+import type { ProductRepository } from "../../domain/interfaces/ProductRepository.ts";
 import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabaseProductRepository implements ProductRepository {
@@ -103,15 +103,11 @@ export class SupabaseProductRepository implements ProductRepository {
 	async reduceStock(productId: string, quantity: number): Promise<void> {
 		const { data, error } = await supabase
 			.from("products")
-			.update({ stock: supabase.fn("subtract", ["stock", quantity]) })
+			.update({ stock: quantity })
 			.eq("id", productId);
 
 		if (error) {
 			throw error;
-		}
-
-		if (data.length === 0) {
-			throw new Error("Product not found");
 		}
 	}
 }

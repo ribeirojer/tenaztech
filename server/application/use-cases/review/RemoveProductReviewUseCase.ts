@@ -1,4 +1,4 @@
-import { ReviewRepository } from "../../../domain/interfaces/ReviewRepository.ts";
+import type { ReviewRepository } from "../../../domain/interfaces/ReviewRepository.ts";
 
 export class RemoveProductReviewUseCase {
 	constructor(private reviewRepository: ReviewRepository) {}

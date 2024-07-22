@@ -1,14 +1,14 @@
-import { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
 import { Customer } from "../../../domain/entities/Customer.ts";
-import { Email } from "../../../domain/value-objects/Email.ts";
-import { Name } from "../../../domain/value-objects/Name.ts";
-import { Password } from "../../../domain/value-objects/Password.ts";
-import { Address } from "../../../domain/value-objects/Address.ts";
 import { CustomerAlreadyExistsException } from "../../../domain/exceptions/CustomerAlreadyExistsException.ts";
 import { InvalidEmailException } from "../../../domain/exceptions/InvalidEmailException.ts";
 import { InvalidNameException } from "../../../domain/exceptions/InvalidNameException.ts";
-import { EmailService } from "../../../infrastructure/services/EmailService.ts";
+import type { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
+import { Address } from "../../../domain/value-objects/Address.ts";
+import { Email } from "../../../domain/value-objects/Email.ts";
+import { Name } from "../../../domain/value-objects/Name.ts";
+import { Password } from "../../../domain/value-objects/Password.ts";
 import { WelcomeEmailTemplate } from "../../../infrastructure/email-templates/WelcomeEmailTemplate.ts";
+import type { EmailService } from "../../../infrastructure/services/EmailService.ts";
 
 interface RegisterCustomerInput {
 	firstName: string;
@@ -70,9 +70,7 @@ export class RegisterCustomerUseCase {
 		await this.emailService.sendEmail(
 			customerEmail.getValue(),
 			WelcomeEmailTemplate.getSubject(),
-			WelcomeEmailTemplate.getHtmlContent(
-				customerName.getValue(),
-			),
+			WelcomeEmailTemplate.getHtmlContent(customerName.getValue()),
 		);
 	}
 

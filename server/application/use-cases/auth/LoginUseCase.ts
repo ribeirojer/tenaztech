@@ -1,8 +1,8 @@
-import { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
+import { InvalidCredentialsException } from "../../../domain/exceptions/InvalidCredentialsException.ts";
+import type { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
+import type { JWTService } from "../../../domain/services/JWTService.ts";
 import { Email } from "../../../domain/value-objects/Email.ts";
 import { Password } from "../../../domain/value-objects/Password.ts";
-import { JWTService } from "../../../domain/services/JWTService.ts";
-import { InvalidCredentialsException } from "../../../domain/exceptions/InvalidCredentialsException.ts";
 
 interface LoginInput {
 	email: string;

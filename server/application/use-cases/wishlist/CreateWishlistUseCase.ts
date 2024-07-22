@@ -1,5 +1,5 @@
-import { WishlistRepository } from "../../../domain/interfaces/WishlistRepository.ts";
 import { Wishlist } from "../../../domain/entities/Wishlist.ts";
+import type { WishlistRepository } from "../../../domain/interfaces/WishlistRepository.ts";
 
 export class CreateWishlistUseCase {
 	constructor(private wishlistRepository: WishlistRepository) {}

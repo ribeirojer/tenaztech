@@ -1,6 +1,6 @@
 import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
-import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
 import { logger } from "../../infrastructure/config/logger.ts";
+import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
 import { isValidEmail } from "../../utils/validation.ts"; // Supondo que você tenha uma função de validação
 
 const newsletterUseCases = UseCaseFactory.createNewsletterUseCases();
@@ -60,7 +60,7 @@ router.post("/newsletters/send", async (ctx) => {
 
 		// Validar conteúdo da newsletter
 		if (!subject || !content) {
-			logger.warn(`Missing subject or content`);
+			logger.warn("Missing subject or content");
 			ctx.response.status = 400;
 			ctx.response.body = { error: "Subject and content are required" };
 			return;

@@ -1,4 +1,4 @@
-import { SupportTicketRepository } from "../../../domain/interfaces/SupportTicketRepository.ts";
+import type { SupportTicketRepository } from "../../../domain/interfaces/SupportTicketRepository.ts";
 
 export class UpdateSupportTicketUseCase {
 	constructor(

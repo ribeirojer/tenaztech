@@ -1,4 +1,4 @@
-import { JWTService } from "../../../domain/services/JWTService.ts";
+import type { JWTService } from "../../../domain/services/JWTService.ts";
 
 interface LogoutInput {
 	token: string;

@@ -1,5 +1,5 @@
-import { Order } from "../../domain/entities/Order.ts";
-import { OrderRepository } from "../../domain/interfaces/OrderRepository.ts";
+import type { Order } from "../../domain/entities/Order.ts";
+import type { OrderRepository } from "../../domain/interfaces/OrderRepository.ts";
 import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabaseOrderRepository implements OrderRepository {
@@ -154,9 +154,9 @@ export class SupabaseOrderRepository implements OrderRepository {
 			);
 		}
 
-		if (data.length === 0) {
-			throw new Error(`Order ${orderId} is already being processed.`);
-		}
+		//if (data.length === 0) {
+		//	throw new Error(`Order ${orderId} is already being processed.`);
+		//}
 	}
 
 	async completeProcessingOrder(orderId: string): Promise<void> {

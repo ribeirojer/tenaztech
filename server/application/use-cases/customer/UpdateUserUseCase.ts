@@ -1,4 +1,4 @@
-import { UserRepository } from "../../../domain/interfaces/UserRepository.ts";
+import type { UserRepository } from "../../../domain/interfaces/UserRepository.ts";
 
 export class UpdateUserUseCase {
 	constructor(private userRepository: UserRepository) {}

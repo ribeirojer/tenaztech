@@ -1,5 +1,5 @@
 import { User } from "../../../domain/entities/User.ts";
-import { UserRepository } from "../../../domain/interfaces/UserRepository.ts";
+import type { UserRepository } from "../../../domain/interfaces/UserRepository.ts";
 
 export class CreateUserUseCase {
 	constructor(private userRepository: UserRepository) {}

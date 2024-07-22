@@ -1,6 +1,6 @@
 import { Delivery } from "../../domain/entities/Delivery.ts";
-import { OrderId } from "../../domain/value-objects/OrderId.ts";
 import { DeliveryDate } from "../../domain/value-objects/DeliveryDate.ts";
+import { OrderId } from "../../domain/value-objects/OrderId.ts";
 import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabaseDeliveryRepository {

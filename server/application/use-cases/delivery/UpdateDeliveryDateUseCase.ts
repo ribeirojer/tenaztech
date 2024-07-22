@@ -1,9 +1,9 @@
-import { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
-import { OrderId } from "../../../domain/value-objects/OrderId.ts";
-import { DeliveryDate } from "../../../domain/value-objects/DeliveryDate.ts";
 import { DeliveryUpdatedEvent } from "../../../domain/events/DeliveryUpdatedEvent.ts";
-import { EventPublisher } from "../../services/EventPublisher.ts";
+import type { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
+import { DeliveryDate } from "../../../domain/value-objects/DeliveryDate.ts";
+import { OrderId } from "../../../domain/value-objects/OrderId.ts";
 import { DeliveryNotFoundException } from "../../exceptions/DeliveryNotFoundException.ts";
+import type { EventPublisher } from "../../services/EventPublisher.ts";
 
 interface UpdateDeliveryDateInput {
 	orderId: string;

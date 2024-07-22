@@ -1,11 +1,11 @@
-import { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
-import { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
 import { Delivery } from "../../../domain/entities/Delivery.ts";
-import { OrderId } from "../../../domain/value-objects/OrderId.ts";
-import { DeliveryDate } from "../../../domain/value-objects/DeliveryDate.ts";
 import { DeliveryScheduledEvent } from "../../../domain/events/DeliveryScheduledEvent.ts";
-import { EventPublisher } from "../../services/EventPublisher.ts";
+import type { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
+import type { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
+import { DeliveryDate } from "../../../domain/value-objects/DeliveryDate.ts";
+import { OrderId } from "../../../domain/value-objects/OrderId.ts";
 import { InvalidOrderException } from "../../exceptions/InvalidOrderException.ts";
+import type { EventPublisher } from "../../services/EventPublisher.ts";
 
 interface ScheduleDeliveryInput {
 	orderId: string;

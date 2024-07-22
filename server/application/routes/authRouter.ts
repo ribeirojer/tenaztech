@@ -1,12 +1,12 @@
 import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
+import { logger } from "../../infrastructure/config/logger.ts";
 import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
 import {
 	validateLogin,
-	validateRegister,
-	validateRecoverPassword,
 	validateLogout,
+	validateRecoverPassword,
+	validateRegister,
 } from "../validators/authValidators.ts";
-import { logger } from "../../infrastructure/config/logger.ts";
 
 const authUseCases = UseCaseFactory.createAuthUseCases();
 const router = new Router();

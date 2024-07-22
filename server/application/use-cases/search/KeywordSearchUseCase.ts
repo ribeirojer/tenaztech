@@ -1,5 +1,5 @@
-import { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
-import { Product } from "../../../domain/entities/Product.ts";
+import type { Product } from "../../../domain/entities/Product.ts";
+import type { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
 
 interface KeywordSearchInput {
 	keyword: string;

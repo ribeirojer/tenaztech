@@ -1,14 +1,12 @@
-import { NewsletterRepository } from "../../domain/interfaces/NewsletterRepository.ts";
 import { Newsletter } from "../../domain/entities/Newsletter.ts";
+import type { NewsletterRepository } from "../../domain/interfaces/NewsletterRepository.ts";
 import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabaseNewsletterRepository implements NewsletterRepository {
-	async subscribe(subscription: Newsletter): Promise<void> {
+	async subscribe(email: string): Promise<void> {
 		const { data, error } = await supabase.from("newsletter").insert([
 			{
-				id: subscription.id,
-				email: subscription.email,
-				subscribed_at: subscription.subscribedAt,
+				email: email,
 			},
 		]);
 

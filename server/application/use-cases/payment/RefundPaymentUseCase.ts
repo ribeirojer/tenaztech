@@ -1,8 +1,8 @@
-import { PaymentRepository } from "../../../domain/interfaces/PaymentRepository.ts";
-import { Payment } from "../../../domain/entities/Payment.ts";
-import { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
-import { MercadoPagoService } from "../../../infrastructure/services/MercadoPagoService.ts";
+import type { Payment } from "../../../domain/entities/Payment.ts";
+import type { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
+import type { PaymentRepository } from "../../../domain/interfaces/PaymentRepository.ts";
 import { OrderStatus } from "../../../domain/value-objects/OrderStatus.ts";
+import type { MercadoPagoService } from "../../../infrastructure/services/MercadoPagoService.ts";
 
 export class RefundPaymentUseCase {
 	constructor(

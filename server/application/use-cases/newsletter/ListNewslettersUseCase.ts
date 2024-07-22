@@ -1,4 +1,4 @@
-import { NewsletterRepository } from "../../../domain/interfaces/NewsletterRepository.ts";
+import type { NewsletterRepository } from "../../../domain/interfaces/NewsletterRepository.ts";
 
 export class ListNewslettersUseCase {
 	constructor(private newsletterRepository: NewsletterRepository) {}

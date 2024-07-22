@@ -1,6 +1,6 @@
-import { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
-import { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
 import { Order } from "../../../domain/entities/Order.ts";
+import type { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
+import type { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
 import { OrderItem } from "../../../domain/value-objects/OrderItem.ts";
 
 export class UpdateOrderUseCase {

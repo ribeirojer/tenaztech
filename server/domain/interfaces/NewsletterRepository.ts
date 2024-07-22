@@ -1,4 +1,4 @@
-import { Newsletter } from "../entities/Newsletter.ts";
+import type { Newsletter } from "../entities/Newsletter.ts";
 
 export interface NewsletterRepository {
 	subscribe(email: string): Promise<void>;

@@ -1,6 +1,6 @@
 import {
-	hash,
 	compare as bcryptCompare,
+	hash,
 } from "https://deno.land/x/bcrypt/mod.ts";
 
 export class Password {

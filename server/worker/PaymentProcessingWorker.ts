@@ -1,9 +1,9 @@
+import { supabase } from "../infrastructure/database/supabaseClient.ts";
+import { SupabaseOrderRepository } from "../infrastructure/repositories/SupabaseOrderRepository.ts";
 // worker/PaymentProcessingWorker.ts
 import { AsyncPaymentProcessor } from "../infrastructure/services/AsyncPaymentProcessor.ts";
-import { SupabaseOrderRepository } from "../infrastructure/repositories/SupabaseOrderRepository.ts";
 import { MercadoPagoService } from "../infrastructure/services/MercadoPagoService.ts";
 import { SMTPService } from "../infrastructure/services/SMTPService.ts";
-import { supabase } from "../infrastructure/database/supabaseClient.ts";
 
 const orderRepository = new SupabaseOrderRepository(supabase);
 const paymentService = new MercadoPagoService();

@@ -1,4 +1,4 @@
-import { Order } from "../entities/Order.ts";
+import type { Order } from "../entities/Order.ts";
 
 export interface OrderRepository {
 	getById(id: string): Promise<Order | null>;

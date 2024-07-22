@@ -1,7 +1,7 @@
 import { Application } from "https://deno.land/x/oak/mod.ts";
-import { SupabaseOrderRepository } from "../infrastructure/repositories/SupabaseOrderRepository.ts";
 import { CreateOrderUseCase } from "../application/use_cases/CreateOrderUseCase.ts";
 import { UpdateOrderUseCase } from "../application/use_cases/UpdateOrderUseCase.ts";
+import { SupabaseOrderRepository } from "../infrastructure/repositories/SupabaseOrderRepository.ts";
 import { OrderController } from "../interface/controllers/OrderController.ts";
 
 export function createApp() {

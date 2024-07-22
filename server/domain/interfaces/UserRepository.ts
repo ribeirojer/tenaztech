@@ -1,4 +1,4 @@
-import { User } from "../entities/User.ts";
+import type { User } from "../entities/User.ts";
 
 export interface UserRepository {
 	getById(id: string): Promise<User | null>;

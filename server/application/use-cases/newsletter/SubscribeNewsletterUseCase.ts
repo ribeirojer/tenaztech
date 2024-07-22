@@ -1,6 +1,6 @@
-import { NewsletterRepository } from "../../../domain/interfaces/NewsletterRepository.ts";
+import type { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
+import type { NewsletterRepository } from "../../../domain/interfaces/NewsletterRepository.ts";
 import { Email } from "../../../domain/value-objects/Email.ts";
-import { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
 
 export class SubscribeNewsletterUseCase {
 	constructor(

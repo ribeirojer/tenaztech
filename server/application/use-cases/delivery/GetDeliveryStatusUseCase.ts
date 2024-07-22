@@ -1,4 +1,4 @@
-import { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
+import type { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
 import { OrderId } from "../../../domain/value-objects/OrderId.ts";
 import { DeliveryNotFoundException } from "../../exceptions/DeliveryNotFoundException.ts";
 

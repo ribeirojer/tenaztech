@@ -1,5 +1,5 @@
 import { Customer } from "../../domain/entities/Customer.ts";
-import { CustomerRepository } from "../../domain/interfaces/CustomerRepository.ts";
+import type { CustomerRepository } from "../../domain/interfaces/CustomerRepository.ts";
 import { Email } from "../../domain/value-objects/Email.ts";
 import { Password } from "../../domain/value-objects/Password.ts";
 import { supabase } from "../persistence/DatabaseConnection.ts";

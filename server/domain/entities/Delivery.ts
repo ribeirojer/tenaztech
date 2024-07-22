@@ -1,5 +1,5 @@
-import { OrderId } from "../value-objects/OrderId.ts";
-import { DeliveryDate } from "../value-objects/DeliveryDate.ts";
+import type { DeliveryDate } from "../value-objects/DeliveryDate.ts";
+import type { OrderId } from "../value-objects/OrderId.ts";
 
 export class Delivery {
 	public status: string;
@@ -7,7 +7,7 @@ export class Delivery {
 	constructor(
 		public orderId: OrderId,
 		public date: DeliveryDate,
-		status: string = "scheduled",
+		status = "scheduled",
 	) {
 		this.status = status;
 	}

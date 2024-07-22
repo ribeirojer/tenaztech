@@ -1,4 +1,4 @@
-import { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
+import type { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
 
 export class RemoveCustomerUseCase {
 	constructor(private readonly customerRepository: CustomerRepository) {}

@@ -1,7 +1,7 @@
 import { Application } from "https://deno.land/x/oak@v12.6.1/mod.ts";
-import productRouter from "./application/routes/productRoutes.ts";
-import orderRouter from "./application/routes/orderRoutes.ts";
 import customerRouter from "./application/routes/customerRoutes.ts";
+import orderRouter from "./application/routes/orderRoutes.ts";
+import productRouter from "./application/routes/productRoutes.ts";
 
 const app = new Application();
 

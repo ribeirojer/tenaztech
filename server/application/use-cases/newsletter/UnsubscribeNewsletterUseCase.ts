@@ -1,4 +1,4 @@
-import { NewsletterRepository } from "../../../domain/interfaces/NewsletterRepository.ts";
+import type { NewsletterRepository } from "../../../domain/interfaces/NewsletterRepository.ts";
 import { Email } from "../../../domain/value-objects/Email.ts";
 
 export class UnsubscribeNewsletterUseCase {

@@ -1,5 +1,5 @@
 import { Wishlist } from "../../domain/entities/Wishlist.ts";
-import { WishlistRepository } from "../../domain/interfaces/WishlistRepository.ts";
+import type { WishlistRepository } from "../../domain/interfaces/WishlistRepository.ts";
 import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabaseWishlistRepository implements WishlistRepository {

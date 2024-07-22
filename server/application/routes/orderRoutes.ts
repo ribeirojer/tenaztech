@@ -1,6 +1,6 @@
 import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
-import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
 import { logger } from "../../infrastructure/config/logger.ts";
+import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
 
 const orderUseCases = UseCaseFactory.createOrderUseCases();
 const router = new Router();
@@ -24,7 +24,7 @@ router.put("/orders/:id", async (ctx) => {
 	try {
 		const body = await ctx.request.body().value;
 		const { id } = ctx.params;
-		await orderUseCases.update.execute( id, { ...body});
+		await orderUseCases.update.execute(id, { ...body });
 		logger.info(`Order updated: ${id}`);
 		ctx.response.status = 200;
 		ctx.response.body = { message: "Order updated successfully" };

@@ -1,5 +1,5 @@
 // domain/services/EmailService.ts
-import { Order } from "../entities/Order.ts";
+import type { Order } from "../entities/Order.ts";
 
 export interface EmailService {
 	sendPasswordResetEmail(arg0: string, resetToken: string): unknown;

@@ -1,5 +1,5 @@
-import { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
 import { Customer } from "../../../domain/entities/Customer.ts";
+import type { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
 
 export class UpdateCustomerUseCase {
 	constructor(private readonly customerRepository: CustomerRepository) {}

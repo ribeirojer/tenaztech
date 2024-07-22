@@ -1,4 +1,4 @@
-import { SupportTicket } from "../entities/SupportTicket.ts";
+import type { SupportTicket } from "../entities/SupportTicket.ts";
 
 export interface SupportTicketRepository {
 	getAll(): SupportTicket[] | PromiseLike<SupportTicket[]>;

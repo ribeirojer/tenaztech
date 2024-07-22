@@ -1,5 +1,5 @@
-import { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
-import { EmailService } from "../../../domain/services/EmailService.ts";
+import type { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
+import type { EmailService } from "../../../domain/services/EmailService.ts";
 import { Email } from "../../../domain/value-objects/Email.ts";
 
 interface RecoverPasswordInput {

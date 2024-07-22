@@ -1,6 +1,6 @@
 import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
-import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
 import { logger } from "../../infrastructure/config/logger.ts";
+import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
 
 const paymentUseCases = UseCaseFactory.createPaymentUseCases();
 const router = new Router();
@@ -8,8 +8,13 @@ const router = new Router();
 router.post("/payments", async (ctx) => {
 	try {
 		const body = await ctx.request.body().value;
-		const { orderId, amount, paymentMethod, email } = body
-		await paymentUseCases.process.execute(orderId, amount, paymentMethod, email);
+		const { orderId, amount, paymentMethod, email } = body;
+		await paymentUseCases.process.execute(
+			orderId,
+			amount,
+			paymentMethod,
+			email,
+		);
 		logger.info(`Payment processed: ${JSON.stringify(body)}`);
 		ctx.response.status = 201;
 		ctx.response.body = { message: "Payment processed successfully" };

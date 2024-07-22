@@ -1,5 +1,5 @@
 import { User } from "../../domain/entities/User.ts";
-import { UserRepository } from "../../domain/interfaces/UserRepository.ts";
+import type { UserRepository } from "../../domain/interfaces/UserRepository.ts";
 import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabaseUserRepository implements UserRepository {

@@ -1,5 +1,5 @@
-import { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
-import { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
+import type { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
+import type { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
 
 export class CancelOrderUseCase {
 	constructor(

@@ -1,5 +1,5 @@
-import { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
-import { Product } from "../../../domain/entities/Product.ts";
+import type { Product } from "../../../domain/entities/Product.ts";
+import type { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
 
 interface FilteredSearchInput {
 	category?: string;
@@ -35,7 +35,8 @@ export class FilteredSearchUseCase {
 			products = products.sort((a, b) => {
 				if (input.sortBy === "price") {
 					return a.price.getValue() - b.price.getValue();
-				} else if (input.sortBy === "rating") {
+				}
+				if (input.sortBy === "rating") {
 					return b.rating - a.rating;
 				}
 				return 0;

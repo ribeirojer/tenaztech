@@ -1,4 +1,4 @@
-import { Review } from "../entities/Review.ts";
+import type { Review } from "../entities/Review.ts";
 
 export interface ReviewRepository {
 	findById(reviewId: string): unknown;

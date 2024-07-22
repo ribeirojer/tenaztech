@@ -1,23 +1,15 @@
-import { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
-import { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
+import type { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
+import type { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
 
 import { Order } from "../../../domain/entities/Order.ts";
-import { OrderId } from "../../../domain/value-objects/OrderId.ts";
-import { CustomerId } from "../../../domain/value-objects/CustomerId.ts";
-import { OrderItem } from "../../../domain/value-objects/OrderItem.ts";
 import { Address } from "../../../domain/value-objects/Address.ts";
-import { OrderStatus } from "../../../domain/value-objects/OrderStatus.ts";
 import { Coupon } from "../../../domain/value-objects/Coupon.ts";
-
-import { OrderCreatedEvent } from "../../../domain/events/OrderCreatedEvent.ts";
-import { EventPublisher } from "../../services/EventPublisher.ts";
-import { ResendEmailService } from "../../../infrastructure/services/ResendEmailService.ts";
-
-import { InsufficientStockException } from "../../../domain/exceptions/InsufficientStockException.ts";
-import { InvalidOrderException } from "../../exceptions/InvalidOrderException.ts";
-
-import { EmailService } from "../../../infrastructure/services/EmailService.ts";
+import { CustomerId } from "../../../domain/value-objects/CustomerId.ts";
+import { OrderId } from "../../../domain/value-objects/OrderId.ts";
+import { OrderItem } from "../../../domain/value-objects/OrderItem.ts";
+import { OrderStatus } from "../../../domain/value-objects/OrderStatus.ts";
 import { OrderConfirmationEmailTemplate } from "../../../infrastructure/email-templates/OrderConfirmationEmailTemplate.ts";
+import type { EmailService } from "../../../infrastructure/services/EmailService.ts";
 
 interface CreateOrderInput {
 	customerId: string;
@@ -37,7 +29,6 @@ export class CreateOrderUseCase {
 	constructor(
 		private orderRepository: OrderRepository,
 		private productRepository: ProductRepository,
-		private eventPublisher: EventPublisher,
 		private emailService: EmailService,
 	) {}
 
@@ -76,14 +67,6 @@ export class CreateOrderUseCase {
 
 		await this.orderRepository.add(order);
 
-		const orderCreatedEvent = new OrderCreatedEvent(
-			order.getOrderDetails().id.toString(),
-			order.getOrderDetails().customerId.toString(),
-			order.getOrderDetails().orderDate,
-			order.getOrderDetails().totalAmount,
-		);
-		this.eventPublisher.publish(orderCreatedEvent);
-
 		// Enviando email de confirmação
 		await this.emailService.sendEmail(
 			input.email,
@@ -107,7 +90,9 @@ export class CreateOrderUseCase {
 				throw new Error(`Product with ID ${item.productId} not found`);
 			}
 			if (product.stock < item.quantity) {
-				throw new InsufficientStockException(product.name);
+				throw new Error(
+					`Stock insufficient for product ${item.productId}. Requested: ${item.quantity}, Available: ${product.stock}`,
+				);
 			}
 
 			await this.productRepository.reduceStock(product.id, item.quantity);

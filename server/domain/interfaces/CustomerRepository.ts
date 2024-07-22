@@ -1,5 +1,5 @@
-import { Customer } from "../entities/Customer.ts";
-import { Email } from "../value-objects/Email.ts";
+import type { Customer } from "../entities/Customer.ts";
+import type { Email } from "../value-objects/Email.ts";
 
 export interface CustomerRepository {
 	subscribeNewsletter(id: any, userData: any): unknown;

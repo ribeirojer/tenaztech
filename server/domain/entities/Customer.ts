@@ -1,6 +1,6 @@
-import { Email } from "../value-objects/Email.ts";
-import { Password } from "../value-objects/Password.ts";
-import { Address } from "../value-objects/Address.ts";
+import type { Address } from "../value-objects/Address.ts";
+import type { Email } from "../value-objects/Email.ts";
+import type { Password } from "../value-objects/Password.ts";
 
 export class Customer {
 	constructor(

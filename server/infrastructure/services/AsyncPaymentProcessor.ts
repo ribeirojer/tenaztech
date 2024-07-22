@@ -1,13 +1,13 @@
 // infrastructure/services/AsyncPaymentProcessor.ts
-import { OrderRepository } from "../../domain/repositories/OrderRepository.ts";
-import { PaymentService } from "../../domain/services/PaymentService.ts";
-import { EmailService } from "../../domain/services/EmailService.ts";
+import type { OrderRepository } from "../../domain/interfaces/OrderRepository.ts";
+import type { EmailService } from "../../domain/services/EmailService.ts";
 import { OrderStatus } from "../../domain/value-objects/OrderStatus.ts";
+import type { MercadoPagoService } from "../services/MercadoPagoService.ts";
 
 export class AsyncPaymentProcessor {
 	constructor(
 		private orderRepository: OrderRepository,
-		private paymentService: PaymentService,
+		private paymentService: MercadoPagoService,
 		private emailService: EmailService,
 	) {}
 
@@ -25,12 +25,12 @@ export class AsyncPaymentProcessor {
 				);
 
 				order.updateStatus(new OrderStatus("completed"));
-				await this.orderRepository.save(order);
+				await this.orderRepository.update(order);
 
 				await this.emailService.sendOrderCompletedEmail(order);
 			} catch (error) {
 				order.updateStatus(new OrderStatus("payment_failed"));
-				await this.orderRepository.save(order);
+				await this.orderRepository.update(order);
 
 				await this.emailService.sendOrderFailedEmail(order, error.message);
 			}

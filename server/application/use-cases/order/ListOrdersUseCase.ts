@@ -1,5 +1,5 @@
-import { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
-import { Order } from "../../../domain/entities/Order.ts";
+import type { Order } from "../../../domain/entities/Order.ts";
+import type { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
 
 export class ListOrdersUseCase {
 	constructor(private orderRepository: OrderRepository) {}

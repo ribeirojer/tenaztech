@@ -1,4 +1,4 @@
-import { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
+import type { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
 
 export class AddProductUseCase {
 	constructor(private productRepository: ProductRepository) {}

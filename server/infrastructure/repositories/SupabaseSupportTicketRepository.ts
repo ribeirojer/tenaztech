@@ -1,10 +1,13 @@
 import { SupportTicket } from "../../domain/entities/SupportTicket.ts";
-import { SupportTicketRepository } from "../../domain/interfaces/SupportTicketRepository.ts";
+import type { SupportTicketRepository } from "../../domain/interfaces/SupportTicketRepository.ts";
 import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabaseSupportTicketRepository
 	implements SupportTicketRepository
 {
+	getAll(): SupportTicket[] | PromiseLike<SupportTicket[]> {
+		throw new Error("Method not implemented.");
+	}
 	update(supportTicket: SupportTicket): Promise<void> {
 		throw new Error("Method not implemented.");
 	}

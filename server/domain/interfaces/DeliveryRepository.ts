@@ -1,5 +1,5 @@
-import { Delivery } from "../entities/Delivery.ts";
-import { OrderId } from "../value-objects/OrderId.ts";
+import type { Delivery } from "../entities/Delivery.ts";
+import type { OrderId } from "../value-objects/OrderId.ts";
 
 export interface DeliveryRepository {
 	add(delivery: Delivery): Promise<void>;

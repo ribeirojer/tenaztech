@@ -1,5 +1,5 @@
-import { PaymentRepository } from "../../../domain/interfaces/PaymentRepository.ts";
-import { MercadoPagoService } from "../../../infrastructure/services/MercadoPagoService.ts";
+import type { PaymentRepository } from "../../../domain/interfaces/PaymentRepository.ts";
+import type { MercadoPagoService } from "../../../infrastructure/services/MercadoPagoService.ts";
 
 export class GetPaymentDetailUseCase {
 	constructor(

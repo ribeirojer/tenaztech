@@ -1,8 +1,8 @@
-import { Product } from "../entities/Product.ts";
+import type { Product } from "../entities/Product.ts";
 
 export interface ProductRepository {
-	searchByKeyword(keyword: string): Product[];
-	find(filters: any): Product[];
+	searchByKeyword(keyword: string): Promise<Product[]>;
+	find(filters: any): Promise<Product[]>;
 	increaseStock(productId: any, quantity: any): unknown;
 	getById(id: string): Promise<Product | null>;
 	getAll(): Promise<Product[]>;

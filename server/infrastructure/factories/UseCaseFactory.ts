@@ -1,74 +1,74 @@
-import { MercadoPagoService } from "../services/MercadoPagoService.ts";
 import { SupabaseAuthRepository } from "../repositories/SupabaseAuthRepository.ts";
 import { SupabaseCustomerRepository } from "../repositories/SupabaseCustomerRepository.ts";
+import { SupabaseDeliveryRepository } from "../repositories/SupabaseDeliveryRepository.ts";
 import { SupabaseOrderRepository } from "../repositories/SupabaseOrderRepository.ts";
-import { SupabaseProductRepository } from "../repositories/SupabaseProductRepository.ts";
 import { SupabasePaymentRepository } from "../repositories/SupabasePaymentRepository.ts";
+import { SupabaseProductRepository } from "../repositories/SupabaseProductRepository.ts";
+import { SupabaseRecommendationRepository } from "../repositories/SupabaseRecommendationRepository.ts";
+import { SupabaseReviewRepository } from "../repositories/SupabaseReviewRepository.ts";
 import { SupabaseSupportTicketRepository } from "../repositories/SupabaseSupportTicketRepository.ts";
 import { SupabaseWishlistRepository } from "../repositories/SupabaseWishlistRepository.ts";
-import { SupabaseReviewRepository } from "../repositories/SupabaseReviewRepository.ts";
-import { SupabaseRecommendationRepository } from "../repositories/SupabaseRecommendationRepository.ts";
-import { SupabaseDeliveryRepository } from "../repositories/SupabaseDeliveryRepository.ts";
+import { MercadoPagoService } from "../services/MercadoPagoService.ts";
 
-import { CreateOrderUseCase } from "../../application/use-cases/order/CreateOrderUseCase.ts";
-import { UpdateOrderUseCase } from "../../application/use-cases/order/UpdateOrderUseCase.ts";
 import { CancelOrderUseCase } from "../../application/use-cases/order/CancelOrderUseCase.ts";
-import { ListOrdersUseCase } from "../../application/use-cases/order/ListOrdersUseCase.ts";
+import { CreateOrderUseCase } from "../../application/use-cases/order/CreateOrderUseCase.ts";
 import { GetOrderDetailUseCase } from "../../application/use-cases/order/GetOrderDetailUseCase.ts";
+import { ListOrdersUseCase } from "../../application/use-cases/order/ListOrdersUseCase.ts";
 import { TrackOrderUseCase } from "../../application/use-cases/order/TrackOrderUseCase.ts";
+import { UpdateOrderUseCase } from "../../application/use-cases/order/UpdateOrderUseCase.ts";
 
 import { AddProductUseCase } from "../../application/use-cases/product/AddProductUseCase.ts";
-import { UpdateProductUseCase } from "../../application/use-cases/product/UpdateProductUseCase.ts";
-import { RemoveProductUseCase } from "../../application/use-cases/product/RemoveProductUseCase.ts";
-import { ListProductsUseCase } from "../../application/use-cases/product/ListProductsUseCase.ts";
 import { GetProductDetailUseCase } from "../../application/use-cases/product/GetProductDetailUseCase.ts";
+import { ListProductsUseCase } from "../../application/use-cases/product/ListProductsUseCase.ts";
+import { RemoveProductUseCase } from "../../application/use-cases/product/RemoveProductUseCase.ts";
+import { UpdateProductUseCase } from "../../application/use-cases/product/UpdateProductUseCase.ts";
 
-import { RegisterCustomerUseCase } from "../../application/use-cases/customer/RegisterCustomerUseCase.ts";
-import { UpdateCustomerUseCase } from "../../application/use-cases/customer/UpdateCustomerUseCase.ts";
-import { RemoveCustomerUseCase } from "../../application/use-cases/customer/RemoveCustomerUseCase.ts";
-import { ListCustomersUseCase } from "../../application/use-cases/customer/ListCustomersUseCase.ts";
 import { GetCustomerDetailUseCase } from "../../application/use-cases/customer/GetCustomerDetailUseCase.ts";
+import { ListCustomersUseCase } from "../../application/use-cases/customer/ListCustomersUseCase.ts";
+import { RegisterCustomerUseCase } from "../../application/use-cases/customer/RegisterCustomerUseCase.ts";
+import { RemoveCustomerUseCase } from "../../application/use-cases/customer/RemoveCustomerUseCase.ts";
+import { UpdateCustomerUseCase } from "../../application/use-cases/customer/UpdateCustomerUseCase.ts";
 
+import { GetPaymentDetailUseCase } from "../../application/use-cases/payment/GetPaymentDetailUseCase.ts";
 import { ProcessPaymentUseCase } from "../../application/use-cases/payment/ProcessPaymentUseCase.ts";
 import { RefundPaymentUseCase } from "../../application/use-cases/payment/RefundPaymentUseCase.ts";
-import { GetPaymentDetailUseCase } from "../../application/use-cases/payment/GetPaymentDetailUseCase.ts";
 
-import { CreateSupportTicketUseCase } from "../../application/use-cases/support/CreateSupportTicketUseCase.ts";
-import { UpdateSupportTicketUseCase } from "../../application/use-cases/support/UpdateSupportTicketUseCase.ts";
 import { CloseSupportTicketUseCase } from "../../application/use-cases/support/CloseSupportTicketUseCase.ts";
+import { CreateSupportTicketUseCase } from "../../application/use-cases/support/CreateSupportTicketUseCase.ts";
 import { ListSupportTicketsUseCase } from "../../application/use-cases/support/ListSupportTicketsUseCase.ts";
+import { UpdateSupportTicketUseCase } from "../../application/use-cases/support/UpdateSupportTicketUseCase.ts";
 
+import { AddToWishlistUseCase } from "../../application/use-cases/wishlist/AddToWishlistUseCase.ts";
 // Wishlist Use Cases
 import { CreateWishlistUseCase } from "../../application/use-cases/wishlist/CreateWishlistUseCase.ts";
-import { AddToWishlistUseCase } from "../../application/use-cases/wishlist/AddToWishlistUseCase.ts";
-import { RemoveFromWishlistUseCase } from "../../application/use-cases/wishlist/RemoveFromWishlistUseCase.ts";
 import { ListWishlistsUseCase } from "../../application/use-cases/wishlist/ListWishlistsUseCase.ts";
+import { RemoveFromWishlistUseCase } from "../../application/use-cases/wishlist/RemoveFromWishlistUseCase.ts";
 
 // Review Use Cases
 import { AddProductReviewUseCase } from "../../application/use-cases/review/AddProductReviewUseCase.ts";
-import { UpdateProductReviewUseCase } from "../../application/use-cases/review/UpdateProductReviewUseCase.ts";
-import { RemoveProductReviewUseCase } from "../../application/use-cases/review/RemoveProductReviewUseCase.ts";
 import { ListProductReviewsUseCase } from "../../application/use-cases/review/ListProductReviewsUseCase.ts";
+import { RemoveProductReviewUseCase } from "../../application/use-cases/review/RemoveProductReviewUseCase.ts";
+import { UpdateProductReviewUseCase } from "../../application/use-cases/review/UpdateProductReviewUseCase.ts";
 
+import { ListRelatedProductsUseCase } from "../../application/use-cases/recommendation/ListRelatedProductsUseCase.ts";
 // Recommendation Use Cases
 import { RecommendProductsUseCase } from "../../application/use-cases/recommendation/RecommendProductsUseCase.ts";
-import { ListRelatedProductsUseCase } from "../../application/use-cases/recommendation/ListRelatedProductsUseCase.ts";
 
+import { NotifyDeliveryDelayUseCase } from "../../application/use-cases/delivery/NotifyDeliveryDelayUseCase.ts";
 // Delivery Use Cases
 import { ScheduleDeliveryUseCase } from "../../application/use-cases/delivery/ScheduleDeliveryUseCase.ts";
 import { UpdateDeliveryDateUseCase } from "../../application/use-cases/delivery/UpdateDeliveryDateUseCase.ts";
-import { NotifyDeliveryDelayUseCase } from "../../application/use-cases/delivery/NotifyDeliveryDelayUseCase.ts";
 
 // Auth Use Cases
 import { LoginUseCase } from "../../application/use-cases/auth/LoginUseCase.ts";
 import { LogoutUseCase } from "../../application/use-cases/auth/LogoutUseCase.ts";
-import { RegisterAccountUseCase } from "../../application/use-cases/auth/RegisterAccountUseCase.ts";
 import { RecoverPasswordUseCase } from "../../application/use-cases/auth/RecoverPasswordUseCase.ts";
+import { RegisterAccountUseCase } from "../../application/use-cases/auth/RegisterAccountUseCase.ts";
 
+import { ListNewslettersUseCase } from "../../application/use-cases/newsletter/ListNewslettersUseCase.ts";
 // casos de uso de Newsletter
 import { SubscribeNewsletterUseCase } from "../../application/use-cases/newsletter/SubscribeNewsletterUseCase.ts";
 import { UnsubscribeNewsletterUseCase } from "../../application/use-cases/newsletter/UnsubscribeNewsletterUseCase.ts";
-import { ListNewslettersUseCase } from "../../application/use-cases/newsletter/ListNewslettersUseCase.ts";
 
 import { SupabaseNewsletterRepository } from "../repositories/SupabaseNewsletterRepository.ts";
 
@@ -119,7 +119,7 @@ export class UseCaseFactory {
 	static createPaymentUseCases() {
 		const paymentRepository = new SupabasePaymentRepository();
 		const orderRepository = new SupabaseOrderRepository();
-		const mercadoPagoService = this.createMercadoPagoService();
+		const mercadoPagoService = UseCaseFactory.createMercadoPagoService();
 		return {
 			process: new ProcessPaymentUseCase(
 				paymentRepository,

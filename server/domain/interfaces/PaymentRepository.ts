@@ -1,4 +1,4 @@
-import { Payment } from "../entities/Payment.ts";
+import type { Payment } from "../entities/Payment.ts";
 
 export interface PaymentRepository {
 	createPayment(payment: Payment): Promise<void>;

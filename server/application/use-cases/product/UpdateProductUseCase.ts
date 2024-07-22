@@ -1,4 +1,4 @@
-import { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
+import type { ProductRepository } from "../../../domain/interfaces/ProductRepository.ts";
 import { Price } from "../../../domain/value-objects/Price.ts";
 
 export class UpdateProductUseCase {

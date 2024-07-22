@@ -1,4 +1,4 @@
-import { Wishlist } from "../entities/Wishlist.ts";
+import type { Wishlist } from "../entities/Wishlist.ts";
 
 export interface WishlistRepository {
 	save(wishlist: Wishlist): Promise<void>;

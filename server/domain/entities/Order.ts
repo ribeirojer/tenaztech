@@ -1,9 +1,9 @@
-import { OrderStatus } from "../value-objects/OrderStatus.ts";
-import { OrderItem } from "../value-objects/OrderItem.ts";
-import { Address } from "../value-objects/Address.ts";
-import { OrderId } from "../value-objects/OrderId.ts";
-import { CustomerId } from "../value-objects/CustomerId.ts";
-import { Coupon } from "../value-objects/Coupon.ts";
+import type { Address } from "../value-objects/Address.ts";
+import type { Coupon } from "../value-objects/Coupon.ts";
+import type { CustomerId } from "../value-objects/CustomerId.ts";
+import type { OrderId } from "../value-objects/OrderId.ts";
+import type { OrderItem } from "../value-objects/OrderItem.ts";
+import type { OrderStatus } from "../value-objects/OrderStatus.ts";
 
 export class Order {
 	private coupons: Coupon[] = [];
@@ -18,7 +18,7 @@ export class Order {
 		private status: OrderStatus,
 		private createdAt: Date = new Date(),
 		private updatedAt: Date = new Date(),
-		private processing: boolean = false,
+		private processing = false,
 	) {
 		this.validateItems(items);
 		this.validateTotalAmount(totalAmount);
