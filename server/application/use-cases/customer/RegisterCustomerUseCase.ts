@@ -32,8 +32,7 @@ export class RegisterCustomerUseCase {
 
 	async execute(input: RegisterCustomerInput): Promise<void> {
 		const customerEmail = new Email(input.email);
-		const customerFirstName = new Name(input.firstName);
-		const customerLastName = new Name(input.lastName);
+		const customerName = new Name(input.lastName);
 		const customerPassword = new Password(input.password);
 
 		const existingCustomer =
@@ -56,8 +55,7 @@ export class RegisterCustomerUseCase {
 
 		const customer = new Customer(
 			this.generateUniqueId(),
-			customerFirstName.getValue(),
-			customerLastName.getValue(),
+			customerName.getValue(),
 			customerEmail,
 			customerPassword,
 			input.phone,
@@ -73,8 +71,7 @@ export class RegisterCustomerUseCase {
 			customerEmail.getValue(),
 			WelcomeEmailTemplate.getSubject(),
 			WelcomeEmailTemplate.getHtmlContent(
-				customerFirstName.getValue(),
-				customerLastName.getValue(),
+				customerName.getValue(),
 			),
 		);
 	}

@@ -1,62 +1,97 @@
-import { Router } from "https://deno.land/x/oak/mod.ts";
+import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
+import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
+import { logger } from "../../infrastructure/config/logger.ts";
 
+const customerUseCases = UseCaseFactory.createCustomerUseCases();
 const router = new Router();
 
-router.get("/customers", ({ response }) => {
-  // Lista todos os clientes
+router.post("/customers", async (ctx) => {
+  try {
+    const body = await ctx.request.body({ type: "json" }).value;
+    // Aqui você pode adicionar validações personalizadas se necessário
+    const result = await customerUseCases.register.execute(body);
+    logger.info(`Customer registered: ${result.id}`);
+    ctx.response.status = 201;
+    ctx.response.body = { data: result };
+  } catch (error) {
+    logger.error(`Customer registration error: ${error.message}`);
+    ctx.response.status = 500;
+    ctx.response.body = { error: error.message };
+  }
 });
 
-router.post("/customers", async ({ request, response }) => {
-  // Cria um novo cliente
+router.put("/customers/:id", async (ctx) => {
+  try {
+    const body = await ctx.request.body({ type: "json" }).value;
+    const { id } = ctx.params;
+    const errors = validateUpdate(body);
+    if (errors.length > 0) {
+      logger.warn(`Customer update validation errors: ${errors.join(", ")}`);
+      ctx.response.status = 400;
+      ctx.response.body = { errors };
+      return;
+    }
+    await customerUseCases.update.execute({ ...body, id });
+    logger.info(`Customer updated: ${id}`);
+    ctx.response.status = 200;
+  } catch (error) {
+    logger.error(`Customer update error: ${error.message}`);
+    ctx.response.status = 500;
+    ctx.response.body = { error: error.message };
+  }
 });
 
-// Customer routes
-router.post("/customers", async (ctx)=>{
-  const body = await ctx.request.body({ type: "json" }).value
-  await customerUseCases.register.execute(body);
-  ctx.response.status = 201;
-
-  CustomerController.register(ctx.request)
-})
-router.put("/customers/:id", {
-  const _body = await ctx.request.body.json();
-  const { id } = ctx.request.url.searchParams;
-  //await customerUseCases.update.execute({ ...body, id });
-  ctx.response.status = 200;
-
+router.delete("/customers/:id", async (ctx) => {
+  try {
+    const { id } = ctx.params;
+    await customerUseCases.remove.execute(id);
+    logger.info(`Customer deleted: ${id}`);
+    ctx.response.status = 200;
+  } catch (error) {
+    logger.error(`Customer deletion error: ${error.message}`);
+    ctx.response.status = 500;
+    ctx.response.body = { error: error.message };
+  }
 });
-router.delete("/customers/:id", {
-  const { id } = ctx.params;
-  await customerUseCases.remove.execute(id);
-  ctx.response.status = 200;
 
+router.get("/customers", async (ctx) => {
+  try {
+    const customers = await customerUseCases.list.execute();
+    logger.info(`Fetched all customers`);
+    ctx.response.status = 200;
+    ctx.response.body = { data: customers };
+  } catch (error) {
+    logger.error(`Fetching customers error: ${error.message}`);
+    ctx.response.status = 500;
+    ctx.response.body = { error: error.message };
+  }
 });
-router.get("/customers", CustomerController.list);
-router.get("/customers/:id", CustomerController.detail);
 
-import { Context } from "https://deno.land/x/oak@v16.1.0/context.ts";
-
-export class CustomerController {
-	static async register(ctx: RouterContext<"">) {
-}
-
-	static async update(ctx: Context) {
-}
-
-	static async remove(ctx: Context) {
-}
-
-	static async list(ctx: Context) {
-		const customers = await customerUseCases.list.execute();
-		ctx.response.body = customers;
-	}
-
-	static async detail(ctx: Context) {
-		const { id } = ctx.params;
-		const customer = await customerUseCases.detail.execute(id);
-		ctx.response.body = customer;
-	}
-}
-
+router.get("/customers/:id", async (ctx) => {
+  try {
+    const { id } = ctx.params;
+    const customer = await customerUseCases.detail.execute(id);
+    if (!customer) {
+      logger.warn(`Customer not found: ${id}`);
+      ctx.response.status = 404;
+      ctx.response.body = { error: "Customer not found" };
+      return;
+    }
+    logger.info(`Fetched customer: ${id}`);
+    ctx.response.status = 200;
+    ctx.response.body = { data: customer };
+  } catch (error) {
+    logger.error(`Fetching customer error: ${error.message}`);
+    ctx.response.status = 500;
+    ctx.response.body = { error: error.message };
+  }
+});
 
 export default router;
+
+// Funções de validação (placeholders, devem ser implementadas conforme necessário)
+function validateUpdate(body: any): string[] {
+  const errors: string[] = [];
+  // Adicione suas validações aqui
+  return errors;
+}

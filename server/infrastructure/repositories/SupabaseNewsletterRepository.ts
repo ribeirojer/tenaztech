@@ -4,15 +4,13 @@ import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabaseNewsletterRepository implements NewsletterRepository {
 	async subscribe(subscription: Newsletter): Promise<void> {
-		const { data, error } = await supabase
-			.from("newsletter")
-			.insert([
-				{
-					id: subscription.id,
-					email: subscription.email,
-					subscribed_at: subscription.subscribedAt,
-				},
-			]);
+		const { data, error } = await supabase.from("newsletter").insert([
+			{
+				id: subscription.id,
+				email: subscription.email,
+				subscribed_at: subscription.subscribedAt,
+			},
+		]);
 
 		if (error) {
 			throw new Error(`Error subscribing to newsletter: ${error.message}`);
@@ -55,11 +53,7 @@ export class SupabaseNewsletterRepository implements NewsletterRepository {
 
 		return data.map(
 			(record: any) =>
-				new Newsletter(
-					record.id,
-					record.email,
-					new Date(record.subscribed_at),
-				),
+				new Newsletter(record.id, record.email, new Date(record.subscribed_at)),
 		);
 	}
 
@@ -78,10 +72,6 @@ export class SupabaseNewsletterRepository implements NewsletterRepository {
 			return null;
 		}
 
-		return new Newsletter(
-			data.id,
-			data.email,
-			new Date(data.subscribed_at),
-		);
+		return new Newsletter(data.id, data.email, new Date(data.subscribed_at));
 	}
 }

@@ -2,9 +2,9 @@ import { WishlistRepository } from "../../../domain/interfaces/WishlistRepositor
 import { Wishlist } from "../../../domain/entities/Wishlist.ts";
 
 export class ListWishlistsUseCase {
-    constructor(private wishlistRepository: WishlistRepository) {}
+	constructor(private wishlistRepository: WishlistRepository) {}
 
-    async execute(userId: string): Promise<Wishlist[]> {
-        return await this.wishlistRepository.getByCustomerId(userId);
-    }
+	async execute(userId: string): Promise<Wishlist[]> {
+		return await this.wishlistRepository.getByCustomerId(userId);
+	}
 }

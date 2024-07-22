@@ -1,56 +1,61 @@
-import React from 'react'
-import ClockIcon from './icons/ClockIcon'
-import ShieldCheckIcon from './icons/ShieldCheckIcon'
-import TruckIcon from './icons/TruckIcon'
-import CouponIcon from './icons/CouponIcon' // Adicione um ícone apropriado para cupons
+import React from "react";
+import ClockIcon from "./icons/ClockIcon";
+import ShieldCheckIcon from "./icons/ShieldCheckIcon";
+import TruckIcon from "./icons/TruckIcon";
+import CouponIcon from "./icons/CouponIcon"; // Adicione um ícone apropriado para cupons
 
-type Props = {}
+type Props = {};
 
 const WhyShopWithUs = (props: Props) => {
-  return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
-      <div className="container grid items-center justify-center gap-8 px-4 text-center md:px-6">
-        <div className="space-y-4">
-          <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-primary">
-            Por que comprar conosco?
-          </h2>
-          <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            Descubra os benefícios de comprar em nossa loja de acessórios eletrônicos.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
-          <div className="bg-glow-tech bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
-            <TruckIcon className="h-10 w-10 text-primary" />
-            <h3 className="text-xl font-bold text-secondary">Frete Grátis</h3>
-            <p className="text-muted-foreground">
-              Aproveite frete grátis em todos os pedidos acima de R$ 50.
-            </p>
-          </div>
-          <div className="bg-sandstorm bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
-            <ShieldCheckIcon className="h-10 w-10 text-primary" />
-            <h3 className="text-xl font-bold text-secondary">Garantia de Satisfação</h3>
-            <p className="text-muted-foreground">
-              Se você não estiver satisfeito, devolvemos o seu dinheiro.
-            </p>
-          </div>
-          <div className="bg-electric-blue bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
-            <ClockIcon className="h-10 w-10 text-primary" />
-            <h3 className="text-xl font-bold text-secondary">Entrega Rápida</h3>
-            <p className="text-muted-foreground">
-              Seu pedido será enviado em 1-2 dias úteis.
-            </p>
-          </div>
-          <div className="bg-pink-pulse bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
-            <CouponIcon className="h-10 w-10 text-primary" />
-            <h3 className="text-xl font-bold text-secondary">Cupons Cumulativos</h3>
-            <p className="text-muted-foreground">
-              Use múltiplos cupons para economizar ainda mais.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
+	return (
+		<section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+			<div className="container grid items-center justify-center gap-8 px-4 text-center md:px-6">
+				<div className="space-y-4">
+					<h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-primary">
+						Por que comprar conosco?
+					</h2>
+					<p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+						Descubra os benefícios de comprar em nossa loja de acessórios
+						eletrônicos.
+					</p>
+				</div>
+				<div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+					<div className="bg-glow-tech bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
+						<TruckIcon className="h-10 w-10 text-primary" />
+						<h3 className="text-xl font-bold text-secondary">Frete Grátis</h3>
+						<p className="text-muted-foreground">
+							Aproveite frete grátis em todos os pedidos acima de R$ 50.
+						</p>
+					</div>
+					<div className="bg-sandstorm bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
+						<ShieldCheckIcon className="h-10 w-10 text-primary" />
+						<h3 className="text-xl font-bold text-secondary">
+							Garantia de Satisfação
+						</h3>
+						<p className="text-muted-foreground">
+							Se você não estiver satisfeito, devolvemos o seu dinheiro.
+						</p>
+					</div>
+					<div className="bg-electric-blue bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
+						<ClockIcon className="h-10 w-10 text-primary" />
+						<h3 className="text-xl font-bold text-secondary">Entrega Rápida</h3>
+						<p className="text-muted-foreground">
+							Seu pedido será enviado em 1-2 dias úteis.
+						</p>
+					</div>
+					<div className="bg-pink-pulse bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
+						<CouponIcon className="h-10 w-10 text-primary" />
+						<h3 className="text-xl font-bold text-secondary">
+							Cupons Cumulativos
+						</h3>
+						<p className="text-muted-foreground">
+							Use múltiplos cupons para economizar ainda mais.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	);
+};
 
-export default WhyShopWithUs
+export default WhyShopWithUs;

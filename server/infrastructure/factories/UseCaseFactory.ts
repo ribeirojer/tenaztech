@@ -78,113 +78,113 @@ export class UseCaseFactory {
 		return new MercadoPagoService(accessToken);
 	}
 
-    // Order Use Cases
-    static createOrderUseCases() {
-        const orderRepository = new SupabaseOrderRepository();
-        return {
-            create: new CreateOrderUseCase(orderRepository),
-            update: new UpdateOrderUseCase(orderRepository),
-            cancel: new CancelOrderUseCase(orderRepository),
-            list: new ListOrdersUseCase(orderRepository),
-            detail: new GetOrderDetailUseCase(orderRepository),
-            track: new TrackOrderUseCase(orderRepository),
-        };
-    }
+	// Order Use Cases
+	static createOrderUseCases() {
+		const orderRepository = new SupabaseOrderRepository();
+		return {
+			create: new CreateOrderUseCase(orderRepository),
+			update: new UpdateOrderUseCase(orderRepository),
+			cancel: new CancelOrderUseCase(orderRepository),
+			list: new ListOrdersUseCase(orderRepository),
+			detail: new GetOrderDetailUseCase(orderRepository),
+			track: new TrackOrderUseCase(orderRepository),
+		};
+	}
 
-    // Product Use Cases
-    static createProductUseCases() {
-        const productRepository = new SupabaseProductRepository();
-        return {
-            add: new AddProductUseCase(productRepository),
-            update: new UpdateProductUseCase(productRepository),
-            remove: new RemoveProductUseCase(productRepository),
-            list: new ListProductsUseCase(productRepository),
-            detail: new GetProductDetailUseCase(productRepository),
-        };
-    }
+	// Product Use Cases
+	static createProductUseCases() {
+		const productRepository = new SupabaseProductRepository();
+		return {
+			add: new AddProductUseCase(productRepository),
+			update: new UpdateProductUseCase(productRepository),
+			remove: new RemoveProductUseCase(productRepository),
+			list: new ListProductsUseCase(productRepository),
+			detail: new GetProductDetailUseCase(productRepository),
+		};
+	}
 
-    // Customer Use Cases
-    static createCustomerUseCases() {
-        const customerRepository = new SupabaseCustomerRepository();
-        return {
-            register: new RegisterCustomerUseCase(customerRepository),
-            update: new UpdateCustomerUseCase(customerRepository),
-            remove: new RemoveCustomerUseCase(customerRepository),
-            list: new ListCustomersUseCase(customerRepository),
-            detail: new GetCustomerDetailUseCase(customerRepository),
-        };
-    }
+	// Customer Use Cases
+	static createCustomerUseCases() {
+		const customerRepository = new SupabaseCustomerRepository();
+		return {
+			register: new RegisterCustomerUseCase(customerRepository),
+			update: new UpdateCustomerUseCase(customerRepository),
+			remove: new RemoveCustomerUseCase(customerRepository),
+			list: new ListCustomersUseCase(customerRepository),
+			detail: new GetCustomerDetailUseCase(customerRepository),
+		};
+	}
 
-    // Payment Use Cases
-    static createPaymentUseCases() {
-        const paymentRepository = new SupabasePaymentRepository();
-        const orderRepository = new SupabaseOrderRepository();
-        const mercadoPagoService = this.createMercadoPagoService();
-        return {
-            process: new ProcessPaymentUseCase(
-                paymentRepository,
-                orderRepository,
-                mercadoPagoService,
-            ),
-            refund: new RefundPaymentUseCase(paymentRepository, mercadoPagoService),
-            detail: new GetPaymentDetailUseCase(
-                paymentRepository,
-                mercadoPagoService,
-            ),
-        };
-    }
+	// Payment Use Cases
+	static createPaymentUseCases() {
+		const paymentRepository = new SupabasePaymentRepository();
+		const orderRepository = new SupabaseOrderRepository();
+		const mercadoPagoService = this.createMercadoPagoService();
+		return {
+			process: new ProcessPaymentUseCase(
+				paymentRepository,
+				orderRepository,
+				mercadoPagoService,
+			),
+			refund: new RefundPaymentUseCase(paymentRepository, mercadoPagoService),
+			detail: new GetPaymentDetailUseCase(
+				paymentRepository,
+				mercadoPagoService,
+			),
+		};
+	}
 
-    // Support Ticket Use Cases
-    static createSupportTicketUseCases() {
-        const supportTicketRepository = new SupabaseSupportTicketRepository();
-        return {
-            create: new CreateSupportTicketUseCase(supportTicketRepository),
-            update: new UpdateSupportTicketUseCase(supportTicketRepository),
-            close: new CloseSupportTicketUseCase(supportTicketRepository),
-            list: new ListSupportTicketsUseCase(supportTicketRepository),
-        };
-    }
-    // Wishlist Use Cases
-    static createWishlistUseCases() {
-        const wishlistRepository = new SupabaseWishlistRepository();
-        return {
-            create: new CreateWishlistUseCase(wishlistRepository),
-            add: new AddToWishlistUseCase(wishlistRepository),
-            remove: new RemoveFromWishlistUseCase(wishlistRepository),
-            list: new ListWishlistsUseCase(wishlistRepository),
-        };
-    }
+	// Support Ticket Use Cases
+	static createSupportTicketUseCases() {
+		const supportTicketRepository = new SupabaseSupportTicketRepository();
+		return {
+			create: new CreateSupportTicketUseCase(supportTicketRepository),
+			update: new UpdateSupportTicketUseCase(supportTicketRepository),
+			close: new CloseSupportTicketUseCase(supportTicketRepository),
+			list: new ListSupportTicketsUseCase(supportTicketRepository),
+		};
+	}
+	// Wishlist Use Cases
+	static createWishlistUseCases() {
+		const wishlistRepository = new SupabaseWishlistRepository();
+		return {
+			create: new CreateWishlistUseCase(wishlistRepository),
+			add: new AddToWishlistUseCase(wishlistRepository),
+			remove: new RemoveFromWishlistUseCase(wishlistRepository),
+			list: new ListWishlistsUseCase(wishlistRepository),
+		};
+	}
 
-    // Review Use Cases
-    static createReviewUseCases() {
-        const reviewRepository = new SupabaseReviewRepository();
-        return {
-            add: new AddProductReviewUseCase(reviewRepository),
-            update: new UpdateProductReviewUseCase(reviewRepository),
-            remove: new RemoveProductReviewUseCase(reviewRepository),
-            list: new ListProductReviewsUseCase(reviewRepository),
-        };
-    }
+	// Review Use Cases
+	static createReviewUseCases() {
+		const reviewRepository = new SupabaseReviewRepository();
+		return {
+			add: new AddProductReviewUseCase(reviewRepository),
+			update: new UpdateProductReviewUseCase(reviewRepository),
+			remove: new RemoveProductReviewUseCase(reviewRepository),
+			list: new ListProductReviewsUseCase(reviewRepository),
+		};
+	}
 
-    // Recommendation Use Cases
-    static createRecommendationUseCases() {
-        const recommendationRepository = new SupabaseRecommendationRepository();
-        return {
-            recommend: new RecommendProductsUseCase(recommendationRepository),
-            listRelated: new ListRelatedProductsUseCase(recommendationRepository),
-        };
-    }
+	// Recommendation Use Cases
+	static createRecommendationUseCases() {
+		const recommendationRepository = new SupabaseRecommendationRepository();
+		return {
+			recommend: new RecommendProductsUseCase(recommendationRepository),
+			listRelated: new ListRelatedProductsUseCase(recommendationRepository),
+		};
+	}
 
-    // Delivery Use Cases
-    static createDeliveryUseCases() {
-        const deliveryRepository = new SupabaseDeliveryRepository();
-        return {
-            schedule: new ScheduleDeliveryUseCase(deliveryRepository),
-            updateDate: new UpdateDeliveryDateUseCase(deliveryRepository),
-            notifyDelay: new NotifyDeliveryDelayUseCase(deliveryRepository),
-        };
-    }
-    
+	// Delivery Use Cases
+	static createDeliveryUseCases() {
+		const deliveryRepository = new SupabaseDeliveryRepository();
+		return {
+			schedule: new ScheduleDeliveryUseCase(deliveryRepository),
+			updateDate: new UpdateDeliveryDateUseCase(deliveryRepository),
+			notifyDelay: new NotifyDeliveryDelayUseCase(deliveryRepository),
+		};
+	}
+
 	// Auth Use Cases
 	static createAuthUseCases() {
 		const authRepository = new SupabaseAuthRepository();

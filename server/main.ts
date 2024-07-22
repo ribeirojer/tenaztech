@@ -17,4 +17,4 @@ app.use(customerRouter.allowedMethods());
 console.log("Servidor rodando na porta 8000");
 await app.listen({ port: 8000 });
 
-export { app }
+export { app };
