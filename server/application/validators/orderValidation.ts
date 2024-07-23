@@ -1,4 +1,4 @@
-import { z } from "https://deno.land/x/zod/mod.ts";
+import { z } from "https://deno.land/x/zod@v3.23.8/mod.ts";
 
 export const orderSchema = z.object({
 	customerId: z.string().uuid(),

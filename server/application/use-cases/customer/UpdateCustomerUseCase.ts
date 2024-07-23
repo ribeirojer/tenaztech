@@ -4,13 +4,13 @@ import type { CustomerRepository } from "../../../domain/interfaces/CustomerRepo
 export class UpdateCustomerUseCase {
 	constructor(private readonly customerRepository: CustomerRepository) {}
 
-	async execute(id: string, name: string, email: string): Promise<void> {
+	async execute(id: string, name: string): Promise<void> {
 		const customer = await this.customerRepository.findById(id);
 		if (!customer) {
 			throw new Error("Customer not found");
 		}
 
-		customer.firstName = name;
+		customer.name = name;
 		await this.customerRepository.update(customer);
 	}
 }

@@ -31,11 +31,13 @@ export class ProcessPaymentUseCase {
 
 		if (paymentResponse.status === "approved") {
 			const payment = new Payment(
+				crypto.randomUUID(),
 				orderId,
+				"processed",
 				new Date(),
 				amount,
 				paymentMethod,
-				"processed",
+				"",
 			);
 			await this.paymentRepository.add(payment);
 

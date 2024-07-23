@@ -1,6 +1,5 @@
 import type { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
 import { OrderId } from "../../../domain/value-objects/OrderId.ts";
-import { DeliveryNotFoundException } from "../../exceptions/DeliveryNotFoundException.ts";
 
 interface GetDeliveryStatusInput {
 	orderId: string;
@@ -22,7 +21,7 @@ export class GetDeliveryStatusUseCase {
 		const delivery = await this.deliveryRepository.getByOrderId(orderId);
 
 		if (!delivery) {
-			throw new DeliveryNotFoundException("Delivery not found");
+			throw new Error("Delivery not found");
 		}
 
 		return {

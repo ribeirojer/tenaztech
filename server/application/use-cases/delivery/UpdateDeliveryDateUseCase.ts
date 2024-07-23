@@ -2,8 +2,6 @@ import { DeliveryUpdatedEvent } from "../../../domain/events/DeliveryUpdatedEven
 import type { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
 import { DeliveryDate } from "../../../domain/value-objects/DeliveryDate.ts";
 import { OrderId } from "../../../domain/value-objects/OrderId.ts";
-import { DeliveryNotFoundException } from "../../exceptions/DeliveryNotFoundException.ts";
-import type { EventPublisher } from "../../services/EventPublisher.ts";
 
 interface UpdateDeliveryDateInput {
 	orderId: string;
@@ -11,28 +9,19 @@ interface UpdateDeliveryDateInput {
 }
 
 export class UpdateDeliveryDateUseCase {
-	constructor(
-		private readonly deliveryRepository: DeliveryRepository,
-		private readonly eventPublisher: EventPublisher,
-	) {}
+	constructor(private readonly deliveryRepository: DeliveryRepository) {}
 
 	async execute(input: UpdateDeliveryDateInput): Promise<void> {
 		const orderId = new OrderId(input.orderId);
 		const delivery = await this.deliveryRepository.getByOrderId(orderId);
 
 		if (!delivery) {
-			throw new DeliveryNotFoundException("Delivery not found");
+			throw new Error("Delivery not found");
 		}
 
 		const newDeliveryDate = new DeliveryDate(input.newDeliveryDate);
 		delivery.updateDate(newDeliveryDate);
 
 		await this.deliveryRepository.update(delivery);
-
-		const deliveryUpdatedEvent = new DeliveryUpdatedEvent(
-			orderId.toString(),
-			newDeliveryDate.getValue(),
-		);
-		this.eventPublisher.publish(deliveryUpdatedEvent);
 	}
 }

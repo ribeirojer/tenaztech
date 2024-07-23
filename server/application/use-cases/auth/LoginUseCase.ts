@@ -1,4 +1,4 @@
-import { InvalidCredentialsException } from "../../../domain/exceptions/InvalidCredentialsException.ts";
+import type { AuthRepository } from "../../../domain/interfaces/AuthRepository.ts";
 import type { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
 import type { JWTService } from "../../../domain/services/JWTService.ts";
 import { Email } from "../../../domain/value-objects/Email.ts";
@@ -16,6 +16,7 @@ interface LoginOutput {
 
 export class LoginUseCase {
 	constructor(
+		private readonly authRepository: AuthRepository,
 		private readonly customerRepository: CustomerRepository,
 		private readonly jwtService: JWTService,
 	) {}
@@ -26,7 +27,7 @@ export class LoginUseCase {
 
 		const customer = await this.customerRepository.getByEmail(email);
 		if (!customer || !(await customer.password.compare(password.getValue()))) {
-			throw new InvalidCredentialsException("Invalid email or password.");
+			throw new Error("Invalid email or password.");
 		}
 
 		const token = this.jwtService.generateToken({ customerId: customer.id });

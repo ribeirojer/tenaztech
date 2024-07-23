@@ -20,7 +20,7 @@ export class RefundPaymentUseCase {
 		await this.mercadoPagoService.refundPayment(paymentId);
 
 		payment.status = "refunded";
-		await this.paymentRepository.update(payment);
+		await this.paymentRepository.refundPayment(payment.id);
 
 		const order = await this.orderRepository.getById(payment.orderId);
 		if (order) {

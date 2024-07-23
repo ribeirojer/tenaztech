@@ -1,8 +1,7 @@
 import type { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
 import type { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
 import { OrderId } from "../../../domain/value-objects/OrderId.ts";
-import type { EmailService } from "../../../infrastructure/services/EmailService.ts";
-import { DeliveryNotFoundException } from "../../exceptions/DeliveryNotFoundException.ts";
+import type { ResendEmailService } from "../../../infrastructure/services/EmailService.ts";
 
 interface NotifyDeliveryDelayInput {
 	orderId: string;
@@ -13,7 +12,7 @@ export class NotifyDeliveryDelayUseCase {
 	constructor(
 		private readonly deliveryRepository: DeliveryRepository,
 		private readonly orderRepository: OrderRepository,
-		private readonly emailService: EmailService,
+		private readonly emailService: ResendEmailService,
 	) {}
 
 	async execute(input: NotifyDeliveryDelayInput): Promise<void> {
@@ -21,7 +20,7 @@ export class NotifyDeliveryDelayUseCase {
 		const delivery = await this.deliveryRepository.getByOrderId(orderId);
 
 		if (!delivery) {
-			throw new DeliveryNotFoundException("Delivery not found");
+			throw new Error("Delivery not found");
 		}
 
 		const order = await this.orderRepository.getById(orderId.toString());

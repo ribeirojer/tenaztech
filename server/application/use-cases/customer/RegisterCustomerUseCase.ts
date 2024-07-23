@@ -1,14 +1,11 @@
 import { Customer } from "../../../domain/entities/Customer.ts";
-import { CustomerAlreadyExistsException } from "../../../domain/exceptions/CustomerAlreadyExistsException.ts";
-import { InvalidEmailException } from "../../../domain/exceptions/InvalidEmailException.ts";
-import { InvalidNameException } from "../../../domain/exceptions/InvalidNameException.ts";
 import type { CustomerRepository } from "../../../domain/interfaces/CustomerRepository.ts";
 import { Address } from "../../../domain/value-objects/Address.ts";
 import { Email } from "../../../domain/value-objects/Email.ts";
 import { Name } from "../../../domain/value-objects/Name.ts";
 import { Password } from "../../../domain/value-objects/Password.ts";
 import { WelcomeEmailTemplate } from "../../../infrastructure/email-templates/WelcomeEmailTemplate.ts";
-import type { EmailService } from "../../../infrastructure/services/EmailService.ts";
+import type { ResendEmailService } from "../../../infrastructure/services/EmailService.ts";
 
 interface RegisterCustomerInput {
 	firstName: string;
@@ -27,7 +24,7 @@ interface RegisterCustomerInput {
 export class RegisterCustomerUseCase {
 	constructor(
 		private readonly customerRepository: CustomerRepository,
-		private readonly emailService: EmailService,
+		private readonly emailService: ResendEmailService,
 	) {}
 
 	async execute(input: RegisterCustomerInput): Promise<void> {
@@ -38,9 +35,7 @@ export class RegisterCustomerUseCase {
 		const existingCustomer =
 			await this.customerRepository.getByEmail(customerEmail);
 		if (existingCustomer) {
-			throw new CustomerAlreadyExistsException(
-				"Customer with this email already exists",
-			);
+			throw new Error("Customer with this email already exists");
 		}
 
 		const addresses = input.addresses.map(

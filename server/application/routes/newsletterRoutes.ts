@@ -1,7 +1,7 @@
 import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { logger } from "../../infrastructure/config/logger.ts";
 import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
-import { isValidEmail } from "../../utils/validation.ts"; // Supondo que você tenha uma função de validação
+import { isValidEmail } from "../validators/validation.ts"; // Supondo que você tenha uma função de validação
 
 const newsletterUseCases = UseCaseFactory.createNewsletterUseCases();
 const router = new Router();

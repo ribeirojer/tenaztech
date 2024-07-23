@@ -9,7 +9,7 @@ import { OrderId } from "../../../domain/value-objects/OrderId.ts";
 import { OrderItem } from "../../../domain/value-objects/OrderItem.ts";
 import { OrderStatus } from "../../../domain/value-objects/OrderStatus.ts";
 import { OrderConfirmationEmailTemplate } from "../../../infrastructure/email-templates/OrderConfirmationEmailTemplate.ts";
-import type { EmailService } from "../../../infrastructure/services/EmailService.ts";
+import type { ResendEmailService } from "../../../infrastructure/services/EmailService.ts";
 
 interface CreateOrderInput {
 	customerId: string;
@@ -29,7 +29,7 @@ export class CreateOrderUseCase {
 	constructor(
 		private orderRepository: OrderRepository,
 		private productRepository: ProductRepository,
-		private emailService: EmailService,
+		private emailService: ResendEmailService,
 	) {}
 
 	async execute(input: CreateOrderInput): Promise<Order> {

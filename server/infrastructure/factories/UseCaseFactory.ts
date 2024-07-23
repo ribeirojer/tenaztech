@@ -70,7 +70,9 @@ import { ListNewslettersUseCase } from "../../application/use-cases/newsletter/L
 import { SubscribeNewsletterUseCase } from "../../application/use-cases/newsletter/SubscribeNewsletterUseCase.ts";
 import { UnsubscribeNewsletterUseCase } from "../../application/use-cases/newsletter/UnsubscribeNewsletterUseCase.ts";
 
+import { JWTService } from "../../domain/services/JWTService.ts";
 import { SupabaseNewsletterRepository } from "../repositories/SupabaseNewsletterRepository.ts";
+import { ResendEmailService } from "../services/EmailService.ts";
 
 export class UseCaseFactory {
 	private static createMercadoPagoService(): MercadoPagoService {
@@ -81,10 +83,17 @@ export class UseCaseFactory {
 	// Order Use Cases
 	static createOrderUseCases() {
 		const orderRepository = new SupabaseOrderRepository();
+		const productRepository = new SupabaseProductRepository();
+		const emailService = new ResendEmailService();
+
 		return {
-			create: new CreateOrderUseCase(orderRepository),
-			update: new UpdateOrderUseCase(orderRepository),
-			cancel: new CancelOrderUseCase(orderRepository),
+			create: new CreateOrderUseCase(
+				orderRepository,
+				productRepository,
+				emailService,
+			),
+			update: new UpdateOrderUseCase(orderRepository, productRepository),
+			cancel: new CancelOrderUseCase(orderRepository, productRepository),
 			list: new ListOrdersUseCase(orderRepository),
 			detail: new GetOrderDetailUseCase(orderRepository),
 			track: new TrackOrderUseCase(orderRepository),
@@ -106,8 +115,10 @@ export class UseCaseFactory {
 	// Customer Use Cases
 	static createCustomerUseCases() {
 		const customerRepository = new SupabaseCustomerRepository();
+		const emailService = new ResendEmailService();
+
 		return {
-			register: new RegisterCustomerUseCase(customerRepository),
+			register: new RegisterCustomerUseCase(customerRepository, emailService),
 			update: new UpdateCustomerUseCase(customerRepository),
 			remove: new RemoveCustomerUseCase(customerRepository),
 			list: new ListCustomersUseCase(customerRepository),
@@ -126,7 +137,11 @@ export class UseCaseFactory {
 				orderRepository,
 				mercadoPagoService,
 			),
-			refund: new RefundPaymentUseCase(paymentRepository, mercadoPagoService),
+			refund: new RefundPaymentUseCase(
+				paymentRepository,
+				orderRepository,
+				mercadoPagoService,
+			),
 			detail: new GetPaymentDetailUseCase(
 				paymentRepository,
 				mercadoPagoService,
@@ -178,21 +193,42 @@ export class UseCaseFactory {
 	// Delivery Use Cases
 	static createDeliveryUseCases() {
 		const deliveryRepository = new SupabaseDeliveryRepository();
+		const orderRepository = new SupabaseOrderRepository();
+		const emailService = new ResendEmailService();
+
 		return {
-			schedule: new ScheduleDeliveryUseCase(deliveryRepository),
+			schedule: new ScheduleDeliveryUseCase(
+				deliveryRepository,
+				orderRepository,
+			),
 			updateDate: new UpdateDeliveryDateUseCase(deliveryRepository),
-			notifyDelay: new NotifyDeliveryDelayUseCase(deliveryRepository),
+			notifyDelay: new NotifyDeliveryDelayUseCase(
+				deliveryRepository,
+				orderRepository,
+				emailService,
+			),
 		};
 	}
 
 	// Auth Use Cases
 	static createAuthUseCases() {
 		const authRepository = new SupabaseAuthRepository();
+		const customerRepository = new SupabaseCustomerRepository();
+		const jwtService = new JWTService();
+		const emailService = new ResendEmailService();
+
 		return {
-			login: new LoginUseCase(authRepository),
-			logout: new LogoutUseCase(authRepository),
-			register: new RegisterAccountUseCase(authRepository),
-			recoverPassword: new RecoverPasswordUseCase(authRepository),
+			login: new LoginUseCase(authRepository, customerRepository, jwtService),
+			logout: new LogoutUseCase(jwtService),
+			register: new RegisterAccountUseCase(
+				authRepository,
+				customerRepository,
+				emailService,
+			),
+			recoverPassword: new RecoverPasswordUseCase(
+				customerRepository,
+				emailService,
+			),
 			//updatePassword: new UpdatePasswordUseCase(authRepository),
 			//delete: new DeleteUserUseCase(authRepository),
 		};
@@ -209,7 +245,6 @@ export class UseCaseFactory {
 			),
 			unsubscribe: new UnsubscribeNewsletterUseCase(newsletterRepository),
 			list: new ListNewslettersUseCase(newsletterRepository),
-			detail: new GetNewsletterDetailUseCase(newsletterRepository),
 		};
 	}
 }

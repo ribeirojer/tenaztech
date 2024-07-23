@@ -1,11 +1,8 @@
 import { Delivery } from "../../../domain/entities/Delivery.ts";
-import { DeliveryScheduledEvent } from "../../../domain/events/DeliveryScheduledEvent.ts";
 import type { DeliveryRepository } from "../../../domain/interfaces/DeliveryRepository.ts";
 import type { OrderRepository } from "../../../domain/interfaces/OrderRepository.ts";
 import { DeliveryDate } from "../../../domain/value-objects/DeliveryDate.ts";
 import { OrderId } from "../../../domain/value-objects/OrderId.ts";
-import { InvalidOrderException } from "../../exceptions/InvalidOrderException.ts";
-import type { EventPublisher } from "../../services/EventPublisher.ts";
 
 interface ScheduleDeliveryInput {
 	orderId: string;
@@ -16,7 +13,6 @@ export class ScheduleDeliveryUseCase {
 	constructor(
 		private readonly deliveryRepository: DeliveryRepository,
 		private readonly orderRepository: OrderRepository,
-		private readonly eventPublisher: EventPublisher,
 	) {}
 
 	async execute(input: ScheduleDeliveryInput): Promise<void> {
@@ -24,18 +20,12 @@ export class ScheduleDeliveryUseCase {
 		const order = await this.orderRepository.getById(orderId.toString());
 
 		if (!order) {
-			throw new InvalidOrderException("Order does not exist");
+			throw new Error("Order does not exist");
 		}
 
 		const deliveryDate = new DeliveryDate(input.deliveryDate);
 		const delivery = new Delivery(orderId, deliveryDate);
 
 		await this.deliveryRepository.add(delivery);
-
-		const deliveryScheduledEvent = new DeliveryScheduledEvent(
-			orderId.toString(),
-			deliveryDate.getValue(),
-		);
-		this.eventPublisher.publish(deliveryScheduledEvent);
 	}
 }

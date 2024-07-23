@@ -10,7 +10,7 @@ router.post("/customers", async (ctx) => {
 		const body = await ctx.request.body({ type: "json" }).value;
 		// Aqui você pode adicionar validações personalizadas se necessário
 		const result = await customerUseCases.register.execute(body);
-		logger.info(`Customer registered: ${result.id}`);
+		logger.info(`Customer registered: ${result}`);
 		ctx.response.status = 201;
 		ctx.response.body = { data: result };
 	} catch (error) {
@@ -25,13 +25,14 @@ router.put("/customers/:id", async (ctx) => {
 		const body = await ctx.request.body({ type: "json" }).value;
 		const { id } = ctx.params;
 		const errors = validateUpdate(body);
+		const { name } = body;
 		if (errors.length > 0) {
 			logger.warn(`Customer update validation errors: ${errors.join(", ")}`);
 			ctx.response.status = 400;
 			ctx.response.body = { errors };
 			return;
 		}
-		await customerUseCases.update.execute({ ...body, id });
+		await customerUseCases.update.execute(id, name);
 		logger.info(`Customer updated: ${id}`);
 		ctx.response.status = 200;
 	} catch (error) {

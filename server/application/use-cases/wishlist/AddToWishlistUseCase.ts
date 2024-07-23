@@ -8,7 +8,7 @@ export class AddToWishlistUseCase {
 		if (!wishlist) {
 			throw new Error("Wishlist not found");
 		}
-		wishlist.addProduct(productId);
+		wishlist.addProduct({ productId, addedAt: new Date() });
 		await this.wishlistRepository.addItem(wishlist.id, productId);
 	}
 }

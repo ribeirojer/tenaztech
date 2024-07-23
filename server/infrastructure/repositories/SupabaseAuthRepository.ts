@@ -1,7 +1,11 @@
 import type { AuthRepository } from "../../domain/interfaces/AuthRepository.ts";
+import type { Email } from "../../domain/value-objects/Email.ts";
 import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabaseAuthRepository implements AuthRepository {
+	getByEmail(email: Email): unknown {
+		throw new Error("Method not implemented.");
+	}
 	async register(
 		email: string,
 		password: string,

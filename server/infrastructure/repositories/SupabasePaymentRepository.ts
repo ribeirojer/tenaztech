@@ -3,6 +3,12 @@ import type { PaymentRepository } from "../../domain/interfaces/PaymentRepositor
 import { supabase } from "../persistence/DatabaseConnection.ts";
 
 export class SupabasePaymentRepository implements PaymentRepository {
+	add(payment: Payment): unknown {
+		throw new Error("Method not implemented.");
+	}
+	getById(paymentId: string): Payment {
+		throw new Error("Method not implemented.");
+	}
 	async createPayment(payment: Payment): Promise<void> {
 		const { error } = await supabase.from("payments").insert([
 			{

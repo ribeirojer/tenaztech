@@ -1,9 +1,7 @@
-import { InvalidNameException } from "../exceptions/InvalidNameException.ts";
-
 export class Name {
 	constructor(private readonly value: string) {
 		if (!this.isValidName(value)) {
-			throw new InvalidNameException("Name cannot be empty");
+			throw new Error("Name cannot be empty");
 		}
 	}
 
