@@ -1,6 +1,7 @@
 import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { logger } from "../../infrastructure/config/logger.ts";
 import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
+import { loginSchema, registrationSchema } from "../schemas/auth_schemas.ts";
 import {
 	validateLogin,
 	validateLogout,
@@ -14,6 +15,7 @@ const router = new Router();
 router.post("/auth/login", async (ctx) => {
 	try {
 		const body = await ctx.request.body().value;
+		loginSchema.parse(body);
 		const errors = validateLogin(body);
 		if (errors.length > 0) {
 			logger.warn(`Login validation errors: ${errors.join(", ")}`);
@@ -56,6 +58,7 @@ router.post("/auth/logout", async (ctx) => {
 router.post("/auth/register", async (ctx) => {
 	try {
 		const body = await ctx.request.body().value;
+		registrationSchema.parse(body);
 		const errors = validateRegister(body);
 		if (errors.length > 0) {
 			logger.warn(`Register validation errors: ${errors.join(", ")}`);

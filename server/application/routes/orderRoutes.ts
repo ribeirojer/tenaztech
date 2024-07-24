@@ -1,6 +1,7 @@
 import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { logger } from "../../infrastructure/config/logger.ts";
 import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
+import { orderSchema } from "../schemas/order_schema.ts";
 
 const orderUseCases = UseCaseFactory.createOrderUseCases();
 const router = new Router();
@@ -9,6 +10,7 @@ const router = new Router();
 router.post("/orders", async (ctx) => {
 	try {
 		const body = await ctx.request.body().value;
+		orderSchema.parse(body);
 		await orderUseCases.create.execute(body);
 		logger.info(`Order created: ${JSON.stringify(body)}`);
 		ctx.response.status = 201;
