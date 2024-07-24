@@ -5,6 +5,7 @@ type Props = {
 	className: string;
 	children: React.ReactNode;
 	onClick?: () => void;
+	type?: "button" | "submit" | "reset";
 };
 
 const Button = (props: Props) => {

@@ -10,6 +10,7 @@ type Props = {
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	inputRef: any;
 	error?: string;
+	name?: string
 };
 
 const Input = (props: Props) => {
