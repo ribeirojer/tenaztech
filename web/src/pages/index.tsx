@@ -15,7 +15,7 @@ export const getStaticProps = async () => {
 export default function Home({ products }: any) {
 	return (
 		<Layout>
-			<h1 className="text-center max-w-4xl mx-auto text-3xl py-4 px-2 md:py-8 md:px-0 font-extrabold sm:text-4xl md:text-6xl">
+			<h1 className="text-center max-w-4xl mx-auto text-2xl py-4 px-2 md:px-0 font-extrabold sm:text-4xl md:text-6xl">
 				Potencialize seu dia a dia com o melhor da tecnologia!
 			</h1>
 			<section className="container mx-auto px-4 md:px-0 flex flex-col-reverse md:grid gap-6 md:grid-cols-2">

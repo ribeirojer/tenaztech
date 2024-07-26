@@ -16,91 +16,91 @@ type Props = {};
 const entrar = (props: Props) => {
 	const { login } = useAuth();
 	//const { user, saveUserToContext } = useContext(UserContext);
-  const [loginInfo, setLoginInfo] = useState({
-    password: "",
-    email: "",
-    remember: false,
-  });
-  const emailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-  const [loginError, setLoginError] = useState({
-    email: "",
-    password: "",
-    emailRegex: "",
-    passwordStrong: "",
-    general: "",
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+	const [loginInfo, setLoginInfo] = useState({
+		password: "",
+		email: "",
+		remember: false,
+	});
+	const emailRef = useRef<HTMLInputElement | null>(null);
+	const passwordRef = useRef<HTMLInputElement | null>(null);
+	const [loginError, setLoginError] = useState({
+		email: "",
+		password: "",
+		emailRegex: "",
+		passwordStrong: "",
+		general: "",
+	});
+	const [isLoading, setIsLoading] = useState(false);
+	const router = useRouter();
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    setLoginError((prev) => ({
-      email: "",
-      emailRegex: "",
-      password: "",
-      passwordStrong: "",
-      general: "",
-    }));
+	const handleSubmit = (event: any) => {
+		event.preventDefault();
+		setLoginError((prev) => ({
+			email: "",
+			emailRegex: "",
+			password: "",
+			passwordStrong: "",
+			general: "",
+		}));
 
-    if (!loginInfo.email) {
-      setLoginError((prev) => ({ ...prev, email: "" }));
-      emailRef.current?.focus();
-      return;
-    }
-    if (!emailRegex.test(loginInfo.email)) {
-      setLoginError((prev) => ({ ...prev, emailRegex: "" }));
-      emailRef.current?.focus();
-      return;
-    }
-    if (!loginInfo.password) {
-      setLoginError((prev) => ({ ...prev, password: "" }));
-      passwordRef.current?.focus();
-      return;
-    }
-    if (!passwordRegex.test(loginInfo.password)) {
-      setLoginError((prev) => ({ ...prev, passwordStrong: "" }));
-      passwordRef.current?.focus();
-      return;
-    }
+		if (!loginInfo.email) {
+			setLoginError((prev) => ({ ...prev, email: "" }));
+			emailRef.current?.focus();
+			return;
+		}
+		if (!emailRegex.test(loginInfo.email)) {
+			setLoginError((prev) => ({ ...prev, emailRegex: "" }));
+			emailRef.current?.focus();
+			return;
+		}
+		if (!loginInfo.password) {
+			setLoginError((prev) => ({ ...prev, password: "" }));
+			passwordRef.current?.focus();
+			return;
+		}
+		if (!passwordRegex.test(loginInfo.password)) {
+			setLoginError((prev) => ({ ...prev, passwordStrong: "" }));
+			passwordRef.current?.focus();
+			return;
+		}
 
-    setIsLoading(true);
-    axiosClient.post("/auth/login", loginInfo)
-      .then((data) => {
-        //saveUserToContext(data);
-        setIsLoading(false);
-        router.push("/");
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setLoginError((prev) => ({
-          ...prev,
-          general: "",
-        }));
+		setIsLoading(true);
+		axiosClient
+			.post("/auth/login", loginInfo)
+			.then((data) => {
+				//saveUserToContext(data);
+				setIsLoading(false);
+				router.push("/");
+			})
+			.catch((error) => {
+				setIsLoading(false);
+				setLoginError((prev) => ({
+					...prev,
+					general: "",
+				}));
 
-        console.log(error);
-      });
-  };
+				console.log(error);
+			});
+	};
 
-  useEffect(() => {
-    //if (user) {
-    //  router.push("/usuario");
-    //}
-  }, []);
+	useEffect(() => {
+		//if (user) {
+		//  router.push("/usuario");
+		//}
+	}, []);
 
-  const handleGoogleLogin = () => {
-    //
-  };
+	const handleGoogleLogin = () => {
+		//
+	};
 
 	return (
 		<Layout>
-
-<main className="container mx-auto px-4 md:px-0 my-8 md:my-16">
-        <h1 className="text-4xl text-center font-bold">Entrar</h1>
-        <p className="text-center text-gray-500 my-4">
-          Faça login na sua conta para um checkout mais rápido.
-        </p>
-        {/* <div className="flex gap-4 justify-center items-center">
+			<main className="container mx-auto px-4 md:px-0 my-8 md:my-16">
+				<h1 className="text-4xl text-center font-bold">Entrar</h1>
+				<p className="text-center text-gray-500 my-4">
+					Faça login na sua conta para um checkout mais rápido.
+				</p>
+				{/* <div className="flex gap-4 justify-center items-center">
           <button
             onClick={handleGoogleLogin}
             className="flex items-center gap-2 border border-pink-300 hover:bg-pink-300 rounded-md py-2 px-4"
@@ -147,11 +147,11 @@ const entrar = (props: Props) => {
         <p className="text-center text-gray-500 my-4">
           Ou entre com seu e-mail
         </p> */}
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col mx-auto border border-pink-300 rounded-lg px-4 pb-4 lg:max-w-[50%]"
-        >
-          <Input
+				<form
+					onSubmit={handleSubmit}
+					className="flex flex-col mx-auto border border-pink-300 rounded-lg px-4 pb-4 lg:max-w-[50%]"
+				>
+					<Input
 						id="email"
 						error={loginError.email}
 						type="text"
@@ -160,12 +160,14 @@ const entrar = (props: Props) => {
 						value={loginInfo.email}
 						onChange={(e: any) => {
 							setLoginInfo({ ...loginInfo, email: e.target.value });
-						} }
-						inputRef={emailRef} className={""}          />
-          {loginError.emailRegex && (
-            <p className="text-red-500 mt-1">E-mail inválido</p>
-          )}
-          <Input
+						}}
+						inputRef={emailRef}
+						className={""}
+					/>
+					{loginError.emailRegex && (
+						<p className="text-red-500 mt-1">E-mail inválido</p>
+					)}
+					<Input
 						id="password"
 						error={loginError.password}
 						label="Senha"
@@ -174,51 +176,55 @@ const entrar = (props: Props) => {
 						value={loginInfo.password}
 						onChange={(e: any) => {
 							setLoginInfo({ ...loginInfo, password: e.target.value });
-						} }
-						inputRef={passwordRef} className={""}          />
-          {loginError.passwordStrong && (
-            <p className="text-red-500 mt-1">Digite uma senha forte</p>
-          )}
-          <div className="flex flex-col md:flex-row justify-between md:items-center gap-2 my-4">
-            <div className="checkbox_confirmacao">
-              <input
-                checked={loginInfo.remember}
-                onChange={(e) =>
-                  setLoginInfo({ ...loginInfo, remember: e.target.checked })
-                }
-                id="remember"
-                type="checkbox"
-              ></input>
-              <label className="remember" htmlFor="remember">
-                Lembrar de mim
-              </label>
-            </div>
-            <Link
-              href={"/esqueci-minha-senha"}
-              className="text-pink-500 underline hover:text-pink-700"
-            >
-              Esqueceu sua senha?
-            </Link>
-          </div>
-          <Button type="submit" className={""}>Entrar</Button>
-          {loginError.general && (
-            <p className="text-red-500 text-center my-4">
-              Houve um problema, tente novamente mais tarde.
-            </p>
-          )}
-        </form>
-        <p className="text-center text-gray-500 my-4">
-          Você não tem uma conta?{" "}
-          <Link
-            href={"/cadastrar"}
-            className="text-pink-500 underline hover:text-pink-700"
-          >
-            Cadastre-se
-          </Link>
-        </p>
-      </main>
-      {isLoading && <Loading></Loading>}
-      		</Layout>
+						}}
+						inputRef={passwordRef}
+						className={""}
+					/>
+					{loginError.passwordStrong && (
+						<p className="text-red-500 mt-1">Digite uma senha forte</p>
+					)}
+					<div className="flex flex-col md:flex-row justify-between md:items-center gap-2 my-4">
+						<div className="checkbox_confirmacao">
+							<input
+								checked={loginInfo.remember}
+								onChange={(e) =>
+									setLoginInfo({ ...loginInfo, remember: e.target.checked })
+								}
+								id="remember"
+								type="checkbox"
+							></input>
+							<label className="remember" htmlFor="remember">
+								Lembrar de mim
+							</label>
+						</div>
+						<Link
+							href={"/esqueci-minha-senha"}
+							className="text-pink-500 underline hover:text-pink-700"
+						>
+							Esqueceu sua senha?
+						</Link>
+					</div>
+					<Button type="submit" className={""}>
+						Entrar
+					</Button>
+					{loginError.general && (
+						<p className="text-red-500 text-center my-4">
+							Houve um problema, tente novamente mais tarde.
+						</p>
+					)}
+				</form>
+				<p className="text-center text-gray-500 my-4">
+					Você não tem uma conta?{" "}
+					<Link
+						href={"/cadastrar"}
+						className="text-pink-500 underline hover:text-pink-700"
+					>
+						Cadastre-se
+					</Link>
+				</p>
+			</main>
+			{isLoading && <Loading></Loading>}
+		</Layout>
 	);
 };
 

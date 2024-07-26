@@ -7,12 +7,11 @@ const useHeader = () => {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [searchOpen, setSearchOpen] = useState(false);
 	const [search, setSearch] = useState("");
-	const [show, setShow] = useState(false);
 	const { cartItems } = useCart();
 	const { isLoggedIn } = useAuth();
 	const router = useRouter();
-	const [lastScrollY, setLastScrollY] = useState(0);
 	const searchRef = useRef<HTMLInputElement | null>(null);
+	const [isFixed, setIsFixed] = useState(false);
 
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearch(e.target.value);
@@ -38,15 +37,6 @@ const useHeader = () => {
 		);
 	};
 
-	const controlNavbar = () => {
-		if (window.scrollY > lastScrollY) {
-			setShow(true);
-		} else {
-			setShow(false);
-		}
-		setLastScrollY(window.scrollY);
-	};
-
 	useEffect(() => {
 		if (searchOpen) {
 			setTimeout(() => {
@@ -56,17 +46,25 @@ const useHeader = () => {
 	}, [searchOpen]);
 
 	useEffect(() => {
-		window.addEventListener("scroll", controlNavbar);
-		return () => {
-			window.removeEventListener("scroll", controlNavbar);
+		const handleScroll = () => {
+			const scrollPosition = window.scrollY;
+			if (scrollPosition > 40) {
+				setIsFixed(true);
+			} else {
+				setIsFixed(false);
+			}
 		};
-	}, [lastScrollY]);
 
+		window.addEventListener("scroll", handleScroll);
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
 	return {
-		menuOpen,
+		isFixed,
 		searchOpen,
 		search,
-		show,
 		searchRef,
 		handleSearchChange,
 		handleMenu,
