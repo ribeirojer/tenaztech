@@ -79,8 +79,14 @@ body {
   display: block;
 }
 
-.logo_text {
-  font-family: "Dancing Script", sans-serif;
+/* transition layout pages */
+.layout {
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.layout.loading {
+  opacity: 0.5;
 }
 
 /* Estilização do checkbox */
