@@ -1,6 +1,6 @@
 import type { Product } from "../../domain/entities/Product.ts";
 import type { RecommendationRepository } from "../../domain/interfaces/RecommendationRepository.ts";
-import { supabase } from "../persistence/DatabaseConnection.ts";
+import { supabase } from "../config/DatabaseConnection.ts";
 
 export class SupabaseRecommendationRepository
 	implements RecommendationRepository

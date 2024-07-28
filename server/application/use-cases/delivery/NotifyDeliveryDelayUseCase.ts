@@ -29,13 +29,9 @@ export class NotifyDeliveryDelayUseCase {
 			throw new Error("Order not found");
 		}
 
-		const email = order.getOrderDetails().customerId.toString();
-		const message = `Dear Customer, your delivery scheduled for ${delivery.date.getValue()} has been delayed. Reason: ${input.delayReason}`;
+		//const email = order.getOrderDetails().customerId.toString();
+		//const message = `Dear Customer, your delivery scheduled for ${delivery.date.getValue()} has been delayed. Reason: ${input.delayReason}`;
 
-		await this.emailService.sendEmail(
-			email,
-			"Delivery Delay Notification",
-			message,
-		);
+		await this.emailService.DeliveryDelayEmail(order);
 	}
 }

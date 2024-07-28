@@ -7,6 +7,7 @@ import type { OrderStatus } from "../value-objects/OrderStatus.ts";
 
 export class Order {
 	private coupons: Coupon[] = [];
+	public customerEmail!: string;
 
 	constructor(
 		private readonly id: OrderId,

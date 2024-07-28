@@ -62,10 +62,9 @@ export class RegisterCustomerUseCase {
 		await this.customerRepository.add(customer);
 
 		// Enviar email de boas-vindas usando o template
-		await this.emailService.sendEmail(
+		await this.emailService.sendWelcomeEmail(
 			customerEmail.getValue(),
-			WelcomeEmailTemplate.getSubject(),
-			WelcomeEmailTemplate.getHtmlContent(customerName.getValue()),
+			customerName.getValue(),
 		);
 	}
 

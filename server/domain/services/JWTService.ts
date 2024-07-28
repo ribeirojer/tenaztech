@@ -1,44 +1,75 @@
-// services/JWTService.ts
-
 import {
+	type Header,
+	type Payload,
 	create,
 	getNumericDate,
 	verify,
 } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
-import {} from "https://deno.land/x/redis@v0.32.4/mod.ts";
+import { supabaseTokenService } from "./SupabaseTokenService.ts";
 
-const JWT_SECRET = "your_jwt_secret";
-//const redis = await Redis.connect({ hostname: "127.0.0.1", port: 6379 });
+async function getKey(): Promise<CryptoKey> {
+	const jwkKey = Deno.env.get("HMAC_KEY");
+	if (!jwkKey) {
+		throw new Error("HMAC_KEY is not set in the environment variables.");
+	}
+	return await crypto.subtle.importKey(
+		"jwk",
+		JSON.parse(jwkKey),
+		{ name: "HMAC", hash: "SHA-512" },
+		true,
+		["sign", "verify"],
+	);
+}
 
 export class JWTService {
-	generateToken(payload: object): string {
-		const header = {
-			alg: "HS256",
+	async generateToken(payload: object, duration: number): Promise<string> {
+		const header: Header = {
+			alg: "HS512",
 			typ: "JWT",
-		} as any;
+		};
 
-		const exp = getNumericDate(60 * 60); // Token válido por 1 hora
+		const exp = getNumericDate(duration); // Duração personalizada do token
+		const key = await getKey();
+		const jwt = await create(header, { ...payload, exp }, key);
 
-		const jwt = ""; // create(header, { ...payload, exp }, JWT_SECRET);
+		await supabaseTokenService.storeToken(
+			jwt,
+			new Date(exp * 1000).toISOString(),
+		);
 
 		return jwt;
 	}
 
-	verifyToken(token: string): object | null {
+	async verifyToken(token: string): Promise<object | null> {
 		try {
-			const payload = {}; //verify(token, JWT_SECRET, "HS256");
-			return payload;
+			const key = await getKey();
+			const payload = (await verify(token, key)) as Payload;
+
+			const data = await supabaseTokenService.getToken(token);
+			return data ? payload : null;
 		} catch (e) {
-			return null;
+			return e;
 		}
 	}
 
 	async invalidateToken(token: string): Promise<void> {
-		//await redis.setex(token, 3600, "invalid");
+		await supabaseTokenService.deleteToken(token);
 	}
 
 	async isTokenInvalidated(token: string): Promise<boolean> {
-		//const result = await redis.get(token);
-		return false; //result === "invalid";
+		const data = await supabaseTokenService.getToken(token);
+		return !data;
+	}
+
+	async generateRefreshToken(
+		payload: object,
+		duration: number,
+	): Promise<string> {
+		const refreshTokenDuration = duration * 24 * 7; // Duração mais longa para refresh token (ex: 1 semana)
+		return await this.generateToken(payload, refreshTokenDuration);
+	}
+
+	async verifyRefreshToken(token: string): Promise<object | null> {
+		return await this.verifyToken(token);
 	}
 }

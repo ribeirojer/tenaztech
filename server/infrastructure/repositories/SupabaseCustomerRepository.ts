@@ -2,11 +2,21 @@ import { Customer } from "../../domain/entities/Customer.ts";
 import type { CustomerRepository } from "../../domain/interfaces/CustomerRepository.ts";
 import { Email } from "../../domain/value-objects/Email.ts";
 import { Password } from "../../domain/value-objects/Password.ts";
-import { supabase } from "../persistence/DatabaseConnection.ts";
+import { supabase } from "../config/DatabaseConnection.ts";
 
 export class SupabaseCustomerRepository implements CustomerRepository {
+	async deleteByEmail(email: string) {
+		const { error } = await supabase
+			.from("customers")
+			.delete()
+			.eq("email", email);
+
+		if (error) {
+			throw new Error(`Failed to remove customer by email: ${error.message}`);
+		}
+	}
 	async subscribeNewsletter(id: string, userData: any): Promise<void> {
-		const { data, error } = await supabase
+		const { error } = await supabase
 			.from("customers")
 			.update({ newsletter: true, ...userData })
 			.eq("id", id);
@@ -32,7 +42,7 @@ export class SupabaseCustomerRepository implements CustomerRepository {
 		}
 
 		return data.map(
-			(customer: any) =>
+			(customer) =>
 				new Customer(
 					customer.id,
 					customer.name,
@@ -122,11 +132,9 @@ export class SupabaseCustomerRepository implements CustomerRepository {
 				id: customer.id,
 				name: customer.name,
 				email: customer.email.getValue(),
-				password: await customer.password.hash(),
+				password: customer.password.getValue(),
 				phone: customer.phone,
 				addresses: customer.addresses,
-				createdAt: customer.createdAt,
-				updatedAt: customer.updatedAt,
 			},
 		]);
 
@@ -158,5 +166,20 @@ export class SupabaseCustomerRepository implements CustomerRepository {
 					new Date(data.updatedAt),
 				)
 			: null;
+	}
+	async getByResetToken(resetToken: string): Promise<Customer | null> {
+		const { data, error } = await supabase
+			.from("password_reset_tokens")
+			.select("customerId")
+			.eq("resetToken", resetToken)
+			.single();
+
+		if (error) {
+			throw new Error(
+				`Failed to get customer by reset token: ${error.message}`,
+			);
+		}
+
+		return data ? this.findById(data.customerId) : null;
 	}
 }

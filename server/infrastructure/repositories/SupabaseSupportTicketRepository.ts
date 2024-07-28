@@ -1,6 +1,6 @@
 import { SupportTicket } from "../../domain/entities/SupportTicket.ts";
 import type { SupportTicketRepository } from "../../domain/interfaces/SupportTicketRepository.ts";
-import { supabase } from "../persistence/DatabaseConnection.ts";
+import { supabase } from "../config/DatabaseConnection.ts";
 
 export class SupabaseSupportTicketRepository
 	implements SupportTicketRepository

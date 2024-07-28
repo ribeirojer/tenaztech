@@ -1,6 +1,6 @@
 import type { Payment } from "../../domain/entities/Payment.ts";
 import type { PaymentRepository } from "../../domain/interfaces/PaymentRepository.ts";
-import { supabase } from "../persistence/DatabaseConnection.ts";
+import { supabase } from "../config/DatabaseConnection.ts";
 
 export class SupabasePaymentRepository implements PaymentRepository {
 	add(payment: Payment): unknown {

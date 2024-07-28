@@ -1,6 +1,6 @@
 import type { Order } from "../../domain/entities/Order.ts";
 import type { OrderRepository } from "../../domain/interfaces/OrderRepository.ts";
-import { supabase } from "../persistence/DatabaseConnection.ts";
+import { supabase } from "../config/DatabaseConnection.ts";
 
 export class SupabaseOrderRepository implements OrderRepository {
 	getById(id: string): Promise<Order | null> {

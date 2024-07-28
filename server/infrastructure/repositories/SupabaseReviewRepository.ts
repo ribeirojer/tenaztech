@@ -1,6 +1,6 @@
 import { Review } from "../../domain/entities/Review.ts";
 import type { ReviewRepository } from "../../domain/interfaces/ReviewRepository.ts";
-import { supabase } from "../persistence/DatabaseConnection.ts";
+import { supabase } from "../config/DatabaseConnection.ts";
 
 export class SupabaseReviewRepository implements ReviewRepository {
 	async save(review: Review): Promise<void> {

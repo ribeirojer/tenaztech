@@ -1,7 +1,7 @@
 import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { logger } from "../../infrastructure/config/logger.ts";
 import { UseCaseFactory } from "../../infrastructure/factories/UseCaseFactory.ts";
-import { isValidEmail } from "../validators/validation.ts"; // Supondo que você tenha uma função de validação
+import { isValidEmail } from "../schemas/validation.ts"; // Supondo que você tenha uma função de validação
 
 const newsletterUseCases = UseCaseFactory.createNewsletterUseCases();
 const router = new Router();
@@ -86,20 +86,6 @@ router.get("/newsletters", async (ctx) => {
 		ctx.response.body = newsletters;
 	} catch (error) {
 		logger.error(`List newsletters error: ${error.message}`);
-		ctx.response.status = 500;
-		ctx.response.body = { error: error.message };
-	}
-});
-
-router.get("/newsletters/:id", async (ctx) => {
-	try {
-		const { id } = ctx.params;
-		const newsletter = await newsletterUseCases.detail.execute(id);
-		logger.info(`Fetched newsletter detail: ${id}`);
-		ctx.response.status = 200;
-		ctx.response.body = newsletter;
-	} catch (error) {
-		logger.error(`Get newsletter detail error: ${error.message}`);
 		ctx.response.status = 500;
 		ctx.response.body = { error: error.message };
 	}

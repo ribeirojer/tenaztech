@@ -1,6 +1,6 @@
 import { Newsletter } from "../../domain/entities/Newsletter.ts";
 import type { NewsletterRepository } from "../../domain/interfaces/NewsletterRepository.ts";
-import { supabase } from "../persistence/DatabaseConnection.ts";
+import { supabase } from "../config/DatabaseConnection.ts";
 
 export class SupabaseNewsletterRepository implements NewsletterRepository {
 	async subscribe(email: string): Promise<void> {

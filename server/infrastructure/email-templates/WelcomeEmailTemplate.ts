@@ -4,7 +4,7 @@ export class WelcomeEmailTemplate {
 		return "Welcome to Acme";
 	}
 
-	static getHtmlContent(Name: string): string {
+	static getHtmlContent(name: string): string {
 		return `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
                 <h1 style="color: #333;">Welcome to Acme, ${name}!</h1>

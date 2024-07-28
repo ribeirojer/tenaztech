@@ -8,7 +8,6 @@ import { CustomerId } from "../../../domain/value-objects/CustomerId.ts";
 import { OrderId } from "../../../domain/value-objects/OrderId.ts";
 import { OrderItem } from "../../../domain/value-objects/OrderItem.ts";
 import { OrderStatus } from "../../../domain/value-objects/OrderStatus.ts";
-import { OrderConfirmationEmailTemplate } from "../../../infrastructure/email-templates/OrderConfirmationEmailTemplate.ts";
 import type { ResendEmailService } from "../../../infrastructure/services/EmailService.ts";
 
 interface CreateOrderInput {
@@ -68,14 +67,7 @@ export class CreateOrderUseCase {
 		await this.orderRepository.add(order);
 
 		// Enviando email de confirmação
-		await this.emailService.sendEmail(
-			input.email,
-			OrderConfirmationEmailTemplate.getSubject(),
-			OrderConfirmationEmailTemplate.getHtmlContent(
-				orderId.toString(),
-				totalAmount,
-			),
-		);
+		await this.emailService.sendOrderCreatedEmail(order);
 
 		return order;
 	}

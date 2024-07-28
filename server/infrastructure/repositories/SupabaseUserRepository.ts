@@ -1,6 +1,6 @@
 import { User } from "../../domain/entities/User.ts";
 import type { UserRepository } from "../../domain/interfaces/UserRepository.ts";
-import { supabase } from "../persistence/DatabaseConnection.ts";
+import { supabase } from "../config/DatabaseConnection.ts";
 
 export class SupabaseUserRepository implements UserRepository {
 	async getById(id: string): Promise<User | null> {

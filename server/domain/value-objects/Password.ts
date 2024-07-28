@@ -22,6 +22,10 @@ export class Password {
 		return this.value;
 	}
 
+	setValue(value: string): void {
+		this.value = value;
+	}
+
 	async compare(password: string): Promise<boolean> {
 		return await bcryptCompare(password, this.value);
 	}

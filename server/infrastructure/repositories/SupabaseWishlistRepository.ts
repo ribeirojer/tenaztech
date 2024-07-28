@@ -1,6 +1,6 @@
 import { Wishlist } from "../../domain/entities/Wishlist.ts";
 import type { WishlistRepository } from "../../domain/interfaces/WishlistRepository.ts";
-import { supabase } from "../persistence/DatabaseConnection.ts";
+import { supabase } from "../config/DatabaseConnection.ts";
 
 export class SupabaseWishlistRepository implements WishlistRepository {
 	async save(wishlist: Wishlist): Promise<void> {

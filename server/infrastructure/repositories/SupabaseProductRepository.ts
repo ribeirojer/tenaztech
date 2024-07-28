@@ -1,6 +1,6 @@
 import type { Product } from "../../domain/entities/Product.ts";
 import type { ProductRepository } from "../../domain/interfaces/ProductRepository.ts";
-import { supabase } from "../persistence/DatabaseConnection.ts";
+import { supabase } from "../config/DatabaseConnection.ts";
 
 export class SupabaseProductRepository implements ProductRepository {
 	async find(filters: any): Promise<Product[]> {

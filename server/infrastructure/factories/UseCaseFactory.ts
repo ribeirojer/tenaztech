@@ -1,4 +1,3 @@
-import { SupabaseAuthRepository } from "../repositories/SupabaseAuthRepository.ts";
 import { SupabaseCustomerRepository } from "../repositories/SupabaseCustomerRepository.ts";
 import { SupabaseDeliveryRepository } from "../repositories/SupabaseDeliveryRepository.ts";
 import { SupabaseOrderRepository } from "../repositories/SupabaseOrderRepository.ts";
@@ -70,6 +69,11 @@ import { ListNewslettersUseCase } from "../../application/use-cases/newsletter/L
 import { SubscribeNewsletterUseCase } from "../../application/use-cases/newsletter/SubscribeNewsletterUseCase.ts";
 import { UnsubscribeNewsletterUseCase } from "../../application/use-cases/newsletter/UnsubscribeNewsletterUseCase.ts";
 
+import { DeletecustomerAccountUseCase } from "../../application/use-cases/auth/DeleteCustomerAccountUseCase.ts";
+import { RefreshTokenUseCase } from "../../application/use-cases/auth/RefreshTokenUseCase.ts";
+import { ResetPasswordUseCase } from "../../application/use-cases/auth/ResetPasswordUseCase.ts";
+import { SuspendCustomerUseCase } from "../../application/use-cases/auth/SuspendCustomerUseCase.ts";
+import { VerifyEmailUseCase } from "../../application/use-cases/auth/VerifyEmailUseCase.ts";
 import { JWTService } from "../../domain/services/JWTService.ts";
 import { SupabaseNewsletterRepository } from "../repositories/SupabaseNewsletterRepository.ts";
 import { ResendEmailService } from "../services/EmailService.ts";
@@ -212,25 +216,23 @@ export class UseCaseFactory {
 
 	// Auth Use Cases
 	static createAuthUseCases() {
-		const authRepository = new SupabaseAuthRepository();
 		const customerRepository = new SupabaseCustomerRepository();
 		const jwtService = new JWTService();
 		const emailService = new ResendEmailService();
 
 		return {
-			login: new LoginUseCase(authRepository, customerRepository, jwtService),
+			login: new LoginUseCase(customerRepository, jwtService),
 			logout: new LogoutUseCase(jwtService),
-			register: new RegisterAccountUseCase(
-				authRepository,
-				customerRepository,
-				emailService,
-			),
+			register: new RegisterAccountUseCase(customerRepository, emailService),
 			recoverPassword: new RecoverPasswordUseCase(
 				customerRepository,
 				emailService,
 			),
-			//updatePassword: new UpdatePasswordUseCase(authRepository),
-			//delete: new DeleteUserUseCase(authRepository),
+			verifyEmail: new VerifyEmailUseCase(customerRepository, jwtService),
+			refreshToken: new RefreshTokenUseCase(jwtService),
+			resetPassword: new ResetPasswordUseCase(customerRepository, jwtService),
+			suspend: new SuspendCustomerUseCase(customerRepository),
+			delete: new DeletecustomerAccountUseCase(customerRepository),
 		};
 	}
 
