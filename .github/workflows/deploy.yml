@@ -24,11 +24,11 @@ jobs:
           deno-version: v1.x
 
       - name: Build step
-        run: "deno run --allow-net --allow-read --allow-write main.ts"
+        run: "deno run --allow-net --allow-read --allow-write server/main.ts"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "joseduardor-tenaztech-44"
           entrypoint: "server/main.ts"
-          root: "server"
+          root: ""
