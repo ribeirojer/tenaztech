@@ -91,7 +91,7 @@ const esqueciMinhaSenha = (props: Props) => {
 						type="text"
 						id="email"
 						name="email"
-						inputRef={emailRef}
+						ref={emailRef}
 						label="E-mail"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}

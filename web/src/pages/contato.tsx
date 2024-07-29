@@ -1,206 +1,268 @@
+import Button from "@/components/core/Button";
+import Loading from "@/components/core/Loading";
 import Layout from "@/components/core/Layout";
-import React from "react";
+import axios from "axios";
+import React, { FormEvent, useRef, useState } from "react";
 
 type Props = {};
 
 const contato = (props: Props) => {
+	const [formData, setFormData] = useState({
+		name: "",
+		email: "",
+		message: "",
+	});
+	const [errors, setErrors] = useState({
+		name: "",
+		email: "",
+		message: "",
+		general: "",
+	});
+	const [loading, setLoading] = useState(false);
+	const [isDisable, setIsDisable] = useState(false);
+	const [success, setSuccess] = useState(false);
+	const nameRef = useRef<HTMLInputElement | null>(null);
+	const emailRef = useRef<HTMLInputElement | null>(null);
+	const messageRef = useRef<HTMLTextAreaElement | null>(null);
+
+	const data = [
+		{
+			id: 1,
+			address: "Rua XV de Novembro, nº 000, Glória, Joinville - SC",
+			email: "contato@boutiquedamoh.com",
+			phone: "(47) 11111-1111",
+		},
+		{
+			id: 2,
+			address: "Rua Doutor João Colin, nº 000, Centro, Joinville - SC",
+			email: "contato2@boutiquedamoh.com",
+			phone: "(47) 22222-2222",
+		},
+	];
+
+	const closeSuccess = () => {
+		setTimeout(() => {
+			setSuccess(false);
+		}, 5000);
+	};
+
+	const handleSubmit = async (event: FormEvent) => {
+		event.preventDefault();
+		setErrors((prev) => ({
+			name: "",
+			email: "",
+			message: "",
+			general: "",
+		}));
+
+		if (formData.name === "") {
+			setErrors((prev) => ({ ...prev, name: "Por favor digite seu nome..." }));
+			nameRef.current?.focus();
+			return;
+		}
+		if (formData.name.length < 3 || formData.name.length > 50) {
+			setErrors((prev) => ({
+				...prev,
+				name: "O campo Nome deve ter entre 3 e 50 caracteres.",
+			}));
+			nameRef.current?.focus();
+			return;
+		}
+		if (!formData.email) {
+			setErrors((prev) => ({
+				...prev,
+				email: "Por favor digite seu email...",
+			}));
+			emailRef.current?.focus();
+			return;
+		}
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(formData.email)) {
+			setErrors((prev) => ({
+				...prev,
+				email: "O campo Email não possui um formato válido.",
+			}));
+			emailRef.current?.focus();
+			return;
+		}
+
+		if (!formData.message) {
+			setErrors((prev) => ({
+				...prev,
+				message: "Por favor digite sua mensagem...",
+			}));
+			messageRef.current?.focus();
+			return;
+		}
+
+		setLoading(true);
+		setIsDisable(true);
+
+		try {
+			const response = await axios.post(
+				process.env.NEXT_PUBLIC_API_URL + "/message",
+				formData,
+			);
+
+			if (response.status !== 200 && response.status !== 201) {
+				// Se o código de status não for 2xx (sucesso), trate o erro aqui
+				console.error("Erro no servidor:", response.data.message);
+				setErrors((prev) => ({
+					...prev,
+					general: "Ocorreu um erro no servidor ao enviar sua mensagem",
+				}));
+			} else {
+				setSuccess(true);
+				setFormData((prev) => ({
+					name: "",
+					email: "",
+					message: "",
+				}));
+				closeSuccess();
+			}
+		} catch (error) {
+			console.error("Erro ao salvar os dados:", error);
+			setErrors((prev) => ({
+				...prev,
+				general: "Ocorreu um erro ao enviar sua mensagem",
+			}));
+		}
+		setLoading(false);
+		setIsDisable(false);
+	};
+
+	const handleBlur = () => {
+		setErrors((prev) => ({
+			...prev,
+			name: "",
+			email: "",
+			message: "",
+			general: "",
+		}));
+	};
+
 	return (
 		<Layout>
-			<section className="relative z-10 overflow-hidden bg-white py-20 dark:bg-dark lg:py-[120px]">
-				<div className="container">
-					<div className="-mx-4 flex flex-wrap lg:justify-between">
-						<div className="w-full px-4 lg:w-1/2 xl:w-6/12">
-							<div className="mb-12 max-w-[570px] lg:mb-0">
-								<span className="mb-4 block text-base font-semibold text-primary">
-									Contact Us
-								</span>
-								<h2 className="mb-6 text-[32px] font-bold uppercase text-dark dark:text-white sm:text-[40px] lg:text-[36px] xl:text-[40px]">
-									GET IN TOUCH WITH US
-								</h2>
-								<p className="mb-9 text-base leading-relaxed text-body-color dark:text-dark-6">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-									do eius tempor incididunt ut labore e dolore magna aliqua. Ut
-									enim adiqua minim veniam quis nostrud exercitation ullamco
-								</p>
-								<div className="mb-8 flex w-full max-w-[370px]">
-									<div className="mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded bg-primary/5 text-primary sm:h-[70px] sm:max-w-[70px]">
-										<svg
-											width="32"
-											height="32"
-											viewBox="0 0 32 32"
-											fill="none"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												d="M30.6 11.8002L17.7 3.5002C16.65 2.8502 15.3 2.8502 14.3 3.5002L1.39998 11.8002C0.899983 12.1502 0.749983 12.8502 1.04998 13.3502C1.39998 13.8502 2.09998 14.0002 2.59998 13.7002L3.44998 13.1502V25.8002C3.44998 27.5502 4.84998 28.9502 6.59998 28.9502H25.4C27.15 28.9502 28.55 27.5502 28.55 25.8002V13.1502L29.4 13.7002C29.6 13.8002 29.8 13.9002 30 13.9002C30.35 13.9002 30.75 13.7002 30.95 13.4002C31.3 12.8502 31.15 12.1502 30.6 11.8002ZM13.35 26.7502V18.5002C13.35 18.0002 13.75 17.6002 14.25 17.6002H17.75C18.25 17.6002 18.65 18.0002 18.65 18.5002V26.7502H13.35ZM26.3 25.8002C26.3 26.3002 25.9 26.7002 25.4 26.7002H20.9V18.5002C20.9 16.8002 19.5 15.4002 17.8 15.4002H14.3C12.6 15.4002 11.2 16.8002 11.2 18.5002V26.7502H6.69998C6.19998 26.7502 5.79998 26.3502 5.79998 25.8502V11.7002L15.5 5.4002C15.8 5.2002 16.2 5.2002 16.5 5.4002L26.3 11.7002V25.8002Z"
-												fill="currentColor"
-											/>
-										</svg>
-									</div>
-									<div className="w-full">
-										<h4 className="mb-1 text-xl font-bold text-dark dark:text-white">
-											Our Location
-										</h4>
-										<p className="text-base text-body-color dark:text-dark-6">
-											99 S.t Jomblo Park Pekanbaru 28292. Indonesia
-										</p>
-									</div>
-								</div>
-
-								<div className="mb-8 flex w-full max-w-[370px]">
-									<div className="mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded bg-primary/5 text-primary sm:h-[70px] sm:max-w-[70px]">
-										<svg
-											width="32"
-											height="32"
-											viewBox="0 0 32 32"
-											fill="none"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<g clip-path="url(#clip0_941_17577)">
-												<path
-													d="M24.3 31.1499C22.95 31.1499 21.4 30.7999 19.7 30.1499C16.3 28.7999 12.55 26.1999 9.19997 22.8499C5.84997 19.4999 3.24997 15.7499 1.89997 12.2999C0.39997 8.59994 0.54997 5.54994 2.29997 3.84994C2.34997 3.79994 2.44997 3.74994 2.49997 3.69994L6.69997 1.19994C7.74997 0.599942 9.09997 0.899942 9.79997 1.89994L12.75 6.29994C13.45 7.34994 13.15 8.74994 12.15 9.44994L10.35 10.6999C11.65 12.7999 15.35 17.9499 21.25 21.6499L22.35 20.0499C23.2 18.8499 24.55 18.4999 25.65 19.2499L30.05 22.1999C31.05 22.8999 31.35 24.2499 30.75 25.2999L28.25 29.4999C28.2 29.5999 28.15 29.6499 28.1 29.6999C27.2 30.6499 25.9 31.1499 24.3 31.1499ZM3.79997 5.54994C2.84997 6.59994 2.89997 8.74994 3.99997 11.4999C5.24997 14.6499 7.64997 18.0999 10.8 21.2499C13.9 24.3499 17.4 26.7499 20.5 27.9999C23.2 29.0999 25.35 29.1499 26.45 28.1999L28.85 24.0999C28.85 24.0499 28.85 24.0499 28.85 23.9999L24.45 21.0499C24.45 21.0499 24.35 21.0999 24.25 21.2499L23.15 22.8499C22.45 23.8499 21.1 24.1499 20.1 23.4999C13.8 19.5999 9.89997 14.1499 8.49997 11.9499C7.84997 10.8999 8.09997 9.54994 9.09997 8.84994L10.9 7.59994V7.54994L7.94997 3.14994C7.94997 3.09994 7.89997 3.09994 7.84997 3.14994L3.79997 5.54994Z"
-													fill="currentColor"
-												/>
-												<path
-													d="M29.3 14.25C28.7 14.25 28.25 13.8 28.2 13.2C27.8 8.15003 23.65 4.10003 18.55 3.75003C17.95 3.70003 17.45 3.20003 17.5 2.55003C17.55 1.95003 18.05 1.45003 18.7 1.50003C24.9 1.90003 29.95 6.80003 30.45 13C30.5 13.6 30.05 14.15 29.4 14.2C29.4 14.25 29.35 14.25 29.3 14.25Z"
-													fill="currentColor"
-												/>
-												<path
-													d="M24.35 14.7002C23.8 14.7002 23.3 14.3002 23.25 13.7002C22.95 11.0002 20.85 8.90018 18.15 8.55018C17.55 8.50018 17.1 7.90018 17.15 7.30018C17.2 6.70018 17.8 6.25018 18.4 6.30018C22.15 6.75018 25.05 9.65018 25.5 13.4002C25.55 14.0002 25.15 14.5502 24.5 14.6502C24.4 14.7002 24.35 14.7002 24.35 14.7002Z"
-													fill="currentColor"
-												/>
-											</g>
-											<defs>
-												<clipPath id="clip0_941_17577">
-													<rect width="32" height="32" fill="white" />
-												</clipPath>
-											</defs>
-										</svg>
-									</div>
-									<div className="w-full">
-										<h4 className="mb-1 text-xl font-bold text-dark dark:text-white">
-											Phone Number
-										</h4>
-										<p className="text-base text-body-color dark:text-dark-6">
-											(+62)81 414 257 9980
-										</p>
-									</div>
-								</div>
-
-								<div className="mb-8 flex w-full max-w-[370px]">
-									<div className="mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded bg-primary/5 text-primary sm:h-[70px] sm:max-w-[70px]">
-										<svg
-											width="32"
-											height="32"
-											viewBox="0 0 32 32"
-											fill="none"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												d="M28 4.7998H3.99998C2.29998 4.7998 0.849976 6.1998 0.849976 7.9498V24.1498C0.849976 25.8498 2.24998 27.2998 3.99998 27.2998H28C29.7 27.2998 31.15 25.8998 31.15 24.1498V7.8998C31.15 6.1998 29.7 4.7998 28 4.7998ZM28 7.0498C28.05 7.0498 28.1 7.0498 28.15 7.0498L16 14.8498L3.84998 7.0498C3.89998 7.0498 3.94998 7.0498 3.99998 7.0498H28ZM28 24.9498H3.99998C3.49998 24.9498 3.09998 24.5498 3.09998 24.0498V9.2498L14.8 16.7498C15.15 16.9998 15.55 17.0998 15.95 17.0998C16.35 17.0998 16.75 16.9998 17.1 16.7498L28.8 9.2498V24.0998C28.9 24.5998 28.5 24.9498 28 24.9498Z"
-												fill="currentColor"
-											/>
-										</svg>
-									</div>
-									<div className="w-full">
-										<h4 className="mb-1 text-xl font-bold text-dark dark:text-white">
-											Email Address
-										</h4>
-										<p className="text-base text-body-color dark:text-dark-6">
-											info@yourdomain.com
-										</p>
-									</div>
-								</div>
-							</div>
+			<h1 className="text-3xl font-bold my-8 text-center">
+				Entre em contato conosco para um estilo inesquecível!
+			</h1>
+			<div className="container mx-auto px-4 md:px-0 flex flex-col justify-between md:flex-row">
+				<div className="w-full md:w-1/2">
+					<p className="mb-4">
+						Você é única, e seu estilo também deve ser! Estamos aqui para tornar
+						seus sonhos de moda realidade. Seja para uma ocasião especial ou
+						para renovar seu guarda-roupa, nossa boutique de roupas está pronta
+						para te ajudar a brilhar.
+					</p>
+					{data.map((item) => (
+						<div key={item.id} className="flex flex-col mb-3">
+							<h5 className="font-semibold mb-3">Loja {item.id}</h5>
+							<p className="flex gap-2 mb-4">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+								>
+									<path d="M12 14c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.103 0 2 .897 2 2s-.897 2-2 2-2-.897-2-2 .897-2 2-2z"></path>
+									<path d="M11.42 21.814a.998.998 0 0 0 1.16 0C12.884 21.599 20.029 16.44 20 10c0-4.411-3.589-8-8-8S4 5.589 4 9.995c-.029 6.445 7.116 11.604 7.42 11.819zM12 4c3.309 0 6 2.691 6 6.005.021 4.438-4.388 8.423-6 9.73-1.611-1.308-6.021-5.294-6-9.735 0-3.309 2.691-6 6-6z"></path>
+								</svg>
+								<span>{item.address}</span>
+							</p>
+							<p className="flex gap-2 mb-4">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+								>
+									<path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c1.466 0 2.961-.371 4.442-1.104l-.885-1.793C14.353 19.698 13.156 20 12 20c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8v1c0 .692-.313 2-1.5 2-1.396 0-1.494-1.819-1.5-2V8h-2v.025A4.954 4.954 0 0 0 12 7c-2.757 0-5 2.243-5 5s2.243 5 5 5c1.45 0 2.748-.631 3.662-1.621.524.89 1.408 1.621 2.838 1.621 2.273 0 3.5-2.061 3.5-4v-1c0-5.514-4.486-10-10-10zm0 13c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3-1.346 3-3 3z"></path>
+								</svg>
+								<span>{item.email}</span>
+							</p>
+							<p className="flex gap-2 mb-4">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+								>
+									<path d="M17.707 12.293a.999.999 0 0 0-1.414 0l-1.594 1.594c-.739-.22-2.118-.72-2.992-1.594s-1.374-2.253-1.594-2.992l1.594-1.594a.999.999 0 0 0 0-1.414l-4-4a.999.999 0 0 0-1.414 0L3.581 5.005c-.38.38-.594.902-.586 1.435.023 1.424.4 6.37 4.298 10.268s8.844 4.274 10.269 4.298h.028c.528 0 1.027-.208 1.405-.586l2.712-2.712a.999.999 0 0 0 0-1.414l-4-4.001zm-.127 6.712c-1.248-.021-5.518-.356-8.873-3.712-3.366-3.366-3.692-7.651-3.712-8.874L7 4.414 9.586 7 8.293 8.293a1 1 0 0 0-.272.912c.024.115.611 2.842 2.271 4.502s4.387 2.247 4.502 2.271a.991.991 0 0 0 .912-.271L17 14.414 19.586 17l-2.006 2.005z"></path>
+								</svg>
+								<span>{item.phone}</span>
+							</p>
 						</div>
-						<div className="w-full px-4 lg:w-1/2 xl:w-5/12">
-							<div className="relative rounded-lg bg-white p-8 shadow-lg dark:bg-dark-2 sm:p-12">
-								<form>
-									<ContactInputBox
-										type="text"
-										name="name"
-										placeholder="Your Name"
-									/>
-									<ContactInputBox
-										type="text"
-										name="email"
-										placeholder="Your Email"
-									/>
-									<ContactInputBox
-										type="text"
-										name="phone"
-										placeholder="Your Phone"
-									/>
-									<ContactTextArea
-										row="6"
-										placeholder="Your Message"
-										name="details"
-										defaultValue=""
-									/>
-									<div>
-										<button
-											type="submit"
-											className="w-full rounded border border-primary bg-primary p-3 text-white transition hover:bg-opacity-90"
-										>
-											Send Message
-										</button>
-									</div>
-								</form>
-								<div>
-									<span className="absolute -right-9 -top-10 z-[-1]">
-										<svg
-											width={100}
-											height={100}
-											viewBox="0 0 100 100"
-											fill="none"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												fillRule="evenodd"
-												clipRule="evenodd"
-												d="M0 100C0 44.7715 0 0 0 0C55.2285 0 100 44.7715 100 100C100 100 100 100 0 100Z"
-												fill="#3056D3"
-											/>
-										</svg>
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
+					))}
 				</div>
-			</section>
+				<form
+					className="flex flex-col mt-8 md:mt-0 gap-4 w-full md:w-2/5"
+					name="sentMessage"
+					id="contactForm"
+					onSubmit={handleSubmit}
+				>
+					<div className="flex flex-col">
+						<input
+							id="name"
+							type="text"
+							className="text-body-color border-[f0f0f0] focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none focus:ring-2 focus:ring-[#ec4899aa]"
+							placeholder="Seu nome"
+							value={formData.name}
+							ref={nameRef}
+							onChange={(e) =>
+								setFormData({ ...formData, name: e.target.value })
+							}
+						/>
+						{errors.name && <p className="text-red-500 mt-1">{errors.name}</p>}
+					</div>
+					<div className="flex flex-col">
+						<input
+							id="email"
+							type="text"
+							className="text-body-color border-[f0f0f0] focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none focus:ring-2 focus:ring-[#ec4899aa]"
+							placeholder="Seu melhor e-mail"
+							value={formData.email}
+							ref={emailRef}
+							onChange={(e) =>
+								setFormData({ ...formData, email: e.target.value })
+							}
+						/>
+						{errors.email && (
+							<p className="text-red-500 mt-1">{errors.email}</p>
+						)}
+					</div>
+					<div className="flex flex-col">
+						<textarea
+							id="message"
+							className="text-body-color border-[f0f0f0] focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none focus:ring-2 focus:ring-[#ec4899aa]"
+							rows={6}
+							placeholder="Digite sua mensagem aqui"
+							value={formData.message}
+							ref={messageRef}
+							onChange={(e) =>
+								setFormData({ ...formData, message: e.target.value })
+							}
+						></textarea>
+						{errors.message && (
+							<p className="text-red-500 mt-1">{errors.message}</p>
+						)}
+					</div>
+					<Button
+						className="btn btn-primary py-2 px-4"
+						type="submit"
+						disabled={isDisable}
+					>
+						Enviar mensagem
+					</Button>
+					{errors.general && (
+						<p className="text-red-500 mt-1 text-center">{errors.general}</p>
+					)}
+					{success && (
+						<p className="text-green-500 mt-1 text-center">Mensagem enviada!</p>
+					)}
+				</form>
+			</div>
+			{loading && <Loading />}
 		</Layout>
-	);
-};
-
-const ContactTextArea = ({ row, placeholder, name, defaultValue }: any) => {
-	return (
-		<>
-			<div className="mb-6">
-				<textarea
-					rows={row}
-					placeholder={placeholder}
-					name={name}
-					className="w-full resize-none rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary dark:border-dark-3 dark:bg-dark dark:text-dark-6"
-					defaultValue={defaultValue}
-				/>
-			</div>
-		</>
-	);
-};
-
-const ContactInputBox = ({ type, placeholder, name }: any) => {
-	return (
-		<>
-			<div className="mb-6">
-				<input
-					type={type}
-					placeholder={placeholder}
-					name={name}
-					className="w-full rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary dark:border-dark-3 dark:bg-dark dark:text-dark-6"
-				/>
-			</div>
-		</>
 	);
 };
 

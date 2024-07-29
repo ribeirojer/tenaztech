@@ -31,7 +31,8 @@ const Header = (props: Props) => {
 		<header id="header">
 			<TopHeader isFixed={isFixed} />
 			<div
-				className={`${isFixed ? "" : "md:static"
+				className={`${
+					isFixed ? "" : "md:static"
 				} fixed top-0 left-0 w-full z-40 bg-midnight shadow transition-all`}
 			>
 				<div className="container mx-auto px-4 md:px-0 flex flex-row items-center justify-between">

@@ -355,3 +355,37 @@ body {
     transform: scale(1);
   }
 }
+
+.swiper-navigation {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.swiper-pagination {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.swiper-pagination-bullet {
+  background: rgba(0,0,0,0.5);
+}
+
+.swiper-pagination-bullet-active {
+  background: white;
+}

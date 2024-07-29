@@ -14,41 +14,41 @@ const WhyShopWithUs = (props: Props) => {
 					<h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-primary">
 						Por que comprar conosco?
 					</h2>
-					<p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+					<p className="mx-auto max-w-[600px] text-base md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed">
 						Descubra os benefícios de comprar em nossa loja de acessórios
 						eletrônicos.
 					</p>
 				</div>
-				<div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+				<div className="grid grid-cols-2 gap-4 md:gap-8 md:grid-cols-4">
 					<div className="bg-glow-tech bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
 						<TruckIcon className="h-10 w-10 text-primary" />
-						<h3 className="text-xl font-bold text-secondary">Frete Grátis</h3>
-						<p className="text-muted-foreground">
+						<h3 className="text-lg font-bold text-secondary">Frete Grátis</h3>
+						<p className="text-sm">
 							Aproveite frete grátis em todos os pedidos acima de R$ 50.
 						</p>
 					</div>
 					<div className="bg-sandstorm bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
 						<ShieldCheckIcon className="h-10 w-10 text-primary" />
-						<h3 className="text-xl font-bold text-secondary">
+						<h3 className="text-lg font-bold text-secondary">
 							Garantia de Satisfação
 						</h3>
-						<p className="text-muted-foreground">
+						<p className="text-sm">
 							Se você não estiver satisfeito, devolvemos o seu dinheiro.
 						</p>
 					</div>
 					<div className="bg-electric-blue bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
 						<ClockIcon className="h-10 w-10 text-primary" />
-						<h3 className="text-xl font-bold text-secondary">Entrega Rápida</h3>
-						<p className="text-muted-foreground">
+						<h3 className="text-lg font-bold text-secondary">Entrega Rápida</h3>
+						<p className="text-sm">
 							Seu pedido será enviado em 1-2 dias úteis.
 						</p>
 					</div>
 					<div className="bg-pink-pulse bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">
 						<CouponIcon className="h-10 w-10 text-primary" />
-						<h3 className="text-xl font-bold text-secondary">
+						<h3 className="text-lg font-bold text-secondary">
 							Cupons Cumulativos
 						</h3>
-						<p className="text-muted-foreground">
+						<p className="text-sm">
 							Use múltiplos cupons para economizar ainda mais.
 						</p>
 					</div>

@@ -1,181 +1,120 @@
-import React, { useRef } from "react";
-import { useContext, useState } from "react";
-import { emailRegex, passwordRegex } from "../utils/constants";
-//import { UserContext } from "./_app";
+import React from "react";
 import Input from "@/components/core/Input";
 import Button from "@/components/core/Button";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import Loading from "@/components/core/Loading";
-import axiosClient from "@/utils/axiosClient";
 import Layout from "@/components/core/Layout";
+import useRegister from "../hooks/useRegister";
 
 type Props = {};
 
-const cadastrar = (props: Props) => {
-	//const { saveUserToContext } = useContext(UserContext);
-	const [formData, setFormData] = useState({
-		name: "",
-		email: "",
-		password: "",
-	});
-	const router = useRouter();
-	const [isLoading, setIsLoading] = useState(false);
-	const nameRef = useRef<HTMLInputElement | null>(null);
-	const emailRef = useRef<HTMLInputElement | null>(null);
-	const passwordRef = useRef<HTMLInputElement | null>(null);
+const Cadastrar = (props: Props) => {
+  const {
+    formData,
+    errorData,
+    isLoading,
+    nameRef,
+    emailRef,
+    passwordRef,
+    handleChange,
+    handleSubmit,
+  } = useRegister();
 
-	const [errorData, setErrorData] = useState({
-		name: "",
-		email: "",
-		emailRegex: "",
-		password: "",
-		passwordStrong: "",
-		confirmPassword: "",
-		confirmPasswordMatch: "",
-		terms: "",
-		general: "",
-	});
-
-	const handleSubmit = (event: any) => {
-		event.preventDefault();
-		setErrorData((prev) => ({
-			name: "",
-			email: "",
-			emailRegex: "",
-			password: "",
-			passwordStrong: "",
-			confirmPassword: "",
-			confirmPasswordMatch: "",
-			terms: "",
-			general: "",
-		}));
-
-		if (!formData.name) {
-			setErrorData((prev) => ({ ...prev, name: "" }));
-			nameRef.current?.focus();
-			return;
-		}
-		if (!formData.email) {
-			setErrorData((prev) => ({ ...prev, email: "" }));
-			emailRef.current?.focus();
-			return;
-		}
-		if (!emailRegex.test(formData.email)) {
-			setErrorData((prev) => ({ ...prev, emailRegex: "" }));
-			emailRef.current?.focus();
-			return;
-		}
-		if (!formData.password) {
-			setErrorData((prev) => ({ ...prev, password: "" }));
-			passwordRef.current?.focus();
-			return;
-		}
-		if (!passwordRegex.test(formData.password)) {
-			setErrorData((prev) => ({ ...prev, passwordStrong: "" }));
-			passwordRef.current?.focus();
-			return;
-		}
-		setIsLoading(true);
-		axiosClient
-			.post("/auth/register", formData)
-			.then((data) => {
-				//saveUserToContext(data);
-				setIsLoading(false);
-				router.push("/");
-			})
-			.catch((error) => {
-				setIsLoading(false);
-				setErrorData((prev) => ({
-					...prev,
-					general: "",
-				}));
-				console.log(error);
-			});
-	};
-
-	return (
-		<Layout>
-			<main className="container px-4 my-8 md:my-16 mx-auto">
-				<h1 className="text-center text-4xl font-bold">Cadastrar</h1>
-				<p className="text-center text-gray-500 my-4">
-					Preencha os dados abaixo para se cadastrar
-				</p>
-				<form
-					onSubmit={handleSubmit}
-					className="flex flex-col px-4 pb-4 gap-4 border border-pink-300 rounded-lg max-w-md mx-auto"
-				>
-					<Input
-						id="last-name"
-						type="text"
-						label="Último nome"
-						error={errorData.name}
-						placeholder="Último nome"
-						value={formData.name}
-						onChange={(e: any) => {
-							setFormData({ ...formData, name: e.target.value });
-						}}
-						inputRef={nameRef}
-						className={""}
-					/>
-					<Input
-						id="email"
-						error={errorData.email}
-						type="email"
-						label="E-mail"
-						placeholder="E-mail"
-						value={formData.email}
-						onChange={(e: any) => {
-							setFormData({ ...formData, email: e.target.value });
-						}}
-						inputRef={emailRef}
-						className={""}
-					/>
-					{errorData.emailRegex && (
-						<p className="text-red-500 mt-1">E-mail inválido</p>
-					)}
-					<Input
-						id="password"
-						error={errorData.password}
-						label="Senha"
-						placeholder="Digite sua senha"
-						type="password"
-						value={formData.password}
-						onChange={(e: any) => {
-							setFormData({ ...formData, password: e.target.value });
-						}}
-						inputRef={passwordRef}
-						className={""}
-					/>
-					{errorData.passwordStrong && (
-						<p className="text-red-500 mt-1">
-							A senha deve conter pelo menos 8 caracteres, 1 letra maiúscula, 1
-							letra minúscula e 1 número
-						</p>
-					)}
-					<Button type="submit" className={""}>
-						Cadastrar
-					</Button>
-					{errorData.general && (
-						<p className="text-red-500 mt-1 text-center my-4">
-							Erro ao cadastrar. Tente novamente mais tarde.
-						</p>
-					)}
-				</form>
-				<p className="text-center text-gray-500 my-8">
-					Já tem uma conta?{" "}
-					<Link
-						href="/entrar"
-						passHref
-						className="text-pink-500 underline hover:text-pink-700"
-					>
-						Entrar
-					</Link>
-				</p>
-			</main>
-			{isLoading && <Loading></Loading>}
-		</Layout>
-	);
+  return (
+    <Layout>
+        <div className="container">
+          <div className="-mx-4 flex flex-wrap">
+            <div className="w-full px-4">
+              <div className="shadow-three mx-auto max-w-[500px] rounded bg-white px-6 py-10 dark:bg-dark sm:p-[60px]">
+                <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">Crie sua conta</h3>
+                <p className="mb-11 text-center text-base font-medium text-body-color">É totalmente gratuito e super fácil</p>
+                <button className="border-stroke dark:text-body-color-dark dark:shadow-two mb-6 flex w-full items-center justify-center rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none">
+                  <span className="mr-3">G</span>Entrar com Google
+                </button>
+                <button className="border-stroke dark:text-body-color-dark dark:shadow-two mb-6 flex w-full items-center justify-center rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none">
+                  <span className="mr-3">GH</span>Entrar com Github
+                </button>
+                <div className="mb-8 flex items-center justify-center">
+                  <span className="hidden h-[1px] w-full max-w-[60px] bg-body-color/50 sm:block"></span>
+                  <p className="w-full px-5 text-center text-base font-medium text-body-color">Ou, registre-se com seu e-mail</p>
+                  <span className="hidden h-[1px] w-full max-w-[60px] bg-body-color/50 sm:block"></span>
+                </div>
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-8">
+                    <label htmlFor="name" className="mb-3 block text-sm text-dark dark:text-white"> Nome Completo </label>
+                    <Input
+                      placeholder="Digite seu nome completo"
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      ref={nameRef}
+                      error={errorData.name}
+                    />
+                  </div>
+                  <div className="mb-8">
+                    <label htmlFor="email" className="mb-3 block text-sm text-dark dark:text-white"> E-mail </label>
+                    <Input
+                      placeholder="Digite seu e-mail"
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      ref={emailRef}
+                      error={errorData.email || errorData.emailRegex}
+                    />
+                  </div>
+                  <div className="mb-8">
+                    <label htmlFor="password" className="mb-3 block text-sm text-dark dark:text-white"> Senha </label>
+                    <Input
+                      placeholder="Digite sua senha"
+                      type="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      ref={passwordRef}
+                      error={errorData.password || errorData.passwordStrong}
+                    />
+                  </div>
+                  <div className="mb-8 flex">
+                    <label htmlFor="termsAccepted" className="flex cursor-pointer select-none text-sm font-medium text-body-color">
+                      <div className="relative">
+                        <input
+                          id="termsAccepted"
+                          className="sr-only"
+                          type="checkbox"
+                          name="termsAccepted"
+                          checked={formData.termsAccepted}
+                          onChange={handleChange}
+                        />
+                        <div className="box mr-4 mt-1 flex h-5 w-5 items-center justify-center rounded border border-body-color border-opacity-20 dark:border-white dark:border-opacity-10">
+                          <span className={formData.termsAccepted ? 'opacity-100' : 'opacity-0'}>✔️</span>
+                        </div>
+                      </div>
+                      <span>Ao criar uma conta, você concorda com os
+                        <a href="#0" className="text-primary hover:underline"> Termos e Condições </a>, e com a nossa
+                        <a href="#0" className="text-primary hover:underline"> Política de Privacidade </a>
+                      </span>
+                    </label>
+                    {errorData.terms && <p className="text-red-500 text-sm mt-2">{errorData.terms}</p>}
+                  </div>
+                  <div className="mb-6">
+                    <Button type="submit" isLoading={isLoading}>
+                      Registrar-se
+                    </Button>
+                  </div>
+                </form>
+                {errorData.general && <p className="text-red-500 text-center mt-4">{errorData.general}</p>}
+                <p className="text-center text-base font-medium text-body-color">
+                  Já possui uma conta?
+                  <a className="text-primary hover:underline" href="/signin">Entrar</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {isLoading && <Loading />}
+    </Layout>
+  );
 };
 
-export default cadastrar;
+export default Cadastrar;

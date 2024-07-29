@@ -1,38 +1,43 @@
-import React from "react";
+import React, { forwardRef } from 'react';
 
-type Props = {
-	id?: string;
-	label?: string;
-	type: string;
-	placeholder: string;
-	className: string;
-	value: string;
-	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	inputRef: any;
-	error?: string;
-	name?: string;
+type InputProps = {
+  checked?: boolean;
+  id?: string;
+  label?: string;
+  type: string;
+  name: string;
+  value: string;
+  placeholder: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
+  error?: string;
 };
 
-const Input = (props: Props) => {
-	return (
-		<div>
-			<label htmlFor={props.id} className="block mb-2">
-				{props.label}
-			</label>
-			<input
-				id={props.id}
-				type="text"
-				value={props.value}
-				onChange={props.onChange}
-				ref={props.inputRef}
-				placeholder="Digite o que procura"
-				className="border-2 border-gray-300 p-2 rounded-md w-full"
-			/>
-			{props.error && (
-				<p className="text-red-500 text-sm mt-1">{props.error}</p>
-			)}
-		</div>
-	);
-};
+const Input = forwardRef<HTMLInputElement, InputProps>(({
+  type,
+  name,
+  value,
+  placeholder,
+  onChange,
+  className,
+  error,
+}, ref) => {
+  return (
+    <div>
+      <input
+        type={type}
+        name={name}
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+        ref={ref}
+        className={`border-stroke dark:text-midnight dark:shadow-two w-full rounded-b-lg rounded-tl-lg border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none ${className}`}
+      />
+      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+    </div>
+  );
+});
+
+Input.displayName = 'Input';
 
 export default Input;

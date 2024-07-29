@@ -120,7 +120,7 @@ const AlterarSenha = (props: Props) => {
 						type="password"
 						id="password"
 						name="password"
-						inputRef={passwordRef}
+						ref={passwordRef}
 						label="Senha"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
@@ -131,7 +131,7 @@ const AlterarSenha = (props: Props) => {
 						type="password"
 						id="confirmPassword"
 						name="confirmPassword"
-						inputRef={confirmPasswordRef}
+						ref={confirmPasswordRef}
 						label="Confirmação de senha"
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
