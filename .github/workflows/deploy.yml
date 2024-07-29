@@ -31,4 +31,4 @@ jobs:
         with:
           project: "joseduardor-tenaztech-44"
           entrypoint: "server/main.ts"
-          root: ""
+          root: "server"
