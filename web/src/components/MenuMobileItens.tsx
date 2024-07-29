@@ -1,7 +1,5 @@
 import Link from "next/link";
-import React, { useRef, useState } from "react";
-import Input from "./core/Input";
-import Button from "./core/Button";
+import React from "react";
 import { useRouter } from "next/router";
 
 type Props = {
@@ -13,23 +11,8 @@ type Props = {
 
 const MenuMobileItens = (props: Props) => {
 	const { isMenuOpen, setIsMenuOpen, isLoggedIn, cartItems } = props;
-	const [isSearchOpen, setIsSearchOpen] = useState(false);
-	const searchTermRef = useRef<HTMLInputElement | null>(null);
 	const router = useRouter();
-	const [searchTerm, setSearchTerm] = useState("");
 
-	function handleSubmit(
-		event:
-			| React.FormEvent<HTMLFormElement>
-			| React.MouseEvent<HTMLButtonElement, MouseEvent>,
-	) {
-		event.preventDefault();
-		if (searchTerm) {
-			router.push(`/produtos?search=${searchTerm}`);
-		} else {
-			searchTermRef.current?.focus();
-		}
-	}
 	return (
 		<nav className="menu-itens">
 			<ul>
@@ -44,9 +27,11 @@ const MenuMobileItens = (props: Props) => {
 				</li>
 				<li onClick={() => setIsMenuOpen(!isMenuOpen)}>
 					<Link
-						href="/loja"
+						href="/produtos"
 						passHref
-						className={router.pathname === "/loja" ? "font-bold" : "font-light"}
+						className={
+							router.pathname === "/produtos" ? "font-bold" : "font-light"
+						}
 					>
 						Loja
 					</Link>
@@ -134,48 +119,6 @@ const MenuMobileItens = (props: Props) => {
 						Contato
 					</Link>
 				</li>
-				<li
-					className="my-2 text-black uppercase tracking-wide text-3xl leading-13 font-light"
-					onClick={() => {
-						if (!isSearchOpen) {
-							setIsSearchOpen(true);
-							setInterval(() => {
-								searchTermRef.current?.focus();
-							}, 100);
-						} else {
-							setIsSearchOpen(false);
-						}
-					}}
-				>
-					Pesquisar
-				</li>
-				{isSearchOpen && (
-					<form onSubmit={handleSubmit} className="flex flex-col gap-2 my-4">
-						<div className="relative flex items-center">
-							<Input
-								id={"searchTerm"}
-								type="text"
-								inputRef={searchTermRef}
-								placeholder="Pesquisar produtos"
-								value={searchTerm}
-								onChange={(e) => setSearchTerm(e.target.value)}
-								className={""}
-							/>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								className="absolute top-2 right-2"
-							>
-								<path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path>
-							</svg>
-						</div>
-						<Button type="submit" className={""}>
-							Pesquisar
-						</Button>
-					</form>
-				)}
 			</ul>
 		</nav>
 	);

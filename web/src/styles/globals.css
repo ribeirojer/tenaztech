@@ -191,14 +191,7 @@ body {
   z-index: 20;
   transition: 400ms ease-in-out 0s;
 }
-.checkbox .trace {
-  width: 40px;
-  height: 3px;
-  background-color: var(--glow-tech);
-  position: absolute;
-  border-radius: 4px;
-  transition: 0.5s ease-in-out;
-}
+
 .checkbox .trace:nth-child(1) {
   top: 30px;
   transform: rotate(0);

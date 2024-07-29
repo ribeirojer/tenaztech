@@ -9,6 +9,7 @@ import useHeader from "../hooks/useHeader";
 import React, { useState } from "react";
 import MenuMobileItens from "./MenuMobileItens";
 import TopHeader from "./TopHeader";
+import SearchMobile from "./SearchMobile";
 
 type Props = {};
 
@@ -35,8 +36,8 @@ const Header = (props: Props) => {
 					isFixed ? "" : "md:static"
 				} fixed top-0 left-0 w-full z-40 bg-midnight shadow transition-all`}
 			>
-				<div className="container mx-auto px-4 md:px-0 flex flex-row items-center justify-between">
-					<div className="w-1/3 flex justify-start h-20">
+				<div className="container mx-auto px-4 pr-24 md:px-0 flex flex-row items-center justify-between">
+					<div className="md:w-1/3 flex justify-start h-20">
 						<Link href="/" className="flex items-center gap-2" prefetch={false}>
 							<LogoHorizontal
 								className="w-44 md:w-64 fill-glow-tech"
@@ -44,7 +45,8 @@ const Header = (props: Props) => {
 							/>
 						</Link>
 					</div>
-					<div className="flex justify-center items-center w-2/3">
+					<SearchMobile />
+					<div className="flex justify-center items-center md:w-2/3">
 						<div className="checkbox-wrapper">
 							<input
 								type="checkbox"
@@ -53,9 +55,9 @@ const Header = (props: Props) => {
 								onChange={() => setIsMenuOpen(!isMenuOpen)}
 							/>
 							<label htmlFor="toggle" className="checkbox">
-								<div className="trace"></div>
-								<div className="trace"></div>
-								<div className="trace"></div>
+								<div className="trace w-[40px] h-1 bg-glow-tech absolute rounded ease-in-out duration-500"></div>
+								<div className="trace w-[40px] h-1 bg-glow-tech absolute rounded ease-in-out duration-500"></div>
+								<div className="trace w-[40px] h-1 bg-glow-tech absolute rounded ease-in-out duration-500"></div>
 							</label>
 							<div className="menu"></div>
 							<MenuMobileItens
@@ -125,10 +127,11 @@ const Header = (props: Props) => {
 										value={search}
 										onChange={handleSearchChange}
 										type="text"
-										inputRef={searchRef}
+										ref={searchRef}
 										placeholder="Pesquisar"
 										className="w-full md:w-96"
 										aria-label="Campo de pesquisa"
+										name={""}
 									/>
 								</form>
 							)}
