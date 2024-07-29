@@ -50,14 +50,13 @@ const InputsCheckout = ({
 						placeholder="Primeiro nome"
 						value={info.firstName}
 						error={errorInfo.firstName}
-						inputRef={refsInfo.firstName}
+						ref={refsInfo.firstName}
 						className={""}
 						onChange={function (
-							event: React.ChangeEvent<HTMLInputElement>,
+							event: React.ChangeEvent<HTMLInputElement>
 						): void {
 							throw new Error("Function not implemented.");
-						}}
-					/>
+						} } name={""}					/>
 				</div>
 				<div className="flex flex-col w-full md:w-1/2">
 					<Input
@@ -67,14 +66,13 @@ const InputsCheckout = ({
 						placeholder="Último nome"
 						value={info.lastName}
 						error={errorInfo.lastName}
-						inputRef={refsInfo.lastName}
+						ref={refsInfo.lastName}
 						className={""}
 						onChange={function (
-							event: React.ChangeEvent<HTMLInputElement>,
+							event: React.ChangeEvent<HTMLInputElement>
 						): void {
 							throw new Error("Function not implemented.");
-						}}
-					/>
+						} } name={""}					/>
 				</div>
 			</div>
 			<div className="flex flex-col md:flex-row w-full gap-4">
@@ -86,14 +84,13 @@ const InputsCheckout = ({
 						placeholder="exemplo@email.com"
 						value={info.email}
 						error={errorInfo.email}
-						inputRef={refsInfo.email}
+						ref={refsInfo.email}
 						className={""}
 						onChange={function (
-							event: React.ChangeEvent<HTMLInputElement>,
+							event: React.ChangeEvent<HTMLInputElement>
 						): void {
 							throw new Error("Function not implemented.");
-						}}
-					/>
+						} } name={""}					/>
 					{errorEmailRegex && (
 						<p className="text-red-500 mt-1">Digite um e-mail válido.</p>
 					)}
@@ -106,14 +103,13 @@ const InputsCheckout = ({
 						placeholder="(12) 98765-4321"
 						value={info.tel}
 						error={errorInfo.tel}
-						inputRef={refsInfo.tel}
+						ref={refsInfo.tel}
 						className={""}
 						onChange={function (
-							event: React.ChangeEvent<HTMLInputElement>,
+							event: React.ChangeEvent<HTMLInputElement>
 						): void {
 							throw new Error("Function not implemented.");
-						}}
-					/>
+						} } name={""}					/>
 				</div>
 			</div>
 			{/* Adicione o restante dos Inputs aqui */}

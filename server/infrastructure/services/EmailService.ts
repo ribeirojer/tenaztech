@@ -37,7 +37,7 @@ export class ResendEmailService implements EmailService {
 	async sendWelcomeEmail(email: string, name: string): Promise<void> {
 		const subject = WelcomeEmailTemplate.getSubject();
 		const html = WelcomeEmailTemplate.getHtmlContent(name);
-		//await this.sendEmail(email, subject, html);
+		await this.sendEmail(email, subject, html);
 	}
 	/**
   async sendPasswordResetEmail(email: string, resetToken: string): Promise<void> {
