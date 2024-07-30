@@ -1,7 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.110.0/testing/asserts.ts";
 import { superoak } from "https://deno.land/x/superoak@4.0.0/mod.ts";
-// reviews_server.test.ts
-import { app } from "./reviews_server.ts";
+import { app } from "../main.ts";
 
 let reviewId: string;
 

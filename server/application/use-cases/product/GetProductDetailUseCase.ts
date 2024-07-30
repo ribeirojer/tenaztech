@@ -4,7 +4,7 @@ import type { ProductRepository } from "../../../domain/interfaces/ProductReposi
 export class GetProductDetailUseCase {
 	constructor(private productRepository: ProductRepository) {}
 
-	async execute(id: string): Promise<Product | null> {
-		return await this.productRepository.getById(id);
+	async execute(slug: string): Promise<Product | null> {
+		return await this.productRepository.getBySlug(slug);
 	}
 }

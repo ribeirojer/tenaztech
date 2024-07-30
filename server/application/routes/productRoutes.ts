@@ -20,11 +20,17 @@ router.get("/products", async (ctx) => {
 });
 
 // Get product details
-router.get("/products/:id", async (ctx) => {
+router.get("/products/:slug", async (ctx) => {
 	try {
-		const { id } = ctx.params;
-		const product = await productUseCases.detail.execute(id);
-		logger.info(`Fetched product detail: ${id}`);
+		const { slug } = ctx.params;
+		const product = await productUseCases.detail.execute(slug);
+		if (!product) {
+			logger.warn(`Product not found: ${slug}`);
+			ctx.response.status = 404;
+			ctx.response.body = { message: "Product not found" };
+			return;
+		}
+		logger.info(`Fetched product detail: ${slug}`);
 		ctx.response.status = 200;
 		ctx.response.body = product;
 	} catch (error) {
@@ -33,7 +39,7 @@ router.get("/products/:id", async (ctx) => {
 		ctx.response.body = { error: error.message };
 	}
 });
-
+/** 
 // Add a new product
 router.post("/products", async (ctx) => {
 	try {
@@ -79,5 +85,5 @@ router.delete("/products/:id", async (ctx) => {
 		ctx.response.body = { error: error.message };
 	}
 });
-
+*/
 export default router;

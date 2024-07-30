@@ -52,6 +52,20 @@ export class SupabaseProductRepository implements ProductRepository {
 		return data;
 	}
 
+	async getBySlug(slug: string): Promise<Product | null> {
+		const { data, error } = await supabase
+			.from("products")
+			.select("*")
+			.eq("slug", slug)
+			.single();
+		
+			if (error && error.code !== "PGRST116") {
+				throw error;
+			}
+	
+		return data;
+		}
+
 	async getAll(): Promise<Product[]> {
 		const { data, error } = await supabase.from("products").select("*");
 
@@ -101,7 +115,7 @@ export class SupabaseProductRepository implements ProductRepository {
 	}
 
 	async reduceStock(productId: string, quantity: number): Promise<void> {
-		const { data, error } = await supabase
+		const { error } = await supabase
 			.from("products")
 			.update({ stock: quantity })
 			.eq("id", productId);

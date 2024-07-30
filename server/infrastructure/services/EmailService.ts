@@ -5,6 +5,8 @@ import { WelcomeEmailTemplate } from "../email-templates/WelcomeEmailTemplate.ts
 //import { OrderCreatedEmailTemplate } from "../email-templates/OrderCreatedEmailTemplate.ts";
 //import { OrderCompletedEmailTemplate } from "../email-templates/OrderCompletedEmailTemplate.ts";
 //import { OrderFailedEmailTemplate } from "../email-templates/OrderFailedEmailTemplate.ts";
+import { load } from "https://deno.land/std@0.224.0/dotenv/mod.ts";
+const env = await load();
 
 export class ResendEmailService implements EmailService {
 	DeliveryDelayEmail(order: Order) {
@@ -14,7 +16,7 @@ export class ResendEmailService implements EmailService {
 	private readonly SENDER_EMAIL = "Acme <onboarding@resend.dev>";
 
 	constructor() {
-		this.RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") || "";
+		this.RESEND_API_KEY = env.RESEND_API_KEY || Deno.env.get("RESEND_API_KEY") || "";
 		if (!this.RESEND_API_KEY) {
 			throw new Error(
 				"RESEND_API_KEY is not defined in the environment variables.",

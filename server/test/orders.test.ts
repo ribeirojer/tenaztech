@@ -1,6 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.110.0/testing/asserts.ts";
 import { superoak } from "https://deno.land/x/superoak@4.0.0/mod.ts";
-// server.test.ts
 import { app } from "../main.ts";
 
 Deno.test("it should allow post requests with valid order", async () => {
