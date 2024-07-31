@@ -3,6 +3,7 @@ import Link from "next/link";
 import Layout from "@/components/core/Layout";
 import WhyShopWithUs from "@/components/WhyShopWithUs";
 import Newsletter from "@/components/Newsletter";
+import Carousel from "@/components/Carousel";
 
 const productService = process.env.SERVER_API_URL + "/api/products";
 
@@ -13,12 +14,26 @@ export const getStaticProps = async () => {
 };
 
 export default function Home({ products }: any) {
+
+
+	const items = [
+		{
+		  imageUrl: "/banner2.png",
+		  linkUrl: "/produtos",
+		  linkText: "Ver Produtos",
+		},
+		{
+		  imageUrl: "/banner1.png",
+		  linkUrl: "/produtos?c=headphones",
+		  linkText: "Ver Produtos",
+		},
+	  ];
 	return (
 		<Layout>
 			<h1 className="text-center max-w-4xl mx-auto text-2xl py-4 md:py-8 px-2 md:px-0 font-extrabold sm:text-4xl md:text-6xl">
 				Potencialize seu dia a dia com o melhor da tecnologia!
 			</h1>
-			<section className="container mx-auto px-4 md:px-0 flex flex-col-reverse md:grid gap-6 md:grid-cols-2">
+			<section className="hidden container mx-auto px-4 md:px-0 flex-col-reverse md:grid gap-6 md:grid-cols-2">
 				<div className="bg-[url('/banner2.png')] bg-contain md:bg-cover border rounded-tl-3xl rounded-b-3xl w-full h-[523px] md:h-[768px] md:col-span-2 lg:col-span-1 flex justify-start items-end">
 					<Link
 						href={"/produtos"}
@@ -36,8 +51,9 @@ export default function Home({ products }: any) {
 					</Link>
 				</div>
 			</section>
-			<section className="w-full py-12 md:py-24 lg:py-32">
-				<div className="container space-y-12 px-4 md:px-6">
+			<Carousel items={items} />
+			<section className="w-full py-12 md:py-20">
+				<div className="container mx-auto space-y-8 px-4 md:px-6">
 					<div className="flex flex-col items-center justify-center space-y-4 text-center">
 						<div className="space-y-2">
 							<h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">

@@ -32,7 +32,7 @@ const SearchMobile = (props: Props) => {
   };
 
   return (
-    <div className="relative flex items-center">
+    <div className="relative flex md:hidden items-center">
       <form
         onSubmit={handleSubmit}
         className={`flex flex-col gap-2 my-4 transition-opacity duration-300 ${

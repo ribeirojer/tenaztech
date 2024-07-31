@@ -8,8 +8,8 @@ type Props = {};
 
 const WhyShopWithUs = (props: Props) => {
 	return (
-		<section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
-			<div className="container grid items-center justify-center gap-8 px-4 text-center md:px-6">
+		<section className="w-full py-12 md:py-24 bg-muted">
+			<div className="container mx-auto grid items-center justify-center gap-8 px-4 text-center md:px-6">
 				<div className="space-y-4">
 					<h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-primary">
 						Por que comprar conosco?
@@ -24,7 +24,7 @@ const WhyShopWithUs = (props: Props) => {
 						<TruckIcon className="h-10 w-10 text-primary" />
 						<h3 className="text-lg font-bold text-secondary">Frete Grátis</h3>
 						<p className="text-sm">
-							Aproveite frete grátis em todos os pedidos acima de R$ 50.
+							Aproveite frete grátis em todos os pedidos acima de R$ 100.
 						</p>
 					</div>
 					<div className="bg-sandstorm bg-opacity-50 flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-lg transition-transform transform hover:scale-105">

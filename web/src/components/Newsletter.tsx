@@ -1,5 +1,6 @@
 import axiosClient from "@/utils/axiosClient";
 import React, { useRef, useState } from "react";
+import Input from "./core/Input";
 
 type Props = {};
 
@@ -39,7 +40,7 @@ const Newsletter = (props: Props) => {
 
 		setLoading(true);
 		axiosClient
-			.post("/api/newsletter", { email })
+			.post("/newsletter", { email })
 			.then((response) => {
 				setLoading(false);
 				setSuccess("Inscrição realizada com sucesso!");
@@ -73,14 +74,13 @@ const Newsletter = (props: Props) => {
 						onSubmit={handleSubmit}
 					>
 						<div className="w-full flex flex-col items-center">
-							<input
+							<Input
 								type="email"
 								placeholder="Digite seu email"
 								className="w-full px-4 py-2 border rounded-tl-lg rounded-b-lg focus:outline-none focus:ring-2 focus:ring-midnight"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
-								ref={emailRef}
-							/>
+								ref={emailRef} name={"newsletter-input"}						/>
 							{error.email && (
 								<span className="text-pink-pulse mt-2">{error.email}</span>
 							)}

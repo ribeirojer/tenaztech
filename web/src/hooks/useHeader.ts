@@ -25,6 +25,10 @@ const useHeader = () => {
 		setSearchOpen(!searchOpen);
 	};
 
+	const handleSearchBlur = ()=>{
+		setSearchOpen(false);
+	}
+
 	const handleSearchSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		setSearchOpen(false);
@@ -61,6 +65,7 @@ const useHeader = () => {
 			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
+
 	return {
 		isFixed,
 		searchOpen,
@@ -69,6 +74,7 @@ const useHeader = () => {
 		handleSearchChange,
 		handleMenu,
 		handleSearch,
+		handleSearchBlur,
 		handleSearchSubmit,
 		cartItems,
 		isLoggedIn,

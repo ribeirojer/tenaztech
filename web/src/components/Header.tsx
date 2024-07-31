@@ -22,6 +22,7 @@ const Header = (props: Props) => {
 		handleSearchChange,
 		handleMenu,
 		handleSearch,
+		handleSearchBlur,
 		handleSearchSubmit,
 		cartItems,
 		isLoggedIn,
@@ -81,7 +82,21 @@ const Header = (props: Props) => {
 									</Link>
 								</div>
 								<div className="flex items-center space-x-4">
-									<button onClick={handleSearch} aria-label="Abrir pesquisa">
+									{searchOpen && (
+								<form onSubmit={handleSearchSubmit} className="">
+									<Input
+										value={search}
+										onChange={handleSearchChange}
+										onBlur={handleSearchBlur}
+										type="text"
+										ref={searchRef}
+										placeholder="Pesquisar"
+										className=""
+										aria-label="Campo de pesquisa"
+										name={""}
+									/>
+								</form>
+							)}<button onClick={handleSearch} aria-label="Abrir pesquisa">
 										<SearchIcon className="w-6 h-6 fill-glow-tech" />
 									</button>
 									<Link href="/carrinho">
@@ -119,22 +134,9 @@ const Header = (props: Props) => {
 									>
 										<MenuIcon className="w-8 h-8 fill-glow-tech" />
 									</button>
+							
 								</div>
 							</div>
-							{searchOpen && (
-								<form onSubmit={handleSearchSubmit} className="mt-4">
-									<Input
-										value={search}
-										onChange={handleSearchChange}
-										type="text"
-										ref={searchRef}
-										placeholder="Pesquisar"
-										className="w-full md:w-96"
-										aria-label="Campo de pesquisa"
-										name={""}
-									/>
-								</form>
-							)}
 						</div>
 					</div>
 				</div>
