@@ -2,7 +2,7 @@ import axiosClient from "../utils/axiosClient";
 
 export const fetchProducts = async () => {
 	try {
-		const response = await axiosClient.get("/api/products");
+		const response = await axiosClient.get("/products");
 		return response.data;
 	} catch (error) {
 		console.error("Error fetching products:", error);
@@ -12,7 +12,7 @@ export const fetchProducts = async () => {
 
 export const fetchBestSellers = async () => {
 	try {
-		const response = await axiosClient.get("/api/products/bestsellers");
+		const response = await axiosClient.get("/products/bestsellers");
 		return response.data;
 	} catch (error) {
 		console.error("Error fetching best sellers:", error);

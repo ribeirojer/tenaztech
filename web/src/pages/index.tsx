@@ -5,7 +5,7 @@ import WhyShopWithUs from "@/components/WhyShopWithUs";
 import Newsletter from "@/components/Newsletter";
 import Carousel from "@/components/Carousel";
 
-const productService = process.env.SERVER_API_URL + "/api/products";
+const productService = process.env.SERVER_API_URL + "/products";
 
 export const getStaticProps = async () => {
 	const res = await fetch(productService);
@@ -14,20 +14,19 @@ export const getStaticProps = async () => {
 };
 
 export default function Home({ products }: any) {
-
-
 	const items = [
-		{
-		  imageUrl: "/banner2.png",
-		  linkUrl: "/produtos",
-		  linkText: "Ver Produtos",
-		},
 		{
 		  imageUrl: "/banner1.png",
 		  linkUrl: "/produtos?c=headphones",
 		  linkText: "Ver Produtos",
 		},
+		{
+		  imageUrl: "/banner2.png",
+		  linkUrl: "/produtos",
+		  linkText: "Ver Produtos",
+		},
 	  ];
+	  
 	return (
 		<Layout>
 			<h1 className="text-center max-w-4xl mx-auto text-2xl py-4 md:py-8 px-2 md:px-0 font-extrabold sm:text-4xl md:text-6xl">
