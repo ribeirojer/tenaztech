@@ -1,4 +1,5 @@
 import Layout from "@/components/core/Layout";
+import Link from "next/link";
 import React from "react";
 
 type Props = {};
@@ -108,6 +109,37 @@ const termosECondicoes = (props: Props) => {
 					</p>
 				</div>
 			</div>
+
+			<section className="w-full py-12 md:py-24 bg-muted">
+				<div className="container mx-auto px-4 md:px-6">
+					<h1 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-primary mb-8">
+						Termos e Condições
+					</h1>
+					<div className="space-y-6 text-base md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed">
+						<p>Bem-vindo à nossa loja de acessórios eletrônicos. Ao acessar e utilizar nosso site, você concorda com os seguintes termos e condições:</p>
+						
+						<h2 id="frete-gratis" className="text-2xl font-bold text-secondary mt-8">1. Frete Grátis</h2>
+						<p>Este site é operado pela nossa loja. Em todo o site, os termos “nós”, “nos” e “nosso” se referem à nossa loja. Oferecemos este site, incluindo todas as informações, ferramentas e serviços disponíveis para você, o usuário, com a condição de que você aceite todos os termos, condições, políticas e avisos declarados aqui.</p>
+						
+						<h2 id="garantia" className="text-2xl font-bold text-secondary mt-8">2. Garantia de Satisfação</h2>
+						<p>Nossos produtos e serviços estão sujeitos a disponibilidade. Reservamo-nos o direito de limitar a quantidade de produtos ou serviços que oferecemos. Todas as descrições de produtos ou preços de produtos estão sujeitos a alterações a qualquer momento sem aviso prévio, a nosso exclusivo critério.</p>
+						
+						<h2 id="entrega-rapida" className="text-2xl font-bold text-secondary mt-8">3. Entrega Rápida</h2>
+						<p>Não somos responsáveis se as informações disponibilizadas neste site não forem precisas, completas ou atuais. O material neste site é fornecido apenas para informação geral e não deve ser invocado ou utilizado como a única base para tomar decisões sem consultar fontes de informações primárias, mais precisas, mais completas ou mais oportunas.</p>
+						
+						<h2 id="cupons" className="text-2xl font-bold text-secondary mt-8">4. Cupons Cumulativos</h2>
+						<p>A aceitação de um pedido depende da autorização do pagamento. Se não conseguirmos processar ou aceitar seu pedido, nós nos reservamos o direito de cancelar sua compra.</p>
+						
+						<h2 className="text-2xl font-bold text-secondary mt-8">5. Política de Devolução</h2>
+						<p>Oferecemos uma garantia de satisfação de 30 dias para todos os produtos. Se você não estiver satisfeito com sua compra, você pode devolver o produto dentro de 30 dias para um reembolso total. Por favor, consulte nossa página de <Link href="/devolucoes" className="text-primary hover:underline">Devoluções</Link> para mais detalhes.</p>
+						
+						<h2 className="text-2xl font-bold text-secondary mt-8">6. Modificações dos Termos</h2>
+						<p>Reservamo-nos o direito de modificar os termos e condições a qualquer momento, então, por favor, reveja-os com frequência. Alterações e esclarecimentos entrarão em vigor imediatamente após sua publicação no site.</p>
+
+						<p className="mt-8">Se você tiver qualquer dúvida sobre nossos termos e condições, por favor, entre em contato conosco.</p>
+					</div>
+				</div>
+			</section>
 		</Layout>
 	);
 };
