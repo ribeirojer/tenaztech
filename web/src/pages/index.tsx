@@ -5,7 +5,7 @@ import WhyShopWithUs from "@/components/WhyShopWithUs";
 import Newsletter from "@/components/Newsletter";
 import Carousel from "@/components/Carousel";
 
-const productService = process.env.SERVER_API_URL + "/products";
+const productService = process.env.NEXT_PUBLIC_SERVER_API_URL + "/products";
 
 export const getStaticProps = async () => {
 	const res = await fetch(productService);
