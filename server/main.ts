@@ -23,6 +23,6 @@ const PORT = parseInt(env.PORT || Deno.env.get("PORT") || "8000");
 
 // Iniciar o servidor
 console.log(`Servidor ouvindo na porta ${PORT}`);
-//await app.listen({ port: PORT });
+await app.listen({ port: PORT });
 
 export { app };
