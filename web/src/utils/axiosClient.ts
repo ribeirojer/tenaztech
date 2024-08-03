@@ -1,6 +1,5 @@
 import axios from "axios";
 const serverApiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL;
-console.log(serverApiUrl);
 
 // Crie uma instância do Axios
 const axiosClient = axios.create({
