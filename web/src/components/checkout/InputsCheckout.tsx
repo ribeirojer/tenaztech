@@ -53,10 +53,12 @@ const InputsCheckout = ({
 						ref={refsInfo.firstName}
 						className={""}
 						onChange={function (
-							event: React.ChangeEvent<HTMLInputElement>
+							event: React.ChangeEvent<HTMLInputElement>,
 						): void {
 							throw new Error("Function not implemented.");
-						} } name={""}					/>
+						}}
+						name={""}
+					/>
 				</div>
 				<div className="flex flex-col w-full md:w-1/2">
 					<Input
@@ -69,10 +71,12 @@ const InputsCheckout = ({
 						ref={refsInfo.lastName}
 						className={""}
 						onChange={function (
-							event: React.ChangeEvent<HTMLInputElement>
+							event: React.ChangeEvent<HTMLInputElement>,
 						): void {
 							throw new Error("Function not implemented.");
-						} } name={""}					/>
+						}}
+						name={""}
+					/>
 				</div>
 			</div>
 			<div className="flex flex-col md:flex-row w-full gap-4">
@@ -87,10 +91,12 @@ const InputsCheckout = ({
 						ref={refsInfo.email}
 						className={""}
 						onChange={function (
-							event: React.ChangeEvent<HTMLInputElement>
+							event: React.ChangeEvent<HTMLInputElement>,
 						): void {
 							throw new Error("Function not implemented.");
-						} } name={""}					/>
+						}}
+						name={""}
+					/>
 					{errorEmailRegex && (
 						<p className="text-red-500 mt-1">Digite um e-mail válido.</p>
 					)}
@@ -106,10 +112,12 @@ const InputsCheckout = ({
 						ref={refsInfo.tel}
 						className={""}
 						onChange={function (
-							event: React.ChangeEvent<HTMLInputElement>
+							event: React.ChangeEvent<HTMLInputElement>,
 						): void {
 							throw new Error("Function not implemented.");
-						} } name={""}					/>
+						}}
+						name={""}
+					/>
 				</div>
 			</div>
 			{/* Adicione o restante dos Inputs aqui */}

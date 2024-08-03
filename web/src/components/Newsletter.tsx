@@ -80,7 +80,9 @@ const Newsletter = (props: Props) => {
 								className="w-full px-4 py-2 border rounded-tl-lg rounded-b-lg focus:outline-none focus:ring-2 focus:ring-midnight"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
-								ref={emailRef} name={"newsletter-input"}						/>
+								ref={emailRef}
+								name={"newsletter-input"}
+							/>
 							{error.email && (
 								<span className="text-pink-pulse mt-2">{error.email}</span>
 							)}

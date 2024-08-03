@@ -11,7 +11,7 @@ const useHeader = () => {
 	const { isLoggedIn } = useAuth();
 	const router = useRouter();
 	const searchRef = useRef<HTMLInputElement | null>(null);
-	const [isFixed, setIsFixed] = useState(false);
+	const [isTopHeaderVisible, setIsTopHeaderVisible] = useState(true);
 
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearch(e.target.value);
@@ -25,9 +25,9 @@ const useHeader = () => {
 		setSearchOpen(!searchOpen);
 	};
 
-	const handleSearchBlur = ()=>{
+	const handleSearchBlur = () => {
 		setSearchOpen(false);
-	}
+	};
 
 	const handleSearchSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -51,11 +51,12 @@ const useHeader = () => {
 
 	useEffect(() => {
 		const handleScroll = () => {
-			const scrollPosition = window.scrollY;
-			if (scrollPosition > 40) {
-				setIsFixed(true);
+			const currentScrollY = window.scrollY;
+			if (currentScrollY > 50) {
+				// Ajuste o valor conforme necessário
+				setIsTopHeaderVisible(false);
 			} else {
-				setIsFixed(false);
+				setIsTopHeaderVisible(true);
 			}
 		};
 
@@ -67,7 +68,7 @@ const useHeader = () => {
 	}, []);
 
 	return {
-		isFixed,
+		isTopHeaderVisible,
 		searchOpen,
 		search,
 		searchRef,

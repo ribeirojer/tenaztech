@@ -9,13 +9,16 @@ type InputProps = {
 	value: string;
 	placeholder: string;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	onBlur?: ()=>void
+	onBlur?: () => void;
 	className?: string;
 	error?: string;
 };
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-	({ type, name, value, placeholder, onChange, onBlur, className, error }, ref) => {
+	(
+		{ type, name, value, placeholder, onChange, onBlur, className, error },
+		ref,
+	) => {
 		return (
 			<div>
 				<input
