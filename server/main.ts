@@ -5,12 +5,12 @@ import authRouter from "./application/routes/authRouters.ts";
 import productsRouter from "./application/routes/productRoutes.ts";
 import orderRouter from "./application/routes/orderRoutes.ts";
 import newsletterRouter from "./application/routes/newsletterRoutes.ts";
-
+import supportTicketRouter from "./application/routes/supportTicketRoutes.ts";
 
 const env = await load();
 const app = new Application();
 
-app.use(oakCors()); // Enable CORS for All Routes
+app.use(oakCors());
 
 app.use(authRouter.routes());
 app.use(authRouter.allowedMethods());
@@ -24,10 +24,13 @@ app.use(orderRouter.allowedMethods());
 app.use(newsletterRouter.routes());
 app.use(newsletterRouter.allowedMethods());
 
+app.use(supportTicketRouter.routes());
+app.use(supportTicketRouter.allowedMethods());
+
 const PORT = parseInt(env.PORT || Deno.env.get("PORT") || "8000");
 
 // Iniciar o servidor
 console.log(`Servidor ouvindo na porta ${PORT}`);
-//await app.listen({ port: PORT });
+await app.listen({ port: PORT });
 
 export { app };

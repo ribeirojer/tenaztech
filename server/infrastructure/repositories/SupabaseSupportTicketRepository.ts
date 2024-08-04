@@ -15,12 +15,12 @@ export class SupabaseSupportTicketRepository
 		const { error } = await supabase.from("support_tickets").insert([
 			{
 				id: ticket.id,
-				customerId: ticket.customerId,
-				subject: ticket.subject,
-				description: ticket.message,
+				name: ticket.name,
+				email: ticket.email,
+				message: ticket.message,
 				status: ticket.status,
-				createdAt: ticket.createdAt,
-				updatedAt: ticket.updatedAt,
+				created_at: ticket.createdAt,
+				updated_at: ticket.updatedAt,
 			},
 		]);
 

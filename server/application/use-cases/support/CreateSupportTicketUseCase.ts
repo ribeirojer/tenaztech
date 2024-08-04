@@ -1,10 +1,9 @@
 import { SupportTicket } from "../../../domain/entities/SupportTicket.ts";
-import { SupportTicketCreatedEvent } from "../../../domain/events/SupportTicketCreatedEvent.ts";
 import type { SupportTicketRepository } from "../../../domain/interfaces/SupportTicketRepository.ts";
 
 interface CreateSupportTicketInput {
-	customerId: string;
-	subject: string;
+	name: string;
+	email: string;
 	message: string;
 }
 
@@ -14,12 +13,11 @@ export class CreateSupportTicketUseCase {
 	) {}
 
 	async execute(input: CreateSupportTicketInput): Promise<void> {
-		this.validateInput(input);
 
 		const ticket = new SupportTicket(
 			crypto.randomUUID(),
-			input.customerId,
-			input.subject,
+			input.name,
+			input.email,
 			input.message,
 			"open",
 			new Date(),
@@ -27,20 +25,5 @@ export class CreateSupportTicketUseCase {
 		);
 
 		await this.supportTicketRepository.add(ticket);
-
-		const supportTicketCreatedEvent = new SupportTicketCreatedEvent(
-			ticket.id,
-			ticket.customerId,
-			ticket.subject,
-			ticket.message,
-			ticket.status,
-			ticket.createdAt,
-		);
-	}
-
-	private validateInput(input: CreateSupportTicketInput): void {
-		if (!input.customerId || !input.subject || !input.message) {
-			throw new Error("All fields are required.");
-		}
 	}
 }

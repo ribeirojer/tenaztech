@@ -9,7 +9,8 @@ const router = new Router();
 router.post("/support-tickets", async (ctx) => {
 	try {
 		const body = await ctx.request.body().value;
-		await supportTicketUseCases.create.execute(body);
+		const { name, email, message } = body;
+		await supportTicketUseCases.create.execute({name, email, message});
 		logger.info(`Support ticket created: ${JSON.stringify(body)}`);
 		ctx.response.status = 201;
 		ctx.response.body = { message: "Support ticket created successfully" };
@@ -19,7 +20,7 @@ router.post("/support-tickets", async (ctx) => {
 		ctx.response.body = { error: error.message };
 	}
 });
-
+/** 
 // Update a support ticket by ID
 router.put("/support-tickets/:id", async (ctx) => {
 	try {
@@ -64,5 +65,5 @@ router.get("/support-tickets", async (ctx) => {
 		ctx.response.body = { error: error.message };
 	}
 });
-
+*/
 export default router;

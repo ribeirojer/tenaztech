@@ -41,7 +41,7 @@ const Newsletter = (props: Props) => {
 
 		setLoading(true);
 		axiosClient
-			.post("/newsletter", { email })
+			.post("/newsletter/subscribe", { email })
 			.then((response) => {
 				setLoading(false);
 				setSuccess("Inscrição realizada com sucesso!");
