@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import Layout from "@/components/core/Layout";
 import ProductImages from "@/components/product/ProductImages";
 import ProductDetails from "@/components/product/ProductDetails";
-import ProductForm from "@/components/product/ProductForm";
-import Tabs from "@/components/product/Tabs";
-import ProductSpecifications from "@/components/product/ProductSpecifications";
-import ProductReviews from "@/components/product/ProductReviews";
-import Layout from "@/components/core/Layout";
+import Breadcrumb from "@/components/Breadcrumb";
+import ProductThumbnails from "@/components/product/ProductThumbnails";
+import ProductTab from "@/components/product/ProductTab";
+import RelatedProducts from "@/components/product/RelatedProducts";
 
 type Props = {
 	product: any;
@@ -13,62 +13,42 @@ type Props = {
 };
 
 const singleProduct = ({ product, error }: Props) => {
-	const [selectedTab, setSelectedTab] = useState("description");
-
-	const tabs = [
-		{ name: "Description", value: "description" },
-		{ name: "Specifications", value: "specifications" },
-		{ name: "Reviews", value: "reviews" },
+	const breadcrumbItems = [
+		{ text: "Home", href: "/" },
+		{ text: product.category, href: `/produtos?categoria=${product.category}` },
+		{ text: product?.name, href: `/produto/${product?.slug}` },
 	];
 
-	const selectTab = (value: React.SetStateAction<string>) => {
-		setSelectedTab(value);
-	};
-
 	if (error) {
-		return <div className="text-center py-6 text-red-500">{error}</div>;
+		return <div className="text-center py-6 text-pink-pulse">{error}</div>;
 	}
 
 	if (!product) {
-		return <div className="text-center py-6">Product not found.</div>;
+		return <div className="text-center py-6">Produto não encontrado.</div>;
 	}
 
 	return (
 		<Layout>
-			<div>
-				<div className="grid md:grid-cols-2 gap-6 lg:gap-12 items-start max-w-6xl px-4 mx-auto py-6">
-					{product.images && <ProductImages images={product.images} />}
-					<div className="grid gap-4 md:gap-10 items-start">
+			{/*<Breadcrumb items={breadcrumbItems} />*/}
+			<div className="container mx-auto p-4">
+				<div className="flex flex-wrap">
+					<div className="w-full lg:w-1/2">
+						<ProductImages images={product.images} />
+						<ProductThumbnails thumbnails={product.images} />
+					</div>
+					<div className="w-full lg:w-1/2">
 						<ProductDetails product={product} />
-						<ProductForm product={product} />
 					</div>
 				</div>
-				<div className="border-t py-6 px-4 md:px-6 max-w-6xl mx-auto">
-					<Tabs tabs={tabs} selectedTab={selectedTab} selectTab={selectTab} />
-					<div className="mt-6">
-						{selectedTab === "description" && (
-							<div key="description">
-								<h2 className="font-bold text-2xl">Product Description</h2>
-								<div className="grid gap-4 mt-4 text-gray-500">
-									<p>{product.description}</p>
-								</div>
-							</div>
-						)}
-						{selectedTab === "specifications" && (
-							<ProductSpecifications key="specifications" product={product} />
-						)}
-						{selectedTab === "reviews" && (
-							<ProductReviews key="reviews" rating={5} reviews={[]} />
-						)}
-					</div>
-				</div>
+				<ProductTab />
+				<RelatedProducts />
 			</div>
 		</Layout>
 	);
 };
 
 export async function getStaticPaths() {
-	const response = await fetch("https://product-service.deno.dev/api/products");
+	const response = await fetch(process.env.SERVER_API_URL + "/products");
 	const products = await response.json();
 
 	const paths = products.map((product: { slug: string }) => ({
@@ -81,7 +61,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: { params: { slug: string } }) {
 	try {
 		const response = await fetch(
-			`https://product-service.deno.dev/api/products/${params.slug}`,
+			process.env.SERVER_API_URL + `/products/${params.slug}`,
 		);
 
 		if (!response.ok) {

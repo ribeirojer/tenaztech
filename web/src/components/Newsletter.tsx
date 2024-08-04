@@ -74,29 +74,25 @@ const Newsletter = (props: Props) => {
 						className="flex flex-col md:flex-row md:items-start gap-4"
 						onSubmit={handleSubmit}
 					>
-							<Input
-								type="email"
-								placeholder="Digite seu email"
-								className="w-full px-4 py-2 border rounded-tl-lg rounded-b-lg focus:outline-none focus:ring-2 focus:ring-midnight"
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
-								ref={emailRef}
-								name={"newsletter-input"}
-								error={error.email || error.emailRegex || error.general}
-							/>
-						<Button
-							type="submit"
-							disabled={loading}
-							className="md:w-1/2"
-						>
+						<Input
+							type="email"
+							placeholder="Digite seu email"
+							className="w-full px-4 py-2 border rounded-tl-lg rounded-b-lg focus:outline-none focus:ring-2 focus:ring-midnight"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							ref={emailRef}
+							name={"newsletter-input"}
+							error={error.email || error.emailRegex || error.general}
+						/>
+						<Button type="submit" disabled={loading} className="md:w-1/2">
 							{loading ? <LoadingSpinner /> : "Assinar"}
 						</Button>
 					</form>
-						{success && (
-							<span className="text-electric-blue text-center pt-2">
-								{success}
-							</span>
-						)}
+					{success && (
+						<span className="text-electric-blue text-center pt-2">
+							{success}
+						</span>
+					)}
 				</div>
 			</div>
 		</section>

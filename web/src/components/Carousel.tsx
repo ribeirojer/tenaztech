@@ -33,7 +33,7 @@ const Carousel = ({ items }: CarouselProps) => {
 			>
 				{items.map((item, index) => (
 					<div
-						className={`min-w-full flex justify-start items-end h-[523px] md:h-[768px] bg-contain md:bg-cover bg-no-repeat border rounded-tl-3xl rounded-b-3xl ${currentIndex === 1 ? "pl-2 -ml-2" : ""}`}
+						className={`min-w-full flex justify-start items-end h-[520px] bg-contain md:bg-cover bg-no-repeat border rounded-tl-3xl rounded-b-3xl ${currentIndex === 1 ? "pl-2 -ml-2" : ""}`}
 						key={index}
 						style={{ backgroundImage: `url(${item.imageUrl})` }}
 					>

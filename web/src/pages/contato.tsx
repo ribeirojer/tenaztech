@@ -11,35 +11,35 @@ import Input from "@/components/core/Input";
 type Props = {};
 
 const contato = (props: Props) => {
-  const {
-    formData,
-    errors,
-    loading,
-    isDisable,
-    success,
-    nameRef,
-    emailRef,
-    messageRef,
-    setFormData,
-    handleSubmit,
-  } = useContactForm();
+	const {
+		formData,
+		errors,
+		loading,
+		isDisable,
+		success,
+		nameRef,
+		emailRef,
+		messageRef,
+		setFormData,
+		handleSubmit,
+	} = useContactForm();
 
-  const data = [
-    {
-      id: 1,
-      address: "Rua XV de Novembro, nº 000, Glória, Joinville - SC",
-      email: "contato@boutiquedamoh.com",
-      phone: "(47) 11111-1111",
-    },
-    {
-      id: 2,
-      address: "Rua Doutor João Colin, nº 000, Centro, Joinville - SC",
-      email: "contato2@boutiquedamoh.com",
-      phone: "(47) 22222-2222",
-    },
-  ];
+	const data = [
+		{
+			id: 1,
+			address: "Rua XV de Novembro, nº 000, Glória, Joinville - SC",
+			email: "contato@boutiquedamoh.com",
+			phone: "(47) 11111-1111",
+		},
+		{
+			id: 2,
+			address: "Rua Doutor João Colin, nº 000, Centro, Joinville - SC",
+			email: "contato2@boutiquedamoh.com",
+			phone: "(47) 22222-2222",
+		},
+	];
 
-  return (
+	return (
 		<Layout>
 			<h1 className="text-3xl font-bold my-8 text-center">
 				Entre em contato conosco para um estilo inesquecível!
@@ -56,7 +56,7 @@ const contato = (props: Props) => {
 						<div key={item.id} className="flex flex-col mb-3">
 							<h5 className="font-semibold mb-3">Loja {item.id}</h5>
 							<p className="flex gap-2 mb-4">
-								<MapPinIcon className="size-8"/>
+								<MapPinIcon className="size-8" />
 								<span>{item.address}</span>
 							</p>
 							<p className="flex gap-2 mb-4">
@@ -76,23 +76,29 @@ const contato = (props: Props) => {
 					id="contactForm"
 					onSubmit={handleSubmit}
 				>
-						<Input
-						  id="name"
-						  type="text"
-						  placeholder="Seu nome"
-						  value={formData.name}
-						  ref={nameRef}
-						  error={errors.name}
-						  onChange={(e) => setFormData({ ...formData, name: e.target.value })} name={""}						/>
-						<Input
-						  id="email"
-						  type="text"
-						  placeholder="Seu melhor e-mail"
-						  value={formData.email}
-						  ref={emailRef}
-						  error={errors.email}
-						  onChange={(e) => setFormData({ ...formData, email: e.target.value })} name={""}						/>
-						
+					<Input
+						id="name"
+						type="text"
+						placeholder="Seu nome"
+						value={formData.name}
+						ref={nameRef}
+						error={errors.name}
+						onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+						name={""}
+					/>
+					<Input
+						id="email"
+						type="text"
+						placeholder="Seu melhor e-mail"
+						value={formData.email}
+						ref={emailRef}
+						error={errors.email}
+						onChange={(e) =>
+							setFormData({ ...formData, email: e.target.value })
+						}
+						name={""}
+					/>
+
 					<div className="flex flex-col">
 						<textarea
 							id="message"
@@ -109,10 +115,7 @@ const contato = (props: Props) => {
 							<p className="text-red-500 mt-1">{errors.message}</p>
 						)}
 					</div>
-					<Button
-						type="submit"
-						disabled={isDisable}
-					>
+					<Button type="submit" disabled={isDisable}>
 						Enviar mensagem
 					</Button>
 					{errors.general && (
