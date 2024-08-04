@@ -2,7 +2,7 @@ import type { Customer } from "../entities/Customer.ts";
 import type { Email } from "../value-objects/Email.ts";
 
 export interface CustomerRepository {
-	subscribeNewsletter(id: any, userData: any): unknown;
+	subscribeNewsletter(id: string): Promise<void>;
 	remove(id: string): unknown;
 	getAll(): Customer[] | PromiseLike<Customer[]>;
 	savePasswordResetToken(id: string, resetToken: string): unknown;

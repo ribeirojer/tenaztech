@@ -1,6 +1,7 @@
 import axiosClient from "@/utils/axiosClient";
 import React, { useRef, useState } from "react";
 import Input from "./core/Input";
+import Button from "./core/Button";
 
 type Props = {};
 
@@ -70,10 +71,9 @@ const Newsletter = (props: Props) => {
 						produtos, ofertas exclusivas e muito mais.
 					</p>
 					<form
-						className="flex flex-col items-center gap-4"
+						className="flex flex-col md:flex-row md:items-start gap-4"
 						onSubmit={handleSubmit}
 					>
-						<div className="w-full flex flex-col items-center">
 							<Input
 								type="email"
 								placeholder="Digite seu email"
@@ -82,26 +82,15 @@ const Newsletter = (props: Props) => {
 								onChange={(e) => setEmail(e.target.value)}
 								ref={emailRef}
 								name={"newsletter-input"}
+								error={error.email || error.emailRegex || error.general}
 							/>
-							{error.email && (
-								<span className="text-pink-pulse mt-2">{error.email}</span>
-							)}
-							{error.emailRegex && (
-								<span className="text-pink-pulse mt-2">{error.emailRegex}</span>
-							)}
-						</div>
-						<button
+						<Button
 							type="submit"
-							className="px-6 py-3 font-extrabold mt-2 text-lg bg-midnight text-off-white rounded-b-lg rounded-tl-lg hover:bg-opacity-95 "
 							disabled={loading}
+							className="md:w-1/2"
 						>
 							{loading ? <LoadingSpinner /> : "Assinar"}
-						</button>
-						{error.general && (
-							<span className="text-pink-pulse mt-2 text-center">
-								{error.general}
-							</span>
-						)}
+						</Button>
 						{success && (
 							<span className="text-electric-blue text-center pt-2">
 								{success}

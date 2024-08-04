@@ -6,10 +6,10 @@ import { isValidEmail } from "../schemas/validation.ts"; // Supondo que você te
 const newsletterUseCases = UseCaseFactory.createNewsletterUseCases();
 const router = new Router();
 
-router.post("/newsletters/subscribe", async (ctx) => {
+router.post("/newsletter/subscribe", async (ctx) => {
 	try {
 		const body = await ctx.request.body().value;
-		const { email, name } = body;
+		const { email } = body;
 
 		// Validar email
 		if (!isValidEmail(email)) {
@@ -19,7 +19,7 @@ router.post("/newsletters/subscribe", async (ctx) => {
 			return;
 		}
 
-		await newsletterUseCases.subscribe.execute(email, { name });
+		await newsletterUseCases.subscribe.execute(email);
 		logger.info(`Subscribed to newsletter: ${email}`);
 		ctx.response.status = 201;
 		ctx.response.body = { message: "Subscription successful" };
@@ -30,7 +30,7 @@ router.post("/newsletters/subscribe", async (ctx) => {
 	}
 });
 
-router.post("/newsletters/unsubscribe", async (ctx) => {
+router.post("/newsletter/unsubscribe", async (ctx) => {
 	try {
 		const body = await ctx.request.body().value;
 		const { email } = body;
@@ -48,44 +48,6 @@ router.post("/newsletters/unsubscribe", async (ctx) => {
 		ctx.response.body = { message: "Unsubscription successful" };
 	} catch (error) {
 		logger.error(`Unsubscription error: ${error.message}`);
-		ctx.response.status = 500;
-		ctx.response.body = { error: error.message };
-	}
-});
-
-router.post("/newsletters/send", async (ctx) => {
-	try {
-		const body = await ctx.request.body().value;
-		const { subject, content } = body;
-
-		// Validar conteúdo da newsletter
-		if (!subject || !content) {
-			logger.warn("Missing subject or content");
-			ctx.response.status = 400;
-			ctx.response.body = { error: "Subject and content are required" };
-			return;
-		}
-
-		//const newsletter = { subject, content, sentAt: new Date() };
-		//await newsletterUseCases.send.execute(newsletter);
-		logger.info(`Newsletter sent: ${subject}`);
-		ctx.response.status = 200;
-		ctx.response.body = { message: "Newsletter sent successfully" };
-	} catch (error) {
-		logger.error(`Send newsletter error: ${error.message}`);
-		ctx.response.status = 500;
-		ctx.response.body = { error: error.message };
-	}
-});
-
-router.get("/newsletters", async (ctx) => {
-	try {
-		const newsletters = await newsletterUseCases.list.execute();
-		logger.info("Listed newsletters");
-		ctx.response.status = 200;
-		ctx.response.body = newsletters;
-	} catch (error) {
-		logger.error(`List newsletters error: ${error.message}`);
 		ctx.response.status = 500;
 		ctx.response.body = { error: error.message };
 	}

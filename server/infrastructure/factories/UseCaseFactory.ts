@@ -64,7 +64,6 @@ import { LogoutUseCase } from "../../application/use-cases/auth/LogoutUseCase.ts
 import { RecoverPasswordUseCase } from "../../application/use-cases/auth/RecoverPasswordUseCase.ts";
 import { RegisterAccountUseCase } from "../../application/use-cases/auth/RegisterAccountUseCase.ts";
 
-import { ListNewslettersUseCase } from "../../application/use-cases/newsletter/ListNewslettersUseCase.ts";
 // casos de uso de Newsletter
 import { SubscribeNewsletterUseCase } from "../../application/use-cases/newsletter/SubscribeNewsletterUseCase.ts";
 import { UnsubscribeNewsletterUseCase } from "../../application/use-cases/newsletter/UnsubscribeNewsletterUseCase.ts";
@@ -246,7 +245,6 @@ export class UseCaseFactory {
 				customerRepository,
 			),
 			unsubscribe: new UnsubscribeNewsletterUseCase(newsletterRepository),
-			list: new ListNewslettersUseCase(newsletterRepository),
 		};
 	}
 }

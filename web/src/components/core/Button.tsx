@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
 	return (
 		<button
 			type={type}
-			className={`shadow-midnight dark:shadow-midnight flex w-full items-center justify-center rounded-b-lg rounded-tl-lg bg-midnight px-9 py-4 text-base font-medium text-off-white duration-300 hover:bg-midnight/90 ${className}`}
+			className={`shadow-midnight dark:shadow-midnight flex w-full items-center justify-center rounded-b-lg rounded-tl-lg bg-midnight px-6 py-3 text-base font-medium text-off-white duration-300 hover:bg-midnight/90 ${className}`}
 			onClick={onClick}
 			disabled={disabled || isLoading}
 		>

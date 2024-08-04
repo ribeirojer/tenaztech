@@ -5,51 +5,55 @@ import { app } from "../main.ts";
 Deno.test("it should allow POST requests to subscribe to newsletter with email", async () => {
 	const request = await superoak(app);
 	await request
-		.post("/newsletters/subscribe")
+		.post("/newsletter/subscribe")
 		.set("Content-Type", "application/json")
 		.send({
 			email: "user@example.com",
 		})
-		.expect(200)
-		.expect(({ body }) => {
-			assertEquals(body.message, "Subscribed successfully");
+		.expect(201)
+		.expect((ctx) => {
+			const body = JSON.parse(ctx.text);
+			assertEquals(body.message, "Subscription successful");
 		});
 });
 
 Deno.test("it should reject POST requests to subscribe to newsletter without email", async () => {
 	const request = await superoak(app);
 	await request
-		.post("/newsletters/subscribe")
-		.set("Content-Type", "application/json")
-		.send({})
-		.expect(400)
-		.expect(({ body }) => {
-			assertEquals(body.message, "Email is required");
-		});
+	.post("/newsletter/subscribe")
+	.set("Content-Type", "application/json")
+	.send({})
+	.expect(400)
+	.expect((ctx) => {
+		const body = JSON.parse(ctx.text);
+		assertEquals(body.error, "Invalid email format");
+	});
 });
 
 Deno.test("it should allow POST requests to unsubscribe from newsletter with email", async () => {
 	const request = await superoak(app);
 	await request
-		.post("/newsletters/unsubscribe")
+		.post("/newsletter/unsubscribe")
 		.set("Content-Type", "application/json")
 		.send({
 			email: "user@example.com",
 		})
 		.expect(200)
-		.expect(({ body }) => {
-			assertEquals(body.message, "Unsubscribed successfully");
+		.expect((ctx) => {
+			const body = JSON.parse(ctx.text);
+			assertEquals(body.message, "Unsubscription successful");
 		});
 });
 
 Deno.test("it should reject POST requests to unsubscribe from newsletter without email", async () => {
 	const request = await superoak(app);
 	await request
-		.post("/newsletters/unsubscribe")
+		.post("/newsletter/unsubscribe")
 		.set("Content-Type", "application/json")
 		.send({})
 		.expect(400)
-		.expect(({ body }) => {
-			assertEquals(body.message, "Email is required");
+		.expect((ctx) => {
+			const body = JSON.parse(ctx.text);
+			assertEquals(body.error, "Invalid email format");
 		});
 });

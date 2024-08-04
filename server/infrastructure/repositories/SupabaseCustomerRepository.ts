@@ -15,10 +15,10 @@ export class SupabaseCustomerRepository implements CustomerRepository {
 			throw new Error(`Failed to remove customer by email: ${error.message}`);
 		}
 	}
-	async subscribeNewsletter(id: string, userData: any): Promise<void> {
+	async subscribeNewsletter(id: string): Promise<void> {
 		const { error } = await supabase
 			.from("customers")
-			.update({ newsletter: true, ...userData })
+			.update({ newsletter: true })
 			.eq("id", id);
 
 		if (error) {

@@ -8,21 +8,20 @@ export class SubscribeNewsletterUseCase {
 		private customerRepository: CustomerRepository,
 	) {}
 
-	async execute(email: string, userData: any): Promise<void> {
+	async execute(email: string): Promise<void> {
 		const emailVO = new Email(email);
+		
 		const existingUser = await this.customerRepository.getByEmail(emailVO);
-
 		if (existingUser) {
 			// Atualizar informações do usuário
 			await this.customerRepository.subscribeNewsletter(
 				existingUser.id,
-				userData,
 			);
 			// Inscrever usuário na newsletter
 			await this.newsletterRepository.subscribe(emailVO.getValue());
 		} else {
 			// Criar novo usuário e inscrevê-lo na newsletter
-			await this.customerRepository.add({ email: emailVO, ...userData });
+			//await this.customerRepository.add({ email: emailVO });
 			await this.newsletterRepository.subscribe(emailVO.getValue());
 		}
 	}

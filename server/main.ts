@@ -4,6 +4,8 @@ import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 import authRouter from "./application/routes/authRouters.ts";
 import productsRouter from "./application/routes/productRoutes.ts";
 import orderRouter from "./application/routes/orderRoutes.ts";
+import newsletterRouter from "./application/routes/newsletterRoutes.ts";
+
 
 const env = await load();
 const app = new Application();
@@ -19,10 +21,13 @@ app.use(productsRouter.allowedMethods());
 app.use(orderRouter.routes());
 app.use(orderRouter.allowedMethods());
 
+app.use(newsletterRouter.routes());
+app.use(newsletterRouter.allowedMethods());
+
 const PORT = parseInt(env.PORT || Deno.env.get("PORT") || "8000");
 
 // Iniciar o servidor
 console.log(`Servidor ouvindo na porta ${PORT}`);
-await app.listen({ port: PORT });
+//await app.listen({ port: PORT });
 
 export { app };

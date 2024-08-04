@@ -20,7 +20,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 		ref,
 	) => {
 		return (
-			<div>
+			<div className="flex flex-col items-start">
 				<input
 					type={type}
 					name={name}
@@ -31,7 +31,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 					ref={ref}
 					className={`border-stroke dark:text-midnight dark:shadow-two w-full rounded-b-lg rounded-tl-lg border bg-off-white px-6 py-3 text-base text-midnight outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none ${className}`}
 				/>
-				{error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+				{error && <p className="text-pink-pulse mt-2">{error}</p>}
 			</div>
 		);
 	},
