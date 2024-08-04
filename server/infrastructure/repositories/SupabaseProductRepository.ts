@@ -58,13 +58,13 @@ export class SupabaseProductRepository implements ProductRepository {
 			.select("*")
 			.eq("slug", slug)
 			.single();
-		
-			if (error && error.code !== "PGRST116") {
-				throw error;
-			}
-	
-		return data;
+
+		if (error && error.code !== "PGRST116") {
+			throw error;
 		}
+
+		return data;
+	}
 
 	async getAll(): Promise<Product[]> {
 		const { data, error } = await supabase.from("products").select("*");

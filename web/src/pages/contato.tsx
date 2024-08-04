@@ -110,7 +110,6 @@ const contato = (props: Props) => {
 						)}
 					</div>
 					<Button
-						className="btn btn-primary py-2 px-4"
 						type="submit"
 						disabled={isDisable}
 					>

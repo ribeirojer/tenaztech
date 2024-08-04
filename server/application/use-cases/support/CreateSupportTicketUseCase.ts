@@ -13,7 +13,6 @@ export class CreateSupportTicketUseCase {
 	) {}
 
 	async execute(input: CreateSupportTicketInput): Promise<void> {
-
 		const ticket = new SupportTicket(
 			crypto.randomUUID(),
 			input.name,

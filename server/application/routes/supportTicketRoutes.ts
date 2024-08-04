@@ -10,7 +10,7 @@ router.post("/support-tickets", async (ctx) => {
 	try {
 		const body = await ctx.request.body().value;
 		const { name, email, message } = body;
-		await supportTicketUseCases.create.execute({name, email, message});
+		await supportTicketUseCases.create.execute({ name, email, message });
 		logger.info(`Support ticket created: ${JSON.stringify(body)}`);
 		ctx.response.status = 201;
 		ctx.response.body = { message: "Support ticket created successfully" };

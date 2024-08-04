@@ -20,14 +20,14 @@ Deno.test("it should allow POST requests to subscribe to newsletter with email",
 Deno.test("it should reject POST requests to subscribe to newsletter without email", async () => {
 	const request = await superoak(app);
 	await request
-	.post("/newsletter/subscribe")
-	.set("Content-Type", "application/json")
-	.send({})
-	.expect(400)
-	.expect((ctx) => {
-		const body = JSON.parse(ctx.text);
-		assertEquals(body.error, "Invalid email format");
-	});
+		.post("/newsletter/subscribe")
+		.set("Content-Type", "application/json")
+		.send({})
+		.expect(400)
+		.expect((ctx) => {
+			const body = JSON.parse(ctx.text);
+			assertEquals(body.error, "Invalid email format");
+		});
 });
 
 Deno.test("it should allow POST requests to unsubscribe from newsletter with email", async () => {

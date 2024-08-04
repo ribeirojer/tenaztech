@@ -11,22 +11,22 @@ Deno.test("it should allow GET requests to list products", async () => {
 			const body = JSON.parse(ctx.text);
 			assertEquals(body.length > 0, true);
 		});
-	});
-	
-	Deno.test("it should allow GET requests to get product details", async () => {
-		const request = await superoak(app);
-		await request
+});
+
+Deno.test("it should allow GET requests to get product details", async () => {
+	const request = await superoak(app);
+	await request
 		.get(`/products/lenovo-gm2-pro-fone-sem-fio`)
 		.expect(200)
 		.expect((ctx) => {
 			const body = JSON.parse(ctx.text);
 			assertEquals(body.id, "lenovo-gm2-pro-001");
 		});
-	});
-	
-	Deno.test("it should return 404 for GET requests to a non-existing product", async () => {
-		const request = await superoak(app);
-		await request
+});
+
+Deno.test("it should return 404 for GET requests to a non-existing product", async () => {
+	const request = await superoak(app);
+	await request
 		.get(`/products/ggg`)
 		.expect(404)
 		.expect((ctx) => {

@@ -5,6 +5,6 @@ export interface ReviewRepository {
 	add(review: Review): Promise<void>;
 	update(review: Review): Promise<void>;
 	remove(reviewId: string): Promise<void>;
-	getByProductId(productId: string): Promise<Review[]>;
+	getByProductSlug(slug: string): Promise<any>;
 	getByCustomerId(customerId: string): Promise<Review[]>;
 }

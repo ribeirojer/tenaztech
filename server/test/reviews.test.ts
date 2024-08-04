@@ -2,39 +2,36 @@ import { assertEquals } from "https://deno.land/std@0.110.0/testing/asserts.ts";
 import { superoak } from "https://deno.land/x/superoak@4.0.0/mod.ts";
 import { app } from "../main.ts";
 
-let reviewId: string;
-
 Deno.test("it should allow POST requests to add a review", async () => {
 	const request = await superoak(app);
 	await request
-		.post("/reviews")
+		.post("/reviews/a6s-tws-wireless-bluetooth-headset")
 		.set("Content-Type", "application/json")
 		.send({
-			userId: "user123",
-			productId: "product123",
+			name: "user123",
+			email: "product123",
 			rating: 5,
-			comment: "Great product!",
+			review: "Great product!",
 		})
 		.expect(201)
-		.expect(({ body }) => {
-			assertEquals(body.userId, "user123");
-			assertEquals(body.productId, "product123");
-			assertEquals(body.rating, 5);
-			assertEquals(body.comment, "Great product!");
-			reviewId = body.id;
+		.expect((ctx) => {
+			const body = JSON.parse(ctx.text);
+			assertEquals(body.message, "Review added successfully");
 		});
 });
 
-Deno.test("it should allow GET requests to list reviews", async () => {
+Deno.test("it should allow GET requests to list reviews for a product", async () => {
 	const request = await superoak(app);
 	await request
-		.get("/reviews")
+		.get("/reviews/a6s-tws-wireless-bluetooth-headset")
 		.expect(200)
-		.expect(({ body }) => {
+		.expect((ctx) => {
+			const body = JSON.parse(ctx.text);
 			assertEquals(body.length > 0, true);
 		});
 });
 
+/** 
 Deno.test("it should allow GET requests to get review details", async () => {
 	const request = await superoak(app);
 	await request
@@ -75,3 +72,4 @@ Deno.test("it should return 404 for GET requests to a non-existing review", asyn
 			assertEquals(body.message, "Review not found");
 		});
 });
+*/

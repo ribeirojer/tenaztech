@@ -6,6 +6,7 @@ import productsRouter from "./application/routes/productRoutes.ts";
 import orderRouter from "./application/routes/orderRoutes.ts";
 import newsletterRouter from "./application/routes/newsletterRoutes.ts";
 import supportTicketRouter from "./application/routes/supportTicketRoutes.ts";
+import reviewRouter from "./application/routes/reviewRoutes.ts";
 
 const env = await load();
 const app = new Application();
@@ -26,6 +27,9 @@ app.use(newsletterRouter.allowedMethods());
 
 app.use(supportTicketRouter.routes());
 app.use(supportTicketRouter.allowedMethods());
+
+app.use(reviewRouter.routes());
+app.use(reviewRouter.allowedMethods());
 
 const PORT = parseInt(env.PORT || Deno.env.get("PORT") || "8000");
 

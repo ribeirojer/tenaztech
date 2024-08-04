@@ -10,13 +10,11 @@ export class SubscribeNewsletterUseCase {
 
 	async execute(email: string): Promise<void> {
 		const emailVO = new Email(email);
-		
+
 		const existingUser = await this.customerRepository.getByEmail(emailVO);
 		if (existingUser) {
 			// Atualizar informações do usuário
-			await this.customerRepository.subscribeNewsletter(
-				existingUser.id,
-			);
+			await this.customerRepository.subscribeNewsletter(existingUser.id);
 			// Inscrever usuário na newsletter
 			await this.newsletterRepository.subscribe(emailVO.getValue());
 		} else {

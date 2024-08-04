@@ -7,10 +7,11 @@ export class SupabaseReviewRepository implements ReviewRepository {
 		const { error } = await supabase.from("reviews").insert([
 			{
 				id: review.id,
-				productId: review.productId,
-				userId: review.customerId,
+				product_slug: review.productSlug,
+				name: review.name,
+				email: review.email,
 				rating: review.rating,
-				comment: review.comment,
+				review: review.review,
 				createdAt: review.createdAt,
 				updatedAt: review.updatedAt,
 			},
@@ -35,10 +36,11 @@ export class SupabaseReviewRepository implements ReviewRepository {
 		return data
 			? new Review(
 					data.id,
-					data.productId,
-					data.userId,
+					data.productSlug,
+					data.name,
+					data.email,
 					data.rating,
-					data.comment,
+					data.review,
 					new Date(data.createdAt),
 					new Date(data.updatedAt),
 				)
@@ -56,13 +58,14 @@ export class SupabaseReviewRepository implements ReviewRepository {
 		}
 
 		return data.map(
-			(item: any) =>
+			(item) =>
 				new Review(
 					item.id,
-					item.productId,
-					item.userId,
+					item.productSlug,
+					item.name,
+					item.email,
 					item.rating,
-					item.comment,
+					item.review,
 					new Date(item.createdAt),
 					new Date(item.updatedAt),
 				),
@@ -73,12 +76,13 @@ export class SupabaseReviewRepository implements ReviewRepository {
 		const { error } = await supabase.from("reviews").insert([
 			{
 				id: review.id,
-				productId: review.productId,
-				customerId: review.customerId,
+				product_slug: review.productSlug,
+				name: review.name,
+				email: review.email,
 				rating: review.rating,
-				comment: review.comment,
-				createdAt: review.createdAt,
-				updatedAt: review.updatedAt,
+				review: review.review,
+				created_at: review.createdAt,
+				updated_at: review.updatedAt,
 			},
 		]);
 
@@ -92,7 +96,7 @@ export class SupabaseReviewRepository implements ReviewRepository {
 			.from("reviews")
 			.update({
 				rating: review.rating,
-				comment: review.comment,
+				review: review.review,
 				updatedAt: review.updatedAt,
 			})
 			.eq("id", review.id);
@@ -113,28 +117,17 @@ export class SupabaseReviewRepository implements ReviewRepository {
 		}
 	}
 
-	async getByProductId(productId: string): Promise<Review[]> {
+	async getByProductSlug(slug: string) {
 		const { data, error } = await supabase
 			.from("reviews")
-			.select("*")
-			.eq("productId", productId);
+			.select("name, rating, review")
+			.eq("product_slug", slug);
 
 		if (error) {
 			throw new Error(`Failed to get reviews by product ID: ${error.message}`);
 		}
 
-		return data.map(
-			(review: any) =>
-				new Review(
-					review.id,
-					review.productId,
-					review.customerId,
-					review.rating,
-					review.comment,
-					new Date(review.createdAt),
-					new Date(review.updatedAt),
-				),
-		);
+		return data;
 	}
 
 	async getByCustomerId(customerId: string): Promise<Review[]> {
@@ -148,13 +141,14 @@ export class SupabaseReviewRepository implements ReviewRepository {
 		}
 
 		return data.map(
-			(review: any) =>
+			(review) =>
 				new Review(
 					review.id,
-					review.productId,
-					review.customerId,
+					review.productSlug,
+					review.name,
+					review.email,
 					review.rating,
-					review.comment,
+					review.review,
 					new Date(review.createdAt),
 					new Date(review.updatedAt),
 				),

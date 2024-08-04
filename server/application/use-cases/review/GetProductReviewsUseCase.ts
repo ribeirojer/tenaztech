@@ -1,10 +1,13 @@
 import type { Review } from "../../../domain/entities/Review.ts";
 import type { ReviewRepository } from "../../../domain/interfaces/ReviewRepository.ts";
 
-export class ListProductReviewsUseCase {
+export class GetProductReviewsUseCase {
 	constructor(private reviewRepository: ReviewRepository) {}
 
-	async execute(productId: string): Promise<Review[]> {
-		return await this.reviewRepository.getByProductSlug(productId);
+	async execute(slug: string): Promise<Review[]> {
+		const reviews: Review[] =
+			await this.reviewRepository.getByProductSlug(slug);
+
+		return reviews;
 	}
 }

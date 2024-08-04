@@ -6,10 +6,12 @@ const reviewUseCases = UseCaseFactory.createReviewUseCases();
 const router = new Router();
 
 // Add a review
-router.post("/reviews", async (ctx) => {
+router.post("/reviews/:slug", async (ctx) => {
 	try {
+		const { slug } = ctx.params;
 		const body = await ctx.request.body().value;
-		await reviewUseCases.add.execute(body);
+		const { name, email, rating, review } = body;
+		await reviewUseCases.add.execute({ slug, name, email, rating, review });
 		logger.info(`Review added: ${JSON.stringify(body)}`);
 		ctx.response.status = 201;
 		ctx.response.body = { message: "Review added successfully" };
@@ -20,6 +22,26 @@ router.post("/reviews", async (ctx) => {
 	}
 });
 
+// Get a specific review by ID
+router.get("/reviews/:slug", async (ctx) => {
+	try {
+		const { slug } = ctx.params;
+		const reviews = await reviewUseCases.getBySlug.execute(slug);
+		if (reviews) {
+			logger.info(`Fetched reviews with Slug: ${slug}`);
+			ctx.response.status = 200;
+			ctx.response.body = reviews;
+		} else {
+			ctx.response.status = 404;
+			ctx.response.body = { error: "Review not found" };
+		}
+	} catch (error) {
+		logger.error(`Get review by Slug error: ${error.message}`);
+		ctx.response.status = 500;
+		ctx.response.body = { error: error.message };
+	}
+});
+/**
 // List all reviews
 router.get("/reviews", async (ctx) => {
 	try {
@@ -29,26 +51,6 @@ router.get("/reviews", async (ctx) => {
 		//ctx.response.body = reviews;
 	} catch (error) {
 		logger.error(`List reviews error: ${error.message}`);
-		ctx.response.status = 500;
-		ctx.response.body = { error: error.message };
-	}
-});
-
-// Get a specific review by ID
-router.get("/reviews/:id", async (ctx) => {
-	try {
-		const { id } = ctx.params;
-		/*const review = await reviewUseCases.getById.execute(id);
-		if (review) {
-			logger.info(`Fetched review with ID: ${id}`);
-			ctx.response.status = 200;
-			ctx.response.body = review;
-		} else {
-			ctx.response.status = 404;
-			ctx.response.body = { error: "Review not found" };
-		}*/
-	} catch (error) {
-		logger.error(`Get review by ID error: ${error.message}`);
 		ctx.response.status = 500;
 		ctx.response.body = { error: error.message };
 	}
@@ -83,6 +85,6 @@ router.delete("/reviews/:id", async (ctx) => {
 		ctx.response.status = 500;
 		ctx.response.body = { error: error.message };
 	}
-});
+}); */
 
 export default router;

@@ -48,6 +48,7 @@ import { AddProductReviewUseCase } from "../../application/use-cases/review/AddP
 import { ListProductReviewsUseCase } from "../../application/use-cases/review/ListProductReviewsUseCase.ts";
 import { RemoveProductReviewUseCase } from "../../application/use-cases/review/RemoveProductReviewUseCase.ts";
 import { UpdateProductReviewUseCase } from "../../application/use-cases/review/UpdateProductReviewUseCase.ts";
+import { GetProductReviewsUseCase } from "../../application/use-cases/review/GetProductReviewsUseCase.ts";
 
 import { ListRelatedProductsUseCase } from "../../application/use-cases/recommendation/ListRelatedProductsUseCase.ts";
 // Recommendation Use Cases
@@ -181,6 +182,7 @@ export class UseCaseFactory {
 			update: new UpdateProductReviewUseCase(reviewRepository),
 			remove: new RemoveProductReviewUseCase(reviewRepository),
 			list: new ListProductReviewsUseCase(reviewRepository),
+			getBySlug: new GetProductReviewsUseCase(reviewRepository),
 		};
 	}
 

@@ -91,12 +91,12 @@ const Newsletter = (props: Props) => {
 						>
 							{loading ? <LoadingSpinner /> : "Assinar"}
 						</Button>
+					</form>
 						{success && (
 							<span className="text-electric-blue text-center pt-2">
 								{success}
 							</span>
 						)}
-					</form>
 				</div>
 			</div>
 		</section>

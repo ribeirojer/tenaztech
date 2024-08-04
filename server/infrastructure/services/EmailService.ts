@@ -16,7 +16,8 @@ export class ResendEmailService implements EmailService {
 	private readonly SENDER_EMAIL = "Acme <onboarding@resend.dev>";
 
 	constructor() {
-		this.RESEND_API_KEY = env.RESEND_API_KEY || Deno.env.get("RESEND_API_KEY") || "";
+		this.RESEND_API_KEY =
+			env.RESEND_API_KEY || Deno.env.get("RESEND_API_KEY") || "";
 		if (!this.RESEND_API_KEY) {
 			throw new Error(
 				"RESEND_API_KEY is not defined in the environment variables.",

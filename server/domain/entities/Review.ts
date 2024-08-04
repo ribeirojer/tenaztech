@@ -1,10 +1,11 @@
 export class Review {
 	constructor(
 		public id: string,
-		public productId: string,
-		public customerId: string,
+		public productSlug: string,
+		public name: string,
+		public email: string,
 		public rating: number,
-		public comment: string,
+		public review: string,
 		public createdAt: Date,
 		public updatedAt: Date,
 	) {}
